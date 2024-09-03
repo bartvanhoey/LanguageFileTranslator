@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JsonTranslatorApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e3b983f86b301d80ac8962d90a933595c3ae494")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7215e6b55e0efb9cf43499f19120ede064ff5b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("JsonTranslatorApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JsonTranslatorApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
