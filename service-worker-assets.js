@@ -1,12 +1,12 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-oxUvGk517ahwyMhH0a3ohuMh2rnPqheb1ih8xKZm47c=",
+      "hash": "sha256-oqyKXJG+UsUZwpqkEDnK5cwPYy7hDqKcywpYmcHsdEc=",
       "url": "JsonTranslatorApp.styles.css"
     },
     {
-      "hash": "sha256-pUMo0rqLgO1JrmjL2r6IbUx\/fMQIMX2AIm+EKJvCsr4=",
-      "url": "_framework\/JsonTranslatorApp.x9carnzcq9.wasm"
+      "hash": "sha256-lc\/IuoAFjPDK2J7hjEdLZzSBXH\/xvxXccepQd+fYj4k=",
+      "url": "_framework\/JsonTranslatorApp.b45aw6kjk7.wasm"
     },
     {
       "hash": "sha256-WV7RfpXmqOhUfFq+dfVCwIoLfJMOjFPUXtBiypuCYs8=",
@@ -141,7 +141,7 @@
       "url": "_framework\/System.Text.RegularExpressions.c1lrmkmjv2.wasm"
     },
     {
-      "hash": "sha256-IYKAR2OHSkd5Rq0pbR+8lQmpaaglcvxRWamNfRYvAMs=",
+      "hash": "sha256-54Coy42T7\/Lgf0KK2e\/IzAGw9xeBLOzzLgCBgvBYt8c=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -185,6 +185,14 @@
       "url": "css\/bootstrap-icons\/bootstrap-icons.min.css"
     },
     {
+      "hash": "sha256-ux3pibg5cPb05U3hzZdMXLpVtzWC2l4bIlptDt8ClIM=",
+      "url": "css\/bootstrap-icons\/fonts\/bootstrap-icons.woff"
+    },
+    {
+      "hash": "sha256-R2rfQrQDJQmPz6izarPnaRhrtPbOaiSXU+LhqcIr+Z4=",
+      "url": "css\/bootstrap-icons\/fonts\/bootstrap-icons.woff2"
+    },
+    {
       "hash": "sha256-PI8n5gCcz9cQqQXm3PEtDuPG8qx9oFsFctPg0S5zb8g=",
       "url": "css\/bootstrap\/bootstrap.min.css"
     },
@@ -201,6 +209,10 @@
       "url": "favicon.png"
     },
     {
+      "hash": "sha256-9kPW\/n5nn53j4WMRYAxe9c1rCY96Oogo\/MKSVdKzPmI=",
+      "url": "fonts\/bootstrap-icons.min.css"
+    },
+    {
       "hash": "sha256-DbpQaq68ZSb5IoPosBErM1QWBfsbTxpJqhU0REi6wP4=",
       "url": "icon-192.png"
     },
@@ -209,11 +221,11 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-i\/ZUwoHQOR9eyeNaPIuXpyzlRnZ+lgQJjR8mrEgEi\/k=",
+      "hash": "sha256-pvR8b+6WQInn3karOgwoOyVb3Q2VH0xsiia4smq\/umU=",
       "url": "index.html"
     },
     {
-      "hash": "sha256-VXouOr4+fGeq7gvATItlx41WBw8wLtNYMjlsi74FtCU=",
+      "hash": "sha256-aUb3ORrlhqUdwsSSIni0w0V49CwHALJfij+8zkmkXNo=",
       "url": "manifest.webmanifest"
     },
     {
@@ -221,5 +233,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "pd7fe3jI"
+  "version": "\/N05IxxV"
 };
