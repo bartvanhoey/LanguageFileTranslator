@@ -1,7 +1,27 @@
 ﻿@page "/"
 
+@inject IConfiguration Configuration
+
 <PageTitle>Home</PageTitle>
 
 <h1>Import Json File</h1>
 
+<h2>@SecurityKey</h2>
+
+
+<hr>
+
 <JsonFileImporter/>
+
+@code
+{
+
+    protected override Task OnInitializedAsync()
+    {
+        SecurityKey = Configuration["AzureTranslatorApiKey"];
+        
+        return base.OnInitializedAsync();
+    }
+
+    public string? SecurityKey { get; set; }
+}

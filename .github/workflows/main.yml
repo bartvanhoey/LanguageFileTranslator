@@ -19,6 +19,13 @@ jobs:
       - name: Use Secret in Workflow
         run: echo "The API key is ${{ secrets.TRANSLATOR_API_KEY }}"
       
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "This is the Azure Translator ApiKey"
+          replace: ${{ secrets.TRANSLATOR_API_KEY }}
+          include: "appsettings.json"
+
       # Install .NET Core SDK
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
@@ -28,7 +35,14 @@ jobs:
       # Install dotnet wasm buildtools workload
       - name: Install .NET WASM Build Tools
         run: dotnet workload install wasm-tools
-          
+
+      - shell: cmd
+        env:
+          TRANSLATOR_API_KEY: ${{ secrets.TRANSLATOR_API_KEY }}
+        run: |
+          example-command "%TRANSLATOR_API_KEY%"
+
+
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
         run: dotnet publish ./JsonTranslatorApp/JsonTranslatorApp.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
@@ -38,4 +52,4 @@ jobs:
         with:
           branch: gh-pages
           folder: dist/Web/wwwroot
-          translator-api-key: ${{ secrets.TRANSLATOR_API_KEY }}"
+          

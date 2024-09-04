@@ -22,4 +22,13 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-icons\bootstrap-icons.min.css" />
     </ItemGroup>
 
+
+    <ItemGroup>
+        <Content Update="wwwroot\appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+      
+
 </Project>
