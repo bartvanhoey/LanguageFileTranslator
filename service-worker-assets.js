@@ -9,8 +9,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm"
     },
     {
-      "hash": "sha256-kEicMge9GhVucPGXP2umsaWwHOSlknsjsMUKR6EBfIo=",
-      "url": "_framework\/JsonTranslatorApp.ggob0qh1xs.wasm"
+      "hash": "sha256-11fxHTHU88ooFr\/Ts5EE7rOr6\/uNicYSkHf7cJ9iwBo=",
+      "url": "_framework\/JsonTranslatorApp.7smqikwpih.wasm"
     },
     {
       "hash": "sha256-gzmhnihJhEFHMTPhuPsKNtCQ0kGmi7BsHvGEPetNfFY=",
@@ -173,7 +173,7 @@
       "url": "_framework\/System.Text.RegularExpressions.mya9jwxzzy.wasm"
     },
     {
-      "hash": "sha256-k21jXIRNG1H7K27pQYp6BWWSSZ+J8+ZocDXGp03ewDI=",
+      "hash": "sha256-6Hr0+mrCnxtL1yoy2TbfEr5O61BoAAL+nA4jRexVf8Y=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -213,7 +213,7 @@
       "url": "_framework\/netstandard.k4ricmlhu7.wasm"
     },
     {
-      "hash": "sha256-JKUo5Uok2PBxrBGWbGzCwx4kelAfHYfBKF4uyIWxmoM=",
+      "hash": "sha256-Hct2mRfeuxelLRJGpnnJY7ZZAcVKNTl8ErXKhP8liGM=",
       "url": "appsettings.json"
     },
     {
@@ -277,5 +277,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "xq8b6gBA"
+  "version": "BkHsuMXm"
 };
