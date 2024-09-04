@@ -1,9 +1,9 @@
 {
   "mainAssemblyName": "JsonTranslatorApp",
   "resources": {
-    "hash": "sha256-ZB4lfcreTViBf4eO4n0Xv046fjKvpNqm2iVebK0GdJQ=",
+    "hash": "sha256-6boJIQlri7tCIZVXlYUNknf5btdx0ttgxloHddR+mS4=",
     "fingerprinting": {
-      "JsonTranslatorApp.33oh119b1t.wasm": "JsonTranslatorApp.wasm",
+      "JsonTranslatorApp.brmippukrx.wasm": "JsonTranslatorApp.wasm",
       "Microsoft.AspNetCore.Components.snobap3b6a.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.d36qhzenc4.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.br8m9yh8lm.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
@@ -64,7 +64,7 @@
       "System.Runtime.InteropServices.JavaScript.7t9nyqzt69.wasm": "sha256-awsTmrrIsJQCrfl82Mjn6QsVMjU6CYPfkSAfZoEkQTc="
     },
     "assembly": {
-      "JsonTranslatorApp.33oh119b1t.wasm": "sha256-0dY1ftatUMehzbKiNcqD6cAgsoiMesVTZCUVTDQtu6Q=",
+      "JsonTranslatorApp.brmippukrx.wasm": "sha256-t+Anb9xxA1ckF7w6DSyC83R+AkPa72KUNsETHQYlqHc=",
       "Microsoft.AspNetCore.Components.snobap3b6a.wasm": "sha256-aHAVhWoP6zD/uk2XrK6pCzWuN63UEFl4e1b01/bYbVs=",
       "Microsoft.AspNetCore.Components.Web.d36qhzenc4.wasm": "sha256-WV7RfpXmqOhUfFq+dfVCwIoLfJMOjFPUXtBiypuCYs8=",
       "Microsoft.AspNetCore.Components.WebAssembly.br8m9yh8lm.wasm": "sha256-KamAYcuacI7kUSTyqvtwduaUwRmsDYrZNFxyqCt0C9M=",
