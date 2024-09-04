@@ -36,13 +36,6 @@ jobs:
       - name: Install .NET WASM Build Tools
         run: dotnet workload install wasm-tools
 
-      - shell: cmd
-        env:
-          TRANSLATOR_API_KEY: ${{ secrets.TRANSLATOR_API_KEY }}
-        run: |
-          example-command "%TRANSLATOR_API_KEY%"
-
-
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
         run: dotnet publish ./JsonTranslatorApp/JsonTranslatorApp.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
