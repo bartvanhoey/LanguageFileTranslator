@@ -25,7 +25,7 @@ jobs:
           find: "This is the Azure Translator ApiKey"
           # replace: ${{ secrets.TRANSLATOR_API_KEY }}
           replace: "I am the new ApiKey"
-          include: "appsettings.json"
+          include: "**appsettings.json"
 
       # Install .NET Core SDK
       - name: Setup .NET Core
