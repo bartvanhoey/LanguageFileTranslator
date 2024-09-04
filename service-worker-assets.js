@@ -9,8 +9,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm"
     },
     {
-      "hash": "sha256-U+KKb\/CDiXf8SN53Yxmvb+TrXL2qxNiPYyeY49o7Yfc=",
-      "url": "_framework\/JsonTranslatorApp.1nj9y4umjn.wasm"
+      "hash": "sha256-erlikdIglb9bt0YeYlFol3bfUBVR8A3mSBz3DfxkzHI=",
+      "url": "_framework\/JsonTranslatorApp.eb2z7f8dx9.wasm"
     },
     {
       "hash": "sha256-gzmhnihJhEFHMTPhuPsKNtCQ0kGmi7BsHvGEPetNfFY=",
@@ -145,7 +145,7 @@
       "url": "_framework\/System.Text.RegularExpressions.mya9jwxzzy.wasm"
     },
     {
-      "hash": "sha256-rQhMF0xrnzwogffwK42LWfXR9R1bqANO+5iEBZGvXIo=",
+      "hash": "sha256-R\/MhJ+pGElw+2c1W4wF0OYKnN17LjJEC9bKYb\/ILits=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -245,5 +245,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "BxTo3a7m"
+  "version": "CTEzqkZe"
 };
