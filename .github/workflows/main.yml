@@ -23,7 +23,8 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "This is the Azure Translator ApiKey"
-          replace: ${{ secrets.TRANSLATOR_API_KEY }}
+          # replace: ${{ secrets.TRANSLATOR_API_KEY }}
+          replace: "I am the new ApiKey"
           include: "appsettings.json"
 
       # Install .NET Core SDK
