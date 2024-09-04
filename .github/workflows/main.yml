@@ -15,6 +15,10 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v4
 
+      # Here, you can use the secret in your commands or scripts
+      - name: Use Secret in Workflow
+        run: echo "The API key is ${{ secrets.TRANSLATOR_API_KEY }}"
+      
       # Install .NET Core SDK
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
