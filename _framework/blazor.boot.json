@@ -1,11 +1,11 @@
 {
   "mainAssemblyName": "JsonTranslatorApp",
   "resources": {
-    "hash": "sha256-3ODN4/QXG3gN1OYmwknDrypxKQTNP4QR+HL9e00MSrY=",
+    "hash": "sha256-NuQp58f5SP4ZTVaUmi6KZ2ulNR8bglRJpR3s/q1JC+o=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "JetBrains.Annotations.75veoqxomf.wasm": "JetBrains.Annotations.wasm",
-      "JsonTranslatorApp.8v8xggfrmc.wasm": "JsonTranslatorApp.wasm",
+      "JsonTranslatorApp.3dv8gl4p7k.wasm": "JsonTranslatorApp.wasm",
       "Microsoft.AspNetCore.Components.f8vznv9s0u.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.r2qa7kydow.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.lujwi9v6ic.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
@@ -77,7 +77,7 @@
     "assembly": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "JetBrains.Annotations.75veoqxomf.wasm": "sha256-K2Wvsx9NvmtkU4V07OCHCR0wmY6uNAnSuHp+KN2yAwc=",
-      "JsonTranslatorApp.8v8xggfrmc.wasm": "sha256-3FTr57tNHRmElzegXsg+s5VNBlhQWd0sU88Ytv8lVxQ=",
+      "JsonTranslatorApp.3dv8gl4p7k.wasm": "sha256-x1SHLYnSdx4fIS03936JEo5oCzN43ukgGsfC+l3ZDaA=",
       "Microsoft.AspNetCore.Components.f8vznv9s0u.wasm": "sha256-32u/Td3GvkBhhxM7wtlyLk/sOKTuwr+8ECvVRWS2cvE=",
       "Microsoft.AspNetCore.Components.Web.r2qa7kydow.wasm": "sha256-gzmhnihJhEFHMTPhuPsKNtCQ0kGmi7BsHvGEPetNfFY=",
       "Microsoft.AspNetCore.Components.WebAssembly.lujwi9v6ic.wasm": "sha256-g01RnE95orSyEDB8phBNU8C4+IYK4K10lVS6LLY3j0o=",

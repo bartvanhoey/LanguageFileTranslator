@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-QgBt7UfRR5GB3ZboiEunvxBwAM87mvaDJxfS4oDyhsE=",
+      "hash": "sha256-Q8yaPpzSK3JaUTthkkPKQPdkyRU54aAjUB1N6nG7kOc=",
       "url": "JsonTranslatorApp.styles.css"
     },
     {
@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm"
     },
     {
-      "hash": "sha256-3FTr57tNHRmElzegXsg+s5VNBlhQWd0sU88Ytv8lVxQ=",
-      "url": "_framework\/JsonTranslatorApp.8v8xggfrmc.wasm"
+      "hash": "sha256-x1SHLYnSdx4fIS03936JEo5oCzN43ukgGsfC+l3ZDaA=",
+      "url": "_framework\/JsonTranslatorApp.3dv8gl4p7k.wasm"
     },
     {
       "hash": "sha256-gzmhnihJhEFHMTPhuPsKNtCQ0kGmi7BsHvGEPetNfFY=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.h4gh97xkz4.wasm"
     },
     {
-      "hash": "sha256-F\/EmPcpHHO2tuf1e10kZxrAiwMLhmOGp7DlQQSK9hzQ=",
+      "hash": "sha256-o8dtq73nYhSnTRBN9fJvsRAP1P9XvFbKetlJjnnyunU=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -273,7 +273,7 @@
       "url": "index.html"
     },
     {
-      "hash": "sha256-\/ArmEXtR+92Z1gTXwH+fGlg2KafI4ORERS5298DdKT8=",
+      "hash": "sha256-tc5cmYJyD9grKZXRxzTgwNOC+fYabLSC5CTrCLc6K0g=",
       "url": "js\/IndexedDbService.js"
     },
     {
@@ -289,5 +289,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "tAFJxPTm"
+  "version": "+revKQy4"
 };
