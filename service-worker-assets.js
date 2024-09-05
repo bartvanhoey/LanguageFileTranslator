@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm"
     },
     {
-      "hash": "sha256-r2tEyTR30TKDyVWeSQsQ2H8bWRn8fAtjeE1T4QSUyoA=",
-      "url": "_framework\/JsonTranslatorApp.hwke7fr2n5.wasm"
+      "hash": "sha256-OsPfuoguyS2UHtxaHRUbGTpdusboVZfXqFJV30KxOxw=",
+      "url": "_framework\/JsonTranslatorApp.2xepxxsinp.wasm"
     },
     {
       "hash": "sha256-gzmhnihJhEFHMTPhuPsKNtCQ0kGmi7BsHvGEPetNfFY=",
@@ -45,8 +45,8 @@
       "url": "_framework\/Microsoft.Extensions.Configuration.a99zs4tvnc.wasm"
     },
     {
-      "hash": "sha256-Z2x43HKh9z6UOnuevClLgRPfeVZw3eHOFoebZa0ZjPs=",
-      "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.h2ozbt79a3.wasm"
+      "hash": "sha256-k7SGZdBHeQ5uFogUaup6Cig+YoY7nqU2o2t9uiR9vsY=",
+      "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.f1mk0qyxd4.wasm"
     },
     {
       "hash": "sha256-IUnxFZGhEYKTcdbelb5pRC0xc4eRkIJ+sGSX7AmGnvc=",
@@ -97,8 +97,8 @@
       "url": "_framework\/System.Collections.Immutable.9cdk4e963w.wasm"
     },
     {
-      "hash": "sha256-KRKAg6Q+xemBoi0thJEUTM70oru0y\/P03hBYYTp\/0EE=",
-      "url": "_framework\/System.Collections.ngoc74r9m7.wasm"
+      "hash": "sha256-MKfDoG0nj7CNCuZmbHlWj9eXoJSVEgolIfcpwFWKt2I=",
+      "url": "_framework\/System.Collections.w81evnu153.wasm"
     },
     {
       "hash": "sha256-sC3\/rhV0lry+D9pymYdYDpiIYTVlsufGh6+MiAaFQEE=",
@@ -145,20 +145,20 @@
       "url": "_framework\/System.Net.Primitives.jpw0iktit7.wasm"
     },
     {
-      "hash": "sha256-8GJm04PmRNUEAP\/Te7fYQySkQywop4v5I\/PdAngknOA=",
-      "url": "_framework\/System.Private.CoreLib.4zoay14e9s.wasm"
+      "hash": "sha256-6ilzkWSrESx\/AmmqmR94WQwxI0TqO0zm6vQSmAA2MDQ=",
+      "url": "_framework\/System.Private.CoreLib.m9p0uvb9y0.wasm"
     },
     {
       "hash": "sha256-aZ09BVePWpn+rTWZMFYK0Nn6OnLdCm\/7nmCQNsu8+Ag=",
       "url": "_framework\/System.Private.Uri.bbgw0i4uce.wasm"
     },
     {
-      "hash": "sha256-r29Kh3kKZRmaXtqrV07MlhRFKp1N5wZEImS2PteNZf4=",
-      "url": "_framework\/System.Runtime.1o376z5k69.wasm"
-    },
-    {
       "hash": "sha256-awsTmrrIsJQCrfl82Mjn6QsVMjU6CYPfkSAfZoEkQTc=",
       "url": "_framework\/System.Runtime.InteropServices.JavaScript.7t9nyqzt69.wasm"
+    },
+    {
+      "hash": "sha256-ga5Eb00KWZAkpiLS2Za39Wc9OQbgizzhkdL94kOtsS8=",
+      "url": "_framework\/System.Runtime.pyiasd83yw.wasm"
     },
     {
       "hash": "sha256-dAlTQTgdBOJ5Lw73xIZoWergcP8Xetfk1lyx943wY94=",
@@ -169,8 +169,8 @@
       "url": "_framework\/System.Text.Encodings.Web.lbouqhqtd4.wasm"
     },
     {
-      "hash": "sha256-UpLITaT3E+2x4bc74eD3hye4QEfE+V2l+vcERaEnEGM=",
-      "url": "_framework\/System.Text.Json.qlyyu7fhjb.wasm"
+      "hash": "sha256-Ha5PbfezeAHwSPa4wyDpq0K+w7q5cdKh4WTMmZ4\/wAE=",
+      "url": "_framework\/System.Text.Json.n7lie2k3f8.wasm"
     },
     {
       "hash": "sha256-\/fAK5dGHfPUubT\/sgo9ggxufV2gpu5d7dZqAJOnqBbQ=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.h4gh97xkz4.wasm"
     },
     {
-      "hash": "sha256-T5FNYjhLbr0PvkCIIlSiz36mO4EIT26fYEAZMUcnlv8=",
+      "hash": "sha256-g2qZHn236Cvxb1mjDqDCr2F3qJhxJmdnYRAB6n005Og=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -193,8 +193,8 @@
       "url": "_framework\/dotnet.js"
     },
     {
-      "hash": "sha256-Bpz46ord6ONfJ8wMA1l1DGc7bMtO2R1JtfnHuDKZDqQ=",
-      "url": "_framework\/dotnet.native.6sxcqvfles.wasm"
+      "hash": "sha256-AFETC3Sw5WWdHQmqjUUerHHk7OI9V+s\/0tyNXOsvbag=",
+      "url": "_framework\/dotnet.native.k3cf8bjyxb.wasm"
     },
     {
       "hash": "sha256-bYsObSgboPWIEBe4HlsdO7Xwtr2aQK80B3Aezrklu2Y=",
@@ -273,6 +273,10 @@
       "url": "index.html"
     },
     {
+      "hash": "sha256-\/ArmEXtR+92Z1gTXwH+fGlg2KafI4ORERS5298DdKT8=",
+      "url": "js\/IndexedDbService.js"
+    },
+    {
       "hash": "sha256-7B6kJ5JP+jYicVjO6H8NxrHpN3EQFf8RfBnjIr70ogA=",
       "url": "js\/dropZone.js"
     },
@@ -285,5 +289,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "IEL+PiUv"
+  "version": "W10Vg8lb"
 };
