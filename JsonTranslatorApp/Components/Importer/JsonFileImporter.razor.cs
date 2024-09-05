@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using JsonTranslatorApp.Infra.Extensions;
 using JsonTranslatorApp.Services.IndexedDb;
 using JsonTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
@@ -44,12 +45,61 @@ public class JsonFileImporterBase : ComponentBase
         }
         else
         {
+            var jsonString = jsonImportFile.Value.Content.GetJsonString();
+
+            
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+
+
+            using (JsonDocument document = JsonDocument.Parse(jsonString, options))
+            {
+                int sumOfAllTemperatures = 0;
+                int count = 0;
+
+                var objects = document.RootElement.EnumerateObject();
+
+                foreach (var obj in objects.AsEnumerable())
+                {
+                    // System.Console.WriteLine(obj.ToString());
+
+                    if (obj.Value.ValueKind == JsonValueKind.Object)
+                    {
+                        if (obj.Value.GetType() == typeof(string)) continue;
+
+                        foreach (var item in obj.Value.EnumerateObject())
+                        {
+                            System.Console.WriteLine(item.ToString());
+                            System.Console.WriteLine($"name: {item.Name}");
+                            System.Console.WriteLine($"value: {item.Value}");
+
+                        }
+                    }
+
+
+
+                    // foreach (JsonElement element in document.RootElement.EnumerateArray())
+                    // {
+                    //     DateTimeOffset date = element.GetProperty("date").GetDateTimeOffset();
+                    // }
+                }
+            }
+
+            
+            
+            
+            
             if (LocalStorageSvc != null) await LocalStorageSvc.SaveJsonFileNamesAsync(jsonImportFile.Value.Name);
             // var result = await FileImportService!.ImportFileAsync(importFile.Value);
             // ImportMessage = result.IsSuccess
             //     ? $"Import {importFile.Value.Name} Successful"
             //     : $"Error: Import {importFile.Value.Name} NOT Successful";
 
+            
+            
+            
             if (IndexedDbSvc != null) await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
             if (IndexedDbSvc != null)
             {

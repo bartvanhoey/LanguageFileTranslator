@@ -1,0 +1,82 @@
+// See https://aka.ms/new-console-template for more information
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+
+
+
+
+var jsonObject = JsonObject.Parse("{\"culture\": \"en\",\"texts\": {\"Menu:Home\": \"Home\", \"Welcome\": \"Welcome\", \"LongWelcomeMessage\": \"Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.\" }}");
+
+var json = "{\"culture\": \"en\",\"texts\": {\"Menu:Home\": \"Home\", \"Welcome\": \"Welcome\", \"LongWelcomeMessage\": \"Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.\" }}";
+
+
+
+
+
+var options = new JsonDocumentOptions
+{
+    AllowTrailingCommas = true
+};
+
+
+using (JsonDocument document = JsonDocument.Parse(json, options))
+{
+    int sumOfAllTemperatures = 0;
+    int count = 0;
+
+    var objects = document.RootElement.EnumerateObject();
+
+    foreach (var obj in objects.AsEnumerable())
+    {
+        // System.Console.WriteLine(obj.ToString());
+
+        if (obj.Value.ValueKind == JsonValueKind.Object)
+        {
+            if (obj.Value.GetType() == typeof(string)) continue;
+
+            foreach (var item in obj.Value.EnumerateObject())
+            {
+                System.Console.WriteLine(item.ToString());
+                System.Console.WriteLine($"name: {item.Name}");
+                System.Console.WriteLine($"value: {item.Value}");
+
+            }
+        }
+
+
+
+        // foreach (JsonElement element in document.RootElement.EnumerateArray())
+        // {
+        //     DateTimeOffset date = element.GetProperty("date").GetDateTimeOffset();
+        // }
+    }
+    }
+
+
+
+
+
+
+
+
+    Console.WriteLine("Hello, World!");
+
+
+// Working example
+// var options = new JsonDocumentOptions
+// {
+//     AllowTrailingCommas = true
+// };
+
+// var json = "[{\"Menu\": \"Home\"}, {\"Welcome\": \"Welcome\"} ]";
+// using (JsonDocument document = JsonDocument.Parse(json, options))
+// {
+//     int sumOfAllTemperatures = 0;
+//     int count = 0;
+
+//     foreach (JsonElement element in document.RootElement.EnumerateArray())
+//     {
+//         DateTimeOffset date = element.GetProperty("date").GetDateTimeOffset();
+//     }
+// }
