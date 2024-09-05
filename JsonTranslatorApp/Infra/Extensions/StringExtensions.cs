@@ -22,5 +22,10 @@ public static class StringExtensions
         var charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
         return charLocation > 0 ? text[..charLocation] : string.Empty;
     }
-
+    
+    public static string GetLastCharacters(this string source, string extension)
+    {
+        var tailLength = extension.Length + 11;
+        return tailLength >= source.Length ? source : source[^tailLength..];
+    }
 }

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using JsonTranslatorApp.Services.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using static JsonTranslatorApp.Models.JsonImportFile;
+using static JsonTranslatorApp.Models.ValueObjects.JsonImportFile;
 
 namespace JsonTranslatorApp.Components.Importer;
 
@@ -13,8 +14,10 @@ public class JsonFileImporterBase : ComponentBase
     protected InputFile? InputFile;
     protected IJSObjectReference? Module;
     protected string Status = DefaultStatus;
+    
     // [Inject] private IFileImportService? FileImportService { get; set; }
     [Inject] private IJSRuntime? JsRuntime { get; set; }
+    [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
     protected string? ImportMessage { get; private set; } = string.Empty;
 
     public bool ShowSpinner { get; set; }
@@ -38,6 +41,7 @@ public class JsonFileImporterBase : ComponentBase
         }
         else
         {
+            if (LocalStorageSvc != null) await LocalStorageSvc.SaveJsonFileNamesAsync(jsonImportFile.Value.Name);
             // var result = await FileImportService!.ImportFileAsync(importFile.Value);
             // ImportMessage = result.IsSuccess
             //     ? $"Import {importFile.Value.Name} Successful"

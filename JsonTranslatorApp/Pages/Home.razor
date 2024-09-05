@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IConfiguration Configuration
 
 <PageTitle>Home</PageTitle>
@@ -12,16 +12,17 @@
 
 <hr>
 
-<JsonFileImporter/>
+
 
 @code
 {
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         SecurityKey = Configuration["AzureTranslatorApiKey"];
         
-        return base.OnInitializedAsync();
+        await localStorage.SetItemAsync("name", "John Smith");
+        var name = await localStorage.GetItemAsync<string>("name");
     }
 
     public string? SecurityKey { get; set; }
