@@ -25,6 +25,14 @@ public class IndexedDbService : IAsyncDisposable
 
         return result;
     }
+    
+    public async Task<T> GetAllAsync<T>(string collectionName, string jsonFileName)
+    {
+        await WaitForReference();
+        var result = await _accessorJsRef.Value.InvokeAsync<T>("getAll", collectionName, jsonFileName);
+
+        return result;
+    }
 
     public async Task SetValueAsync<T>(string collectionName, T value)
     {
@@ -34,17 +42,11 @@ public class IndexedDbService : IAsyncDisposable
 
     private async Task WaitForReference()
     {
-        if (_accessorJsRef.IsValueCreated is false)
-        {
-            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/IndexedDbService.js"));
-        }
+        if (_accessorJsRef.IsValueCreated is false) _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/IndexedDbService.js"));
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (_accessorJsRef.IsValueCreated)
-        {
-            await _accessorJsRef.Value.DisposeAsync();
-        }
+        if (_accessorJsRef.IsValueCreated) await _accessorJsRef.Value.DisposeAsync();
     }
 }

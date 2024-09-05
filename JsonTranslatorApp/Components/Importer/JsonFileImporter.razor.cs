@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using JsonTranslatorApp.Infra.Extensions;
+using JsonTranslatorApp.Models.LanguageEntries;
 using JsonTranslatorApp.Services.IndexedDb;
 using JsonTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
@@ -75,6 +76,18 @@ public class JsonFileImporterBase : ComponentBase
                             System.Console.WriteLine($"name: {item.Name}");
                             System.Console.WriteLine($"value: {item.Value}");
 
+                            var languageEntry = new LanguageEntry(item.Name, item.Value.ToString(), jsonImportFile.Value.Culture.Name, jsonImportFile.Value.Name);
+                            var languageEntryAnother = new LanguageEntry(item.Name, item.Value.ToString(), jsonImportFile.Value.Culture.Name, "AnotherFileName");
+
+                            if (IndexedDbSvc != null) 
+                                await IndexedDbSvc.SetValueAsync("languageEntries", languageEntry);
+                            
+                            // Thread.Sleep(1000);
+                            //
+                            // if (IndexedDbSvc != null) 
+                            //     await IndexedDbSvc.SetValueAsync("languageEntries", languageEntryAnother);
+                            
+
                         }
                     }
 
@@ -105,6 +118,12 @@ public class JsonFileImporterBase : ComponentBase
             {
                 var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
                 var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
+            }
+            
+            if (IndexedDbSvc != null)
+            {
+                var book = await IndexedDbSvc.GetAllAsync<JsonDocument>("languageEntries", jsonImportFile.Value.Name);
+                // var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
             }
         }
 
