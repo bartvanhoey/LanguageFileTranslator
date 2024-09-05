@@ -13,7 +13,7 @@ const bootstrapFontsWoff2 = "./node_modules/bootstrap-icons/font/fonts/bootstrap
 async function buildStyles() {
     return await src('Sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}))
-        .pipe(purgeCss({ content: ['**/*.cshtml', '**/*.html', '**/*.razor'] })) // WARNING: only used CSS will be rendered
+        // .pipe(purgeCss({ content: ['**/*.cshtml', '**/*.html', '**/*.razor'] })) // WARNING: only used CSS will be rendered
         .pipe(dest('wwwroot/css'))
 
 }

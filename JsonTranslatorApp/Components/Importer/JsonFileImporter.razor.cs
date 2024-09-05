@@ -1,4 +1,6 @@
-﻿using JsonTranslatorApp.Services.LocalStorage;
+﻿using System.Text.Json;
+using JsonTranslatorApp.Services.IndexedDb;
+using JsonTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -18,6 +20,7 @@ public class JsonFileImporterBase : ComponentBase
     // [Inject] private IFileImportService? FileImportService { get; set; }
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
+    [Inject] private IndexedDbService? IndexedDbSvc { get; set; }
     protected string? ImportMessage { get; private set; } = string.Empty;
 
     public bool ShowSpinner { get; set; }
@@ -46,6 +49,13 @@ public class JsonFileImporterBase : ComponentBase
             // ImportMessage = result.IsSuccess
             //     ? $"Import {importFile.Value.Name} Successful"
             //     : $"Error: Import {importFile.Value.Name} NOT Successful";
+
+            if (IndexedDbSvc != null) await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
+            if (IndexedDbSvc != null)
+            {
+                var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
+                var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
+            }
         }
 
         Status = DefaultStatus;
