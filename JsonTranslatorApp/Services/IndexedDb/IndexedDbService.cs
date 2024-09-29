@@ -7,10 +7,7 @@ public class IndexedDbService : IAsyncDisposable
     private Lazy<IJSObjectReference> _accessorJsRef = new();
     private readonly IJSRuntime _jsRuntime;
 
-    public IndexedDbService(IJSRuntime jsRuntime)
-    {
-        _jsRuntime = jsRuntime;
-    }
+    public IndexedDbService(IJSRuntime jsRuntime) => _jsRuntime = jsRuntime;
 
     public async Task InitializeAsync()
     {
@@ -42,7 +39,7 @@ public class IndexedDbService : IAsyncDisposable
 
     private async Task WaitForReference()
     {
-        if (_accessorJsRef.IsValueCreated is false) _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/IndexedDbService.js"));
+        if (_accessorJsRef.IsValueCreated is false) _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/indexedDbService.js"));
     }
 
     public async ValueTask DisposeAsync()
