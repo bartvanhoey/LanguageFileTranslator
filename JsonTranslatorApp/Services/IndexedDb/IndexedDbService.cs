@@ -40,7 +40,7 @@ public class IndexedDbService : IAsyncDisposable
     private async Task WaitForReference()
     {
         if (_accessorJsRef.IsValueCreated is false) 
-            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/indexedDbService.js"));
+            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "JsonTranslator/blob/gh-pages/js/indexedDbService.js"));
     }
 
     public async ValueTask DisposeAsync()
