@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-gkA1OXw7x2jw2PeTwa4xHwFmrwjvQ1V\/rX53+ny7DqA=",
-      "url": "_framework\/JsonTranslatorApp.r4tvbsuqqm.wasm.br"
+      "hash": "sha256-XOQ+0j+Pz+sS6AOBE4YIJ9QWzjl6NlzG2TbDAiQ3D6g=",
+      "url": "_framework\/JsonTranslatorApp.7zetrtahm6.wasm.br"
     },
     {
       "hash": "sha256-hwfM5kF\/Zs+tZNo454rrQzFUBVyFh\/VpIz9dTM3WrEU=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.zaomlvk0ko.wasm.br"
     },
     {
-      "hash": "sha256-j3Gm961aF4oDxvmRsLIWwlq7pASbTQ\/eSbCCsUUdYVM=",
+      "hash": "sha256-EYuu4Y0WLOpTX3HeTl4CYACuQMuk7wBktGjndiQJs0A=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -277,7 +277,7 @@
       "url": "js\/dropZone.js.br"
     },
     {
-      "hash": "sha256-RAviz3ABhA97FSndAgOR1Hrpf5TniMBEfPa+meKAMdg=",
+      "hash": "sha256-EhDYJ+exgGN9p6MUE56o++sYOKgazgYrDgZc0R+xSUU=",
       "url": "js\/indexedDbService.js.br"
     },
     {
@@ -297,5 +297,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "o1w4Rc7b"
+  "version": "ZvHn0xe+"
 };
