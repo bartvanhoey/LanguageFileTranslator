@@ -1,4 +1,36 @@
 /* /Components/Importer/JsonFileImporter.razor.rz.scp.css */
+/* /Components/Message/StatusMessage.razor.rz.scp.css */
+button.close[b-y6dgjceh21] {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+.close[b-y6dgjceh21] {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.5;
+}
+
+.alert-dismissible .close[b-y6dgjceh21] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  color: inherit;
+}
+
+.fade[b-y6dgjceh21] {
+  transition: opacity 0.15s linear;
+}
+
+.fade.show[b-y6dgjceh21] {
+  opacity: 1;
+}
 /* /Layout/MainLayout.razor.rz.scp.css */
 .page[b-e337cx4woh] {
     position: relative;
