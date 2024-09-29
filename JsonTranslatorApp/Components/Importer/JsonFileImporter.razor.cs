@@ -15,10 +15,12 @@ public class JsonFileImporterBase : ComponentBase
     private const string DefaultStatus = "Drop a text file here to view it or click to choose a file";
     protected ElementReference DropZoneElement;
     protected IJSObjectReference? DropZoneInstance;
+    protected IJSObjectReference? IndexedDbInstance;
     protected InputFile? InputFile;
-    protected IJSObjectReference? Module;
+    protected IJSObjectReference? DropZoneModule;
+    protected IJSObjectReference? IndexedDbServiceModule;
     protected string Status = DefaultStatus;
-    
+
     // [Inject] private IFileImportService? FileImportService { get; set; }
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
@@ -48,7 +50,7 @@ public class JsonFileImporterBase : ComponentBase
         {
             var jsonString = jsonImportFile.Value.Content.GetJsonString();
 
-            
+
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -76,21 +78,20 @@ public class JsonFileImporterBase : ComponentBase
                             System.Console.WriteLine($"name: {item.Name}");
                             System.Console.WriteLine($"value: {item.Value}");
 
-                            var languageEntry = new LanguageEntry(item.Name, item.Value.ToString(), jsonImportFile.Value.Culture.Name, jsonImportFile.Value.Name);
-                            var languageEntryAnother = new LanguageEntry(item.Name, item.Value.ToString(), jsonImportFile.Value.Culture.Name, "AnotherFileName");
+                            var languageEntry = new LanguageEntry(item.Name, item.Value.ToString(),
+                                jsonImportFile.Value.Culture.Name, jsonImportFile.Value.Name);
+                            var languageEntryAnother = new LanguageEntry(item.Name, item.Value.ToString(),
+                                jsonImportFile.Value.Culture.Name, "AnotherFileName");
 
-                            if (IndexedDbSvc != null) 
+                            if (IndexedDbSvc != null)
                                 await IndexedDbSvc.SetValueAsync("languageEntries", languageEntry);
-                            
+
                             // Thread.Sleep(1000);
                             //
                             // if (IndexedDbSvc != null) 
                             //     await IndexedDbSvc.SetValueAsync("languageEntries", languageEntryAnother);
-                            
-
                         }
                     }
-
 
 
                     // foreach (JsonElement element in document.RootElement.EnumerateArray())
@@ -100,26 +101,22 @@ public class JsonFileImporterBase : ComponentBase
                 }
             }
 
-            
-            
-            
-            
+
             if (LocalStorageSvc != null) await LocalStorageSvc.SaveJsonFileNamesAsync(jsonImportFile.Value.Name);
             // var result = await FileImportService!.ImportFileAsync(importFile.Value);
             // ImportMessage = result.IsSuccess
             //     ? $"Import {importFile.Value.Name} Successful"
             //     : $"Error: Import {importFile.Value.Name} NOT Successful";
 
-            
-            
-            
-            if (IndexedDbSvc != null) await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
+
+            if (IndexedDbSvc != null)
+                await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
             if (IndexedDbSvc != null)
             {
                 var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
                 var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
             }
-            
+
             if (IndexedDbSvc != null)
             {
                 var book = await IndexedDbSvc.GetAllAsync<JsonDocument>("languageEntries", jsonImportFile.Value.Name);
@@ -137,12 +134,33 @@ public class JsonFileImporterBase : ComponentBase
         if (firstRender)
         {
             // Load the JS file
-            Module = await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/dropZone.js");
+            DropZoneModule = await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/dropZone.js");
 
+            try
+            {
+                IndexedDbServiceModule =
+                    await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
             // Initialize the drop zone
             DropZoneInstance =
-                await Module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", DropZoneElement,
+                await DropZoneModule.InvokeAsync<IJSObjectReference>("initializeFileDropZone", DropZoneElement,
                     InputFile!.Element);
+
+            try
+            {
+                await IndexedDbServiceModule.InvokeVoidAsync("initialize");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 
@@ -154,6 +172,6 @@ public class JsonFileImporterBase : ComponentBase
             await DropZoneInstance.DisposeAsync();
         }
 
-        if (Module != null) await Module.DisposeAsync();
+        if (IndexedDbServiceModule != null) await IndexedDbServiceModule.DisposeAsync();
     }
 }
