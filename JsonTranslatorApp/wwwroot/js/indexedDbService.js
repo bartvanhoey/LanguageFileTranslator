@@ -6,7 +6,8 @@
         let db = jsonTranslatorIndexedDb.result;
         db.createObjectStore("books", { keyPath: "id" });
         const languageEntries = db.createObjectStore("languageEntries", { keyPath: "id" });
-        languageEntries.createIndex("json_file_name_db",["jsonfilename"],{unique: false})
+        const translations = db.createObjectStore("translations", { keyPath: "id" });
+        // languageEntries.createIndex("json_file_name_db",["jsonfilename"],{unique: false})
     }
 }
 
