@@ -67,8 +67,22 @@ public class JsonFileImporterBase : ComponentBase
         try
         {
             var abpRootModel = jsonString?.ConvertTo<AbpRootModel>();
-    
-            var jsonObject = JsonNode.Parse(jsonString).AsObject();
+
+            if (IndexedDbSvc != null && abpRootModel != null)
+            {
+                foreach (var (key, value) in abpRootModel.texts)
+                {
+                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });
+                }    
+            }
+                
+            
+            
+            
+        
+            
+            
+            // var jsonObject = JsonNode.Parse(jsonString).AsObject();
 
 
             using var document = JsonDocument.Parse(jsonString ?? throw new InvalidOperationException(), options);
@@ -90,19 +104,19 @@ public class JsonFileImporterBase : ComponentBase
         //     : $"Error: Import {importFile.Value.Name} NOT Successful";
 
 
-        if (IndexedDbSvc != null)
-            await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
-        if (IndexedDbSvc != null)
-        {
-            var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
-            var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
-        }
-
-        if (IndexedDbSvc != null)
-        {
-            var book = await IndexedDbSvc.GetAllAsync<JsonDocument>("languageEntries", jsonImportFile.Value.Name);
-            // var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
-        }
+        // if (IndexedDbSvc != null)
+        //     await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
+        // if (IndexedDbSvc != null)
+        // {
+        //     var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
+        //     var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
+        // }
+        //
+        // if (IndexedDbSvc != null)
+        // {
+        //     var book = await IndexedDbSvc.GetAllAsync<JsonDocument>("languageEntries", jsonImportFile.Value.Name);
+        //     // var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
+        // }
 
         Status = DefaultStatus;
         StateHasChanged();
