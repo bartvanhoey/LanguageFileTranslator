@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
@@ -28,4 +29,17 @@ public static class StringExtensions
         var tailLength = extension.Length + 11;
         return tailLength >= source.Length ? source : source[^tailLength..];
     }
+    
+    public static T? ConvertTo<T>(this string jsonString) =>
+        jsonString switch
+        {
+            null => throw new ArgumentNullException($@"ConvertTo: You cannot convert a null string to a Type"),
+            "[]" => default,
+            _ => JsonSerializer.Deserialize<T>(jsonString,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    
+                })
+        };
 }
