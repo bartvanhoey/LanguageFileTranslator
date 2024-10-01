@@ -1,4 +1,5 @@
-﻿using JsonTranslatorApp.Infra.Extensions;
+﻿using System.Text.Json;
+using JsonTranslatorApp.Infra.Extensions;
 using JsonTranslatorApp.Infra.Funcky.ResultClass;
 using JsonTranslatorApp.Infra.Funcky.ValueObjectClass;
 using JsonTranslatorApp.Models.Cultures;
@@ -14,12 +15,12 @@ public class JsonImportFile : ValueObject<JsonImportFile>
     private static readonly string[] AllowedFileExtensions = [".json"];
     private static readonly string[] Separator = ["-"];
 
-    private JsonImportFile(string extension, InfoCulture culture, string fileName, byte[] content)
+    private JsonImportFile(string extension, InfoCulture culture, string fileName, string json)
     {
         Culture = culture;
         Extension = extension;
         Name = fileName;
-        Content = content;
+        Json = json;
     }
 
     public InfoCulture Culture { get; }
@@ -27,7 +28,7 @@ public class JsonImportFile : ValueObject<JsonImportFile>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public string Extension { get; }
     public string Name { get; }
-    public byte[] Content { get; }
+    public string Json { get; }
 
     public static Result<JsonImportFile> CreateJsonImportFile(string? fileName, byte[]? fileContent)
     {
@@ -41,9 +42,27 @@ public class JsonImportFile : ValueObject<JsonImportFile>
         if (!AllowedFileExtensions.Contains(extension)) return Fail<JsonImportFile>(ExtensionIsNotAllowed);
 
         var cultureResult = InfoCultureHelper.GetInfoCulture(fileName,extension);
+        if (cultureResult.IsFailure) return Fail<JsonImportFile>(cultureResult.Error);
+        
+        var json = fileContent.GetJsonString();
+        if (json.IsNullOrWhiteSpace()) return Fail<JsonImportFile>(NoEntriesInImportFile);
 
-        return cultureResult.IsFailure ? Fail<JsonImportFile>(cultureResult.Error) :
-            Ok(new JsonImportFile(extension, cultureResult.Value, fileName, fileContent));
+        try
+        {
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = JsonDocument.Parse(json ?? throw new InvalidOperationException(), options);
+        }
+        catch (Exception exception)
+        {
+            return Fail<JsonImportFile>(CouldNotParseJsonDocument(exception));
+        }
+        
+        
+        
+        return Ok(new JsonImportFile(extension, cultureResult.Value, fileName, json));
     }
 
     protected override bool EqualsCore(JsonImportFile other) => Name == other.Name;

@@ -50,45 +50,18 @@ public class JsonFileImporterBase : ComponentBase
             return;
         }
 
-        var jsonString = jsonImportFile.Value.Content.GetJsonString();
-
-        if (jsonString.IsNullOrWhiteSpace())
-        {
-            ImportMessage = $"Error: No entries in the import file";
-            return;
-        }
-
-        var options = new JsonDocumentOptions
-        {
-            AllowTrailingCommas = true, 
-
-        };
 
         try
         {
-            var abpRootModel = jsonString?.ConvertTo<AbpRootModel>();
-
+            var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpRootModel>();
+            var abpRootModel2 = jsonImportFile.Value.Json.ConvertTo<AbpRootModelFalse>();
             if (IndexedDbSvc != null && abpRootModel != null)
             {
-                foreach (var (key, value) in abpRootModel.texts)
-                {
-                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });
-                }    
+                foreach (var (key, value) in abpRootModel.texts) 
+                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
             }
-                
-            
-            
-            
-        
-            
-            
-            // var jsonObject = JsonNode.Parse(jsonString).AsObject();
-
-
-            using var document = JsonDocument.Parse(jsonString ?? throw new InvalidOperationException(), options);
-            var rootElement = document.RootElement;
-            var jsonElement = rootElement.GetProperty("culture");
-            Console.WriteLine($"culture: {jsonElement}" );
+         
+   
         }
         catch (Exception exception)
         {
@@ -96,29 +69,8 @@ public class JsonFileImporterBase : ComponentBase
             throw;
         }
 
-
-        if (LocalStorageSvc != null) await LocalStorageSvc.SaveJsonFileNamesAsync(jsonImportFile.Value.Name);
-        // var result = await FileImportService!.ImportFileAsync(importFile.Value);
-        // ImportMessage = result.IsSuccess
-        //     ? $"Import {importFile.Value.Name} Successful"
-        //     : $"Error: Import {importFile.Value.Name} NOT Successful";
-
-
-        // if (IndexedDbSvc != null)
-        //     await IndexedDbSvc.SetValueAsync("books", new { Id = "Menu:Book", Name = "MyBookName" });
-        // if (IndexedDbSvc != null)
-        // {
-        //     var book = await IndexedDbSvc.GetValueAsync<JsonDocument>("books", "Menu:Book");
-        //     var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
-        // }
-        //
-        // if (IndexedDbSvc != null)
-        // {
-        //     var book = await IndexedDbSvc.GetAllAsync<JsonDocument>("languageEntries", jsonImportFile.Value.Name);
-        //     // var bookName = book.RootElement.GetProperty("name").GetString() ?? "NotFound";
-        // }
-
         Status = DefaultStatus;
+        ImportMessage = null;
         StateHasChanged();
     }
 

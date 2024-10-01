@@ -11,3 +11,10 @@ public class AbpRootModel
 }
 
 
+public class AbpRootModelFalse
+{
+    public string Jam { get; set; }
+    public Dictionary<string, string> objects { get; set; } = new Dictionary<string, string>();
+
+}
+
