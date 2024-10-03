@@ -52,7 +52,7 @@ public class JsonFileImporterBase : ComponentBase
 
         try
         {
-            var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpRootModel>();
+            var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpLanguageFileModel>();
             var abpRootModel2 = jsonImportFile.Value.Json.ConvertTo<AbpRootModelFalse>();
             if (IndexedDbSvc != null && abpRootModel != null)
             {

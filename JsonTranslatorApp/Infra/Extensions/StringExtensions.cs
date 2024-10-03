@@ -1,6 +1,9 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
+using JsonTranslatorApp.Infra.Funcky.ResultClass;
+using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
+using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
 namespace JsonTranslatorApp.Infra.Extensions;
 
@@ -42,4 +45,22 @@ public static class StringExtensions
                     
                 })
         };
+
+    public static Result CheckIsValidJsonDocument(this string? json)
+    {
+        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail(JsonDocumentIsNullOrEmpty());
+        try
+        {
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = JsonDocument.Parse(json ?? throw new InvalidOperationException(), options);
+            return Ok();
+        }
+        catch (Exception exception)
+        {
+            return Fail(CouldNotParseJsonDocument(exception));
+        }
+    }
 }

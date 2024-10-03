@@ -3,9 +3,10 @@ using JsonTranslatorApp.Infra.Extensions;
 using JsonTranslatorApp.Infra.Funcky.ResultClass;
 using JsonTranslatorApp.Infra.Funcky.ValueObjectClass;
 using JsonTranslatorApp.Models.Cultures;
+using JsonTranslatorApp.Models.JsonModels.AbpModel;
 using static System.IO.Path;
 using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
-using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ErrorFactory;
+using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
 namespace JsonTranslatorApp.Models.ValueObjects;
 
@@ -14,12 +15,15 @@ public class LanguageEntry : ValueObject<LanguageEntry>
     private static readonly string[] AllowedFileExtensions = [".json"];
     private static readonly string[] Separator = ["-"];
 
-    private LanguageEntry(string extension, InfoCulture culture, string fileName, string json)
+    private LanguageEntry(string extension, InfoCulture culture, string fileName, string json,
+        List<LanguageEntryItem> languageEntryItems, LanguageFileModelBase languageFileModel)
     {
+        LanguageEntryItems = languageEntryItems;
         Culture = culture;
         Extension = extension;
         Name = fileName;
         Json = json;
+        LanguageFileModel = languageFileModel;
     }
 
     public InfoCulture Culture { get; }
@@ -27,13 +31,10 @@ public class LanguageEntry : ValueObject<LanguageEntry>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public string Extension { get; }
     public string Name { get; }
-    public string Json { get
-        ; }
+    public string Json { get; }
 
-    public List<LanguageEntryItem> LanguageEntryItems = [];
-    
-    
-    
+    public List<LanguageEntryItem> LanguageEntryItems;
+    public LanguageFileModelBase LanguageFileModel { get; set; }
 
     public static Result<LanguageEntry> CreateLanguageEntry(string? fileName, byte[]? fileContent)
     {
@@ -46,29 +47,27 @@ public class LanguageEntry : ValueObject<LanguageEntry>
         if (extension.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(ExtensionIsEmpty);
         if (!AllowedFileExtensions.Contains(extension)) return Fail<LanguageEntry>(ExtensionIsNotAllowed);
 
-        var cultureResult = InfoCultureHelper.GetInfoCulture(fileName,extension);
+        var cultureResult = InfoCultureHelper.GetInfoCulture(fileName, extension);
         if (cultureResult.IsFailure) return Fail<LanguageEntry>(cultureResult.Error);
-        
-        var json = fileContent.GetJsonString();
-        if (json.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NoEntriesInImportFile);
 
-        try
+        var json = fileContent.GetJsonString();
+        if (json != null && json.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NoEntriesInImportFile);
+
+        var jsonDocResult = json.CheckIsValidJsonDocument();
+        if (jsonDocResult.IsFailure) return Fail<LanguageEntry>(jsonDocResult.Error);
+
+        var abpLanguageFileModel = json?.ConvertTo<AbpLanguageFileModel>();
+        if (abpLanguageFileModel?.texts.Count > 0)
         {
-            var options = new JsonDocumentOptions
-            {
-                AllowTrailingCommas = true
-            };
-            using var document = JsonDocument.Parse(json ?? throw new InvalidOperationException(), options);
+            var languageEntryItems = abpLanguageFileModel.texts
+                .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
+            return Ok(new LanguageEntry(extension, cultureResult.Value, fileName, json ?? throw new InvalidOperationException(), languageEntryItems,
+                abpLanguageFileModel ?? throw new InvalidOperationException()));
         }
-        catch (Exception exception)
-        {
-            return Fail<LanguageEntry>(CouldNotParseJsonDocument(exception));
-        }
-        
-        
-        
-        return Ok(new LanguageEntry(extension, cultureResult.Value, fileName, json));
+
+        return Fail<LanguageEntry>(NoEntriesInImportFile);
     }
+
 
     protected override bool EqualsCore(LanguageEntry other) => Name == other.Name;
     protected override int GetHashCodeCore() => Name.GetHashCode();

@@ -3,7 +3,7 @@ using JsonTranslatorApp.Infra.Funcky.ResultClass;
 using JsonTranslatorApp.Infra.Funcky.ResultErrors;
 using static System.StringComparison;
 using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
-using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ErrorFactory;
+using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
 namespace JsonTranslatorApp.Models.Cultures;
 
@@ -36,7 +36,7 @@ public static class InfoCultureHelper
         }
         catch (Exception exception)
         {
-            Fail<InfoCulture>(ErrorFactory.GetInfoCulture(exception));
+            Fail<InfoCulture>(ResultErrorFactory.GetInfoCulture(exception));
         }
 
         return infoCulture != null ? Ok(infoCulture) : Fail<InfoCulture>(CultureIsNull);

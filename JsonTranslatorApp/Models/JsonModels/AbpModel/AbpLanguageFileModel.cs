@@ -4,18 +4,18 @@ using JsonTranslatorApp.Infra.Extensions;
 
 namespace JsonTranslatorApp.Models.JsonModels.AbpModel;
 
-public class AbpRootModel : LanguageFileBase
+public class AbpLanguageFileModel : LanguageFileModelBase
 {
     public string culture { get; set; }
     public Dictionary<string, string> texts { get; set; } = new();
 
 }
 
-public class LanguageFileBase
+public class LanguageFileModelBase
 {
 }
 
-public class AbpRootModelFalse : LanguageFileBase
+public class AbpRootModelFalse : LanguageFileModelBase
 {
     public AbpRootModelFalse(string jam)
     {
