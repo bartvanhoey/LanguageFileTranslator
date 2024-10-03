@@ -14,7 +14,7 @@ public class LanguageEntryTests
         var bytes = Encoding.ASCII.GetBytes(FrJson);
         var jsonImportFile = LanguageEntry.CreateLanguageEntry("fr.json", bytes);
 
-        jsonImportFile.IsSuccess.Should().BeFalse();
+        jsonImportFile.IsSuccess.Should().BeTrue();
 
 
         
