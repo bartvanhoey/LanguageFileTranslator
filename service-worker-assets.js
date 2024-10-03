@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-4wen5XUIzl+pHPcypZjAnWkv439x+NdB0W3+4nOWMfU=",
-      "url": "_framework\/JsonTranslatorApp.qovnah6vac.wasm.br"
+      "hash": "sha256-3rQdESo6Ap\/oXhr4Ag9LMJbXqcd8rOZGrN\/CO1jAlYE=",
+      "url": "_framework\/JsonTranslatorApp.b80z8g0tjr.wasm.br"
     },
     {
       "hash": "sha256-hwfM5kF\/Zs+tZNo454rrQzFUBVyFh\/VpIz9dTM3WrEU=",
@@ -153,12 +153,12 @@
       "url": "_framework\/System.Private.Uri.inhw91eri4.wasm.br"
     },
     {
-      "hash": "sha256-SkWj\/pyqRnniL8x5sqEfStQnOJcl1KhZsFrKgPFbwJw=",
-      "url": "_framework\/System.Runtime.InteropServices.JavaScript.e3rxrh7ufy.wasm.br"
+      "hash": "sha256-cPK3g297vI4\/WoZOucOEpcpKZsLPopXijGaTx+\/85e0=",
+      "url": "_framework\/System.Runtime.2qw9f4e7ri.wasm.br"
     },
     {
-      "hash": "sha256-tRnWp41m1+dhzHUCK0oVKIiOytpwJBhONRzJBXQYKPk=",
-      "url": "_framework\/System.Runtime.ucr485ybk2.wasm.br"
+      "hash": "sha256-SkWj\/pyqRnniL8x5sqEfStQnOJcl1KhZsFrKgPFbwJw=",
+      "url": "_framework\/System.Runtime.InteropServices.JavaScript.e3rxrh7ufy.wasm.br"
     },
     {
       "hash": "sha256-ODQUqt6Qehbr+YAgvuB5PhTwORKaG9XL\/7fLz5FoLN8=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.zaomlvk0ko.wasm.br"
     },
     {
-      "hash": "sha256-4lBwStwNK3DeEq9KmR4hLWhzbQaTH\/1MsGELH5XA36w=",
+      "hash": "sha256-\/QnZl2RODPIttUpFbKWaKQyM6i+beYUPkaFkJbPfMTw=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -297,5 +297,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "VviSaodh"
+  "version": "mBWwPJPw"
 };
