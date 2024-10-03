@@ -4,18 +4,17 @@ using JsonTranslatorApp.Infra.Funcky.ResultClass;
 using JsonTranslatorApp.Infra.Funcky.ValueObjectClass;
 using JsonTranslatorApp.Models.Cultures;
 using static System.IO.Path;
-using static System.StringSplitOptions;
 using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
 using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ErrorFactory;
 
 namespace JsonTranslatorApp.Models.ValueObjects;
 
-public class JsonImportFile : ValueObject<JsonImportFile>
+public class LanguageEntry : ValueObject<LanguageEntry>
 {
     private static readonly string[] AllowedFileExtensions = [".json"];
     private static readonly string[] Separator = ["-"];
 
-    private JsonImportFile(string extension, InfoCulture culture, string fileName, string json)
+    private LanguageEntry(string extension, InfoCulture culture, string fileName, string json)
     {
         Culture = culture;
         Extension = extension;
@@ -28,24 +27,30 @@ public class JsonImportFile : ValueObject<JsonImportFile>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public string Extension { get; }
     public string Name { get; }
-    public string Json { get; }
+    public string Json { get
+        ; }
 
-    public static Result<JsonImportFile> CreateJsonImportFile(string? fileName, byte[]? fileContent)
+    public List<LanguageEntryItem> LanguageEntryItems = [];
+    
+    
+    
+
+    public static Result<LanguageEntry> CreateLanguageEntry(string? fileName, byte[]? fileContent)
     {
-        if (fileName == null || fileName.IsNullOrWhiteSpace()) return Fail<JsonImportFile>(NameIsEmpty);
+        if (fileName == null || fileName.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NameIsEmpty);
         fileName = fileName.Trim();
 
-        if (fileContent is not { Length: > 2 }) return Fail<JsonImportFile>(ContentIsEmpty);
+        if (fileContent is not { Length: > 2 }) return Fail<LanguageEntry>(ContentIsEmpty);
 
         var extension = GetExtension(fileName);
-        if (extension.IsNullOrWhiteSpace()) return Fail<JsonImportFile>(ExtensionIsEmpty);
-        if (!AllowedFileExtensions.Contains(extension)) return Fail<JsonImportFile>(ExtensionIsNotAllowed);
+        if (extension.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(ExtensionIsEmpty);
+        if (!AllowedFileExtensions.Contains(extension)) return Fail<LanguageEntry>(ExtensionIsNotAllowed);
 
         var cultureResult = InfoCultureHelper.GetInfoCulture(fileName,extension);
-        if (cultureResult.IsFailure) return Fail<JsonImportFile>(cultureResult.Error);
+        if (cultureResult.IsFailure) return Fail<LanguageEntry>(cultureResult.Error);
         
         var json = fileContent.GetJsonString();
-        if (json.IsNullOrWhiteSpace()) return Fail<JsonImportFile>(NoEntriesInImportFile);
+        if (json.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NoEntriesInImportFile);
 
         try
         {
@@ -57,14 +62,14 @@ public class JsonImportFile : ValueObject<JsonImportFile>
         }
         catch (Exception exception)
         {
-            return Fail<JsonImportFile>(CouldNotParseJsonDocument(exception));
+            return Fail<LanguageEntry>(CouldNotParseJsonDocument(exception));
         }
         
         
         
-        return Ok(new JsonImportFile(extension, cultureResult.Value, fileName, json));
+        return Ok(new LanguageEntry(extension, cultureResult.Value, fileName, json));
     }
 
-    protected override bool EqualsCore(JsonImportFile other) => Name == other.Name;
+    protected override bool EqualsCore(LanguageEntry other) => Name == other.Name;
     protected override int GetHashCodeCore() => Name.GetHashCode();
 }

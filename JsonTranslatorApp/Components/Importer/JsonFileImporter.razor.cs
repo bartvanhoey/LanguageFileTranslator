@@ -3,13 +3,12 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using JsonTranslatorApp.Infra.Extensions;
 using JsonTranslatorApp.Models.JsonModels.AbpModel;
-using JsonTranslatorApp.Models.LanguageEntries;
 using JsonTranslatorApp.Services.IndexedDb;
 using JsonTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using static JsonTranslatorApp.Models.ValueObjects.JsonImportFile;
+using static JsonTranslatorApp.Models.ValueObjects.LanguageEntry;
 
 namespace JsonTranslatorApp.Components.Importer;
 
@@ -42,7 +41,7 @@ public class JsonFileImporterBase : ComponentBase
         await e.File.OpenReadStream(maxFileSize).CopyToAsync(memoryStream);
         ShowSpinner = true;
         StateHasChanged();
-        var jsonImportFile = CreateJsonImportFile(e.File.Name, memoryStream.ToArray());
+        var jsonImportFile = CreateLanguageEntry(e.File.Name, memoryStream.ToArray());
         ShowSpinner = false;
         if (jsonImportFile.IsFailure)
         {

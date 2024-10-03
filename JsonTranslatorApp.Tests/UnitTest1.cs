@@ -20,22 +20,19 @@ namespace JsonTranslatorApp.Tests
         [Fact]
         public void DeserializeAbpRootModel()
         {
-            var abpRootModel = JsonSerializer.Deserialize<AbpRootModel>(_json);
+            var abpRootModel = JsonSerializer.Deserialize<AbpRootModel>(TestConstants.FrJson);
             abpRootModel.Should().NotBeNull();
         }
         
         [Fact]
         public void DeserializeAbpRootModel1()
         {
-            var abpRootModel = _json.ConvertTo<AbpRootModel>();
+            var abpRootModel = TestConstants.FrJson.ConvertTo<AbpRootModel>();
             abpRootModel.Should().NotBeNull();
         }
 
-        
-        
-        private string _json =
-            "{\n  \"culture\": \"fr\",\n  \"texts\": {\n    \"Menu:Home\": \"Accueil\",\n    \"Welcome\": \"Bienvenue\",\n    \"LongWelcomeMessage\": \"Bienvenue dans l\\u0027application. Il s\\u0027agit d\\u0027un projet de démarrage basé sur le framework ABP. Pour plus d\\u0027informations, visitez abp.io.\",\n    \"ShortWelcomeMessage\": \"Bienvenue dans l\\u0027application.\"\n  }\n}";
 
+        
     }
 
     
