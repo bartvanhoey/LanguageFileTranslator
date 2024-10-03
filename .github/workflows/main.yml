@@ -31,13 +31,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-          
-      # Install dotnet wasm buildtools workload
-      - name: Install .NET WASM Build Tools
+
+      - name: Run Tests from solution
+        run: dotnet test
+
+      - name: Install .NET WASM build tools workload
         run: dotnet workload install wasm-tools
 
-      # Publishes Blazor project to the release-folder
-      - name: Publish Blazor Project 
+      - name: Publish Blazor Project to the release folder 
         run: dotnet publish ./JsonTranslatorApp/JsonTranslatorApp.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
       - name: Commit wwwroot to GitHub Pages
