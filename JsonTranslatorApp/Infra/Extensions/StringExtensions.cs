@@ -2,6 +2,11 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using JsonTranslatorApp.Infra.Funcky.ResultClass;
+using JsonTranslatorApp.Infra.Funcky.ResultErrors;
+using JsonTranslatorApp.Models.Cultures;
+using JsonTranslatorApp.Models.JsonModels.AbpModel;
+using JsonTranslatorApp.Models.ValueObjects;
+using static System.Text.Json.JsonDocument;
 using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
 using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
@@ -55,7 +60,7 @@ public static class StringExtensions
             {
                 AllowTrailingCommas = true
             };
-            using var document = JsonDocument.Parse(json ?? throw new InvalidOperationException(), options);
+            using var document = Parse(json ?? throw new InvalidOperationException(), options);
             return Ok();
         }
         catch (Exception exception)
@@ -63,4 +68,36 @@ public static class StringExtensions
             return Fail(CouldNotParseJsonDocument(exception));
         }
     }
+
+    public static Result<AbpLanguageFileResult> ConvertToAbpLanguageFileResult(this string? json, InfoCulture culture)
+    {
+        var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
+        if (abpModel?.texts.Count > 0 && abpModel.culture == culture.TwoLetterIso)
+        {
+            var languageEntryItems = abpModel.texts
+                .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
+            return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel));
+        }
+        return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
+    }
+    
+    
+    
+}
+
+public class NamespacedJsonLanguageFileResult(List<LanguageEntryItem> languageEntryItems, InfoCulture culture, NamespacedJsonLanguageFileModel namespacedJsonModel)
+{
+    public List<LanguageEntryItem> LanguageEntryItems { get; } = languageEntryItems;
+    public InfoCulture Culture { get; } = culture;
+    public NamespacedJsonLanguageFileModel NamespacedJsonModel { get; } = namespacedJsonModel;
+}
+
+public class AbpLanguageFileResult(
+    List<LanguageEntryItem> languageEntryItems,
+    InfoCulture culture,
+    AbpLanguageFileModel abpModel)
+{
+    public List<LanguageEntryItem> LanguageEntryItems { get; } = languageEntryItems;
+    public InfoCulture Culture { get; } = culture;
+    public AbpLanguageFileModel AbpModel { get; } = abpModel;
 }

@@ -11,6 +11,20 @@ public class AbpLanguageFileModel : LanguageFileModelBase
 
 }
 
+public class NamespacedJsonLanguageFileModel : LanguageFileModelBase
+{
+    public NamespacedJsonLanguageFileModel()
+    {
+    }
+
+    public NamespacedJsonLanguageFileModel(Dictionary<string, string> texts)
+    {
+        Texts = texts;
+    }
+
+    public Dictionary<string, string> Texts { get; set; } = new();
+}
+
 public class LanguageFileModelBase
 {
 }

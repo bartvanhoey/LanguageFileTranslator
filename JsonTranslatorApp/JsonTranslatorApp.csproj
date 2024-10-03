@@ -31,11 +31,6 @@
         </Content>
     </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="Models\LanguageEntries\" />
-    </ItemGroup>
-
       
 
 </Project>

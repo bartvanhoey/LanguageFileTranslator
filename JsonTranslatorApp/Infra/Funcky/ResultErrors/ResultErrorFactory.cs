@@ -6,6 +6,7 @@ public static class ResultErrorFactory
 {
     public static NameIsEmptyResultError NameIsEmpty => new();
     public static ContentIsEmptyResultError ContentIsEmpty => new();
+    public static NoAbpLanguageFileResultError NoAbpLanguageFile => new();
     public static CultureIsNullResultError CultureIsNull => new();
     public static CulturesCountIsZeroResultError CulturesCountIsZero => new();
     public static ExtensionIsEmptyResultError ExtensionIsEmpty => new();
@@ -24,9 +25,10 @@ public class GetInfoCultureResultError(Exception exception)
 public class JsonDocumentIsNullOrEmptyResultError() : BaseResultError;
 
 public class CouldNotParseJsonDocumentResultError(Exception exception)
-    : BaseResultError($"{exception.GetType()}: {exception.Message}");
+    : BaseResultError(exception.Message);
 
 public class ContentIsEmptyResultError : BaseResultError;
+public class NoAbpLanguageFileResultError : BaseResultError;
 
 public class CultureIsNullResultError : BaseResultError;
 

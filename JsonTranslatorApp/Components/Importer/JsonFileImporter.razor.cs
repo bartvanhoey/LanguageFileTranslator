@@ -52,13 +52,13 @@ public class JsonFileImporterBase : ComponentBase
 
         try
         {
-            var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpLanguageFileModel>();
-            var abpRootModel2 = jsonImportFile.Value.Json.ConvertTo<AbpRootModelFalse>();
-            if (IndexedDbSvc != null && abpRootModel != null)
-            {
-                foreach (var (key, value) in abpRootModel.texts) 
-                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
-            }
+            // var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpLanguageFileModel>();
+            // var abpRootModel2 = jsonImportFile.Value.Json.ConvertTo<AbpRootModelFalse>();
+            // if (IndexedDbSvc != null && abpRootModel != null)
+            // {
+            //     foreach (var (key, value) in abpRootModel.texts) 
+            //         await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
+            // }
          
    
         }

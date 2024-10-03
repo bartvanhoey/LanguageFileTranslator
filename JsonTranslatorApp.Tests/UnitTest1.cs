@@ -20,14 +20,14 @@ namespace JsonTranslatorApp.Tests
         [Fact]
         public void DeserializeAbpRootModel()
         {
-            var abpRootModel = JsonSerializer.Deserialize<AbpLanguageFileModel>(TestConstants.FrJson);
+            var abpRootModel = JsonSerializer.Deserialize<AbpLanguageFileModel>(TestConstants.FrAbpJson);
             abpRootModel.Should().NotBeNull();
         }
         
         [Fact]
         public void DeserializeAbpRootModel1()
         {
-            var abpRootModel = TestConstants.FrJson.ConvertTo<AbpLanguageFileModel>();
+            var abpRootModel = TestConstants.FrAbpJson.ConvertTo<AbpLanguageFileModel>();
             abpRootModel.Should().NotBeNull();
         }
 

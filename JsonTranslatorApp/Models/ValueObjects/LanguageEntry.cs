@@ -15,25 +15,40 @@ public class LanguageEntry : ValueObject<LanguageEntry>
     private static readonly string[] AllowedFileExtensions = [".json"];
     private static readonly string[] Separator = ["-"];
 
-    private LanguageEntry(string extension, InfoCulture culture, string fileName, string json,
-        List<LanguageEntryItem> languageEntryItems, LanguageFileModelBase languageFileModel)
+    private LanguageEntry(InfoCulture culture, string fileFileName, List<LanguageEntryItem> languageEntryItems, LanguageFileModelBase languageFileModel)
     {
         LanguageEntryItems = languageEntryItems;
         Culture = culture;
-        Extension = extension;
-        Name = fileName;
-        Json = json;
+        Extension = GetExtension(fileFileName);
+        FileName = fileFileName; 
         LanguageFileModel = languageFileModel;
+    }
+    
+    private LanguageEntry(InfoCulture culture, string fileFileName, AbpLanguageFileResult abpLanguageFile )
+    {
+        LanguageEntryItems = abpLanguageFile.LanguageEntryItems;
+        Culture = culture;
+        Extension = GetExtension(fileFileName);
+        FileName = fileFileName; 
+        LanguageFileModel = abpLanguageFile.AbpModel;
     }
 
     public InfoCulture Culture { get; }
 
-    // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public string Extension { get; }
-    public string Name { get; }
-    public string Json { get; }
-
+    public string FileName { get; }
+    
     public List<LanguageEntryItem> LanguageEntryItems;
+
+    private LanguageEntry(InfoCulture culture, string fileFileName, NamespacedJsonLanguageFileResult namespacedJsonFile)
+    {
+        LanguageEntryItems = namespacedJsonFile.LanguageEntryItems;
+        Culture = culture;
+        Extension = GetExtension(fileFileName);
+        FileName = fileFileName; 
+        LanguageFileModel = namespacedJsonFile.NamespacedJsonModel;
+    }
+
     public LanguageFileModelBase LanguageFileModel { get; set; }
 
     public static Result<LanguageEntry> CreateLanguageEntry(string? fileName, byte[]? fileContent)
@@ -56,19 +71,29 @@ public class LanguageEntry : ValueObject<LanguageEntry>
         var jsonDocResult = json.CheckIsValidJsonDocument();
         if (jsonDocResult.IsFailure) return Fail<LanguageEntry>(jsonDocResult.Error);
 
-        var abpLanguageFileModel = json?.ConvertTo<AbpLanguageFileModel>();
-        if (abpLanguageFileModel?.texts.Count > 0)
-        {
-            var languageEntryItems = abpLanguageFileModel.texts
-                .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
-            return Ok(new LanguageEntry(extension, cultureResult.Value, fileName, json ?? throw new InvalidOperationException(), languageEntryItems,
-                abpLanguageFileModel ?? throw new InvalidOperationException()));
-        }
+        var abpLanguageFile = json.ConvertToAbpLanguageFileResult(cultureResult.Value);
+        if (abpLanguageFile.IsSuccess) return Ok(new LanguageEntry(cultureResult.Value, fileName, abpLanguageFile.Value));
+        
+        var namespacedJsonFile =  json.ConvertToNamespacedJsonLanguageFileResult(cultureResult.Value);
+        if (namespacedJsonFile.IsSuccess) return Ok(new LanguageEntry(cultureResult.Value, fileName, namespacedJsonFile.Value));
+        
+        
+        
+        // var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
+        // if (abpModel?.texts.Count > 0)
+        // {
+        //     var languageEntryItems = abpModel.texts
+        //         .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
+        //     
+        // }
+        
+        
+        
 
         return Fail<LanguageEntry>(NoEntriesInImportFile);
     }
 
 
-    protected override bool EqualsCore(LanguageEntry other) => Name == other.Name;
-    protected override int GetHashCodeCore() => Name.GetHashCode();
+    protected override bool EqualsCore(LanguageEntry other) => FileName == other.FileName;
+    protected override int GetHashCodeCore() => FileName.GetHashCode();
 }
