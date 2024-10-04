@@ -74,7 +74,7 @@ public static class StringExtensions
     {
         if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
         var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
-        if (abpModel?.Texts.Count > 0 && abpModel.culture == culture.TwoLetterIso)
+        if (abpModel?.Texts.Count > 0 && abpModel.Culture == culture.TwoLetterIso)
         {
             var languageEntryItems = abpModel.Texts
                 .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();

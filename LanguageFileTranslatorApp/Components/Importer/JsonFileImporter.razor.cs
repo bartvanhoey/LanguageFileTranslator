@@ -3,11 +3,12 @@ using LanguageFileTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using static LanguageFileTranslatorApp.Models.ValueObjects.LanguageEntry;
+using static LanguageFileTranslatorApp.Models.ValueObjects.LanguageFile;
 
 namespace LanguageFileTranslatorApp.Components.Importer;
 
-public class JsonFileImporterBase : ComponentBase
+public class
+    JsonFileImporterBase : ComponentBase
 {
     private const string DefaultStatus = "Drop a text file here to view it or click to choose a file";
     protected ElementReference DropZoneElement;
@@ -16,15 +17,12 @@ public class JsonFileImporterBase : ComponentBase
     protected IJSObjectReference? DropZoneModule;
     protected IJSObjectReference? IndexedDbServiceModule;
     protected string Status = DefaultStatus;
+    protected string? ImportMessage { get; private set; } = string.Empty;
+    public bool ShowSpinner { get; set; }
 
-    // [Inject] private IFileImportService? FileImportService { get; set; }
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
     [Inject] private IndexedDbService? IndexedDbSvc { get; set; }
-    protected string? ImportMessage { get; private set; } = string.Empty;
-
-    public bool ShowSpinner { get; set; }
-
 
     protected async Task FileChangeAsync(InputFileChangeEventArgs e)
     {
@@ -36,35 +34,22 @@ public class JsonFileImporterBase : ComponentBase
         await e.File.OpenReadStream(maxFileSize).CopyToAsync(memoryStream);
         ShowSpinner = true;
         StateHasChanged();
-        var jsonImportFile = CreateLanguageEntry(e.File.Name, memoryStream.ToArray());
+        var languageFile = CreateLanguageFile(e.File.Name, memoryStream.ToArray());
         ShowSpinner = false;
-        if (jsonImportFile.IsFailure)
-        {
-            ImportMessage = $"Error: {jsonImportFile.Error?.Message ?? "Import NOT successful"}";
-            return;
-        }
 
-
-        try
+        if (languageFile.IsSuccess)
         {
-            // var abpRootModel = jsonImportFile.Value.Json.ConvertTo<AbpLanguageFileModel>();
-            // var abpRootModel2 = jsonImportFile.Value.Json.ConvertTo<AbpRootModelFalse>();
-            // if (IndexedDbSvc != null && abpRootModel != null)
-            // {
-            //     foreach (var (key, value) in abpRootModel.texts) 
-            //         await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
-            // }
-         
-   
+            Status = DefaultStatus;
+            ImportMessage = null;
+            
+            if (IndexedDbSvc != null )
+            {
+                foreach (var (key, value) in languageFile.Value.Model.Items) 
+                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
+            }    
         }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
-
-        Status = DefaultStatus;
-        ImportMessage = null;
+        else
+            ImportMessage = $"Error: {languageFile.Error?.Message ?? "Import NOT successful"}";
         StateHasChanged();
     }
 
@@ -115,5 +100,3 @@ public class JsonFileImporterBase : ComponentBase
         if (IndexedDbServiceModule != null) await IndexedDbServiceModule.DisposeAsync();
     }
 }
-
-

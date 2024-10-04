@@ -10,74 +10,77 @@ using static LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFact
 
 namespace LanguageFileTranslatorApp.Models.ValueObjects;
 
-public class LanguageEntry : ValueObject<LanguageEntry>
+public class LanguageFile : ValueObject<LanguageFile>
 {
     private static readonly string[] AllowedFileExtensions = [".json"];
-
     public InfoCulture Culture { get; }
     public string Extension { get; }
     public string FileName { get; }
-    public LanguageFileModelBase LanguageFileModel { get; set; }
+    public LanguageFileModelBase Model { get; set; }
 
-    private LanguageEntry(InfoCulture culture, string fileFileName, AbpLanguageFileResult abpLanguageFile )
+    private LanguageFile(InfoCulture culture, string fileFileName, AbpLanguageFileResult abpLanguageFile )
+    {
+        Culture = culture;
+        Extension = GetExtension(fileFileName);
+        FileName = fileFileName;
+        Model = abpLanguageFile.AbpModel;
+        Model.Items = abpLanguageFile.AbpModel.Texts;
+
+    }
+
+    private LanguageFile(InfoCulture culture, string fileFileName, StructuredJsonLanguageFileResult structuredJsonLanguageFile)
     {
         Culture = culture;
         Extension = GetExtension(fileFileName);
         FileName = fileFileName; 
-        LanguageFileModel = abpLanguageFile.AbpModel;
+        Model = structuredJsonLanguageFile.StructuredJsonModel;
+        Model.Items = structuredJsonLanguageFile.StructuredJsonModel.Texts;
     }
 
-    private LanguageEntry(InfoCulture culture, string fileFileName, StructuredJsonLanguageFileResult structuredJsonLanguageFile)
+    private LanguageFile(InfoCulture culture, string fileFileName, PlainJsonLanguageFileResult plainJsonLanguageFile)
     {
         Culture = culture;
         Extension = GetExtension(fileFileName);
         FileName = fileFileName; 
-        LanguageFileModel = structuredJsonLanguageFile.StructuredJsonModel;
-    }
-
-    private LanguageEntry(InfoCulture culture, string fileFileName, PlainJsonLanguageFileResult plainJsonLanguageFile)
-    {
-        Culture = culture;
-        Extension = GetExtension(fileFileName);
-        FileName = fileFileName; 
-        LanguageFileModel = plainJsonLanguageFile.PlainJsonModel;
+        Model = plainJsonLanguageFile.PlainJsonModel;
+        Model.Items = plainJsonLanguageFile.PlainJsonModel.Texts;
     }
 
 
-    public static Result<LanguageEntry> CreateLanguageEntry(string? fileName, string json) 
-        => CreateLanguageEntry(fileName, json.ToByteArray());
+    public static Result<LanguageFile> CreateLanguageFile(string? fileName, string json) 
+        => CreateLanguageFile(fileName, json.ToByteArray());
 
-    public static Result<LanguageEntry> CreateLanguageEntry(string? fileName, byte[]? fileContent)
+    public static Result<LanguageFile> CreateLanguageFile(string? fileName, byte[]? fileContent)
     {
-        if (fileName == null || fileName.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NameIsEmpty);
+        if (fileName == null || fileName.IsNullOrWhiteSpace()) return Fail<LanguageFile>(NameIsEmpty);
         fileName = fileName.Trim();
 
-        if (fileContent is not { Length: > 2 }) return Fail<LanguageEntry>(ContentIsEmpty);
+        if (fileContent is not { Length: > 2 }) return Fail<LanguageFile>(ContentIsEmpty);
 
         var extension = GetExtension(fileName);
-        if (extension.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(ExtensionIsEmpty);
-        if (!AllowedFileExtensions.Contains(extension)) return Fail<LanguageEntry>(ExtensionIsNotAllowed);
+        if (extension.IsNullOrWhiteSpace()) return Fail<LanguageFile>(ExtensionIsEmpty);
+        if (!AllowedFileExtensions.Contains(extension)) return Fail<LanguageFile>(ExtensionIsNotAllowed);
 
         var cultureResult = InfoCultureHelper.GetInfoCulture(fileName, extension);
-        if (cultureResult.IsFailure) return Fail<LanguageEntry>(cultureResult.Error);
+        if (cultureResult.IsFailure) return Fail<LanguageFile>(cultureResult.Error);
 
         var json = fileContent.GetJsonString();
-        if (json != null && json.IsNullOrWhiteSpace()) return Fail<LanguageEntry>(NoEntriesInImportFile);
+        if (json != null && json.IsNullOrWhiteSpace()) return Fail<LanguageFile>(NoEntriesInImportFile);
 
         var jsonDocResult = json.CheckIsValidJsonDocument();
-        if (jsonDocResult.IsFailure) return Fail<LanguageEntry>(jsonDocResult.Error);
+        if (jsonDocResult.IsFailure) return Fail<LanguageFile>(jsonDocResult.Error);
 
         var abpLanguageFile = json.ConvertToAbpLanguageFileResult(cultureResult.Value);
-        if (abpLanguageFile.IsSuccess) return Ok(new LanguageEntry(cultureResult.Value, fileName, abpLanguageFile.Value));
+        if (abpLanguageFile.IsSuccess) return Ok(new LanguageFile(cultureResult.Value, fileName, abpLanguageFile.Value));
         
         var structuredJsonFile =  json.ConvertToStructuredJsonLanguageFileResult(cultureResult.Value);
-        if (structuredJsonFile.IsSuccess) return Ok(new LanguageEntry(cultureResult.Value, fileName, structuredJsonFile.Value));
+        if (structuredJsonFile.IsSuccess) return Ok(new LanguageFile(cultureResult.Value, fileName, structuredJsonFile.Value));
         
         var plainJsonFile =  json.ConvertToPlainJsonLanguageFileResult(cultureResult.Value);
-        return plainJsonFile.IsSuccess ? Ok(new LanguageEntry(cultureResult.Value, fileName, plainJsonFile.Value)) : Fail<LanguageEntry>(NoEntriesInImportFile);
+        return plainJsonFile.IsSuccess ? Ok(new LanguageFile(cultureResult.Value, fileName, plainJsonFile.Value)) : Fail<LanguageFile>(NoEntriesInImportFile);
     }
 
 
-    protected override bool EqualsCore(LanguageEntry other) => FileName == other.FileName;
+    protected override bool EqualsCore(LanguageFile other) => FileName == other.FileName;
     protected override int GetHashCodeCore() => FileName.GetHashCode();
 }

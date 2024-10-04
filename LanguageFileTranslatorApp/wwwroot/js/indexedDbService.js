@@ -3,6 +3,7 @@
     let jsonTranslatorIndexedDb = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
     jsonTranslatorIndexedDb.onupgradeneeded = function ()
     {
+        alert("i am here")
         let db = jsonTranslatorIndexedDb.result;
         db.createObjectStore("books", { keyPath: "id" });
         const languageEntries = db.createObjectStore("languageEntries", { keyPath: "id" });
