@@ -1,6 +1,6 @@
 {
-  "name": "JsonTranslator",
-  "short_name": "JsonTranslator",
+  "name": "LanguageFileTranslator",
+  "short_name": "LanguageFileTranslator",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

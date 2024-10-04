@@ -74,4 +74,4 @@ export async function getAll(collectionName, jsonFileName)
 }
 
 let CURRENT_VERSION = 1;
-let DATABASE_NAME = "JsonTranslatorDb";
+let DATABASE_NAME = "LanguageFileTranslatorDb";
