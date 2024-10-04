@@ -1,7 +1,6 @@
 using FluentAssertions;
 using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 using LanguageFileTranslatorApp.Models.ValueObjects;
-using static LanguageFileTranslatorApp.Models.ValueObjects.LanguageFile;
 using static LanguageFileTranslatorApp.Tests.TestConstants;
 
 
