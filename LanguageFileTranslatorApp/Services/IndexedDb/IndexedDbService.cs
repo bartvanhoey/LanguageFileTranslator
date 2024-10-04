@@ -2,7 +2,11 @@ using Microsoft.JSInterop;
 
 namespace LanguageFileTranslatorApp.Services.IndexedDb;
 
-public class IndexedDbService : IAsyncDisposable
+public interface IIndexedDbService
+{
+     Task InsertTranslationInDb<T>(string culture, string key, string value);
+} 
+public class IndexedDbService : IIndexedDbService, IAsyncDisposable
 {
     private Lazy<IJSObjectReference> _accessorJsRef = new();
     private readonly IJSRuntime _jsRuntime;
@@ -19,7 +23,6 @@ public class IndexedDbService : IAsyncDisposable
     {
         await WaitForReference();
         var result = await _accessorJsRef.Value.InvokeAsync<T>("get", collectionName, id);
-
         return result;
     }
     
@@ -46,5 +49,10 @@ public class IndexedDbService : IAsyncDisposable
     public async ValueTask DisposeAsync()
     {
         if (_accessorJsRef.IsValueCreated) await _accessorJsRef.Value.DisposeAsync();
+    }
+
+    public async Task InsertTranslationInDb<T>(string culture, string key, string value)
+    {
+        await SetValueAsync("translations", new { Id = $"{culture}#{key}", Name = value});
     }
 }

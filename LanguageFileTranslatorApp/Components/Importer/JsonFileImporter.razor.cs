@@ -22,7 +22,7 @@ public class
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
-    [Inject] private IndexedDbService? IndexedDbSvc { get; set; }
+    [Inject] private IIndexedDbService? IndexedDbSvc { get; set; }
 
     protected async Task FileChangeAsync(InputFileChangeEventArgs e)
     {
@@ -41,15 +41,14 @@ public class
         {
             Status = DefaultStatus;
             ImportMessage = null;
-            
-            if (IndexedDbSvc != null )
-            {
-                foreach (var (key, value) in languageFile.Value.Model.Items) 
-                    await IndexedDbSvc.SetValueAsync("translations", new { Id = key, Name = value });    
-            }    
+            if (IndexedDbSvc == null) return;
+
+            foreach (var (key, value) in languageFile.Value.Model.Items)
+                await IndexedDbSvc.InsertTranslationInDb<string>(languageFile.Value.Culture.TwoLetterIso, key, value);
         }
         else
             ImportMessage = $"Error: {languageFile.Error?.Message ?? "Import NOT successful"}";
+
         StateHasChanged();
     }
 
