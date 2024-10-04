@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentAssertions;
@@ -30,13 +29,7 @@ namespace JsonTranslatorApp.Tests
             var abpRootModel = TestConstants.FrAbpJson.ConvertTo<AbpLanguageFileModel>();
             abpRootModel.Should().NotBeNull();
         }
-
-
-        
     }
-
-    
-    
 
     public class TestDefault
     {
@@ -47,10 +40,5 @@ namespace JsonTranslatorApp.Tests
         public Dictionary<string, JsonElement> Values { get; set; }
     }
     
-    // public class AbpRootModel
-    // {
-    //     public string culture { get; set; }
-    //
-    //     public Dictionary<string, string> texts { get; set; }
-    // }
+
 }

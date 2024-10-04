@@ -1,5 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using JsonTranslatorApp.Infra.Extensions;
 
 namespace JsonTranslatorApp.Models.JsonModels.AbpModel;
@@ -7,22 +5,18 @@ namespace JsonTranslatorApp.Models.JsonModels.AbpModel;
 public class AbpLanguageFileModel : LanguageFileModelBase
 {
     public string culture { get; set; }
-    public Dictionary<string, string> texts { get; set; } = new();
+    public Dictionary<string, string> Texts { get; set; } = new();
 
 }
 
-public class NamespacedJsonLanguageFileModel : LanguageFileModelBase
+public class StructuredJsonLanguageFileModel(Dictionary<string, string> texts) : LanguageFileModelBase
 {
-    public NamespacedJsonLanguageFileModel()
-    {
-    }
+    public Dictionary<string, string> Texts { get; set; } = texts;
+}
 
-    public NamespacedJsonLanguageFileModel(Dictionary<string, string> texts)
-    {
-        Texts = texts;
-    }
-
-    public Dictionary<string, string> Texts { get; set; } = new();
+public class PlainJsonLanguageFileModel(Dictionary<string, string> texts) : LanguageFileModelBase
+{
+    public Dictionary<string, string> Texts { get; set; } = texts;
 }
 
 public class LanguageFileModelBase

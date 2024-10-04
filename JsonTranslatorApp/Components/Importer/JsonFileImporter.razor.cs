@@ -1,9 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
-using JsonTranslatorApp.Infra.Extensions;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
-using JsonTranslatorApp.Services.IndexedDb;
+﻿using JsonTranslatorApp.Services.IndexedDb;
 using JsonTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;

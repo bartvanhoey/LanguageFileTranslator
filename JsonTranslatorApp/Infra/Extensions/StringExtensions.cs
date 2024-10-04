@@ -1,8 +1,9 @@
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using JsonTranslatorApp.Infra.Funcky.ResultClass;
-using JsonTranslatorApp.Infra.Funcky.ResultErrors;
 using JsonTranslatorApp.Models.Cultures;
 using JsonTranslatorApp.Models.JsonModels.AbpModel;
 using JsonTranslatorApp.Models.ValueObjects;
@@ -71,33 +72,50 @@ public static class StringExtensions
 
     public static Result<AbpLanguageFileResult> ConvertToAbpLanguageFileResult(this string? json, InfoCulture culture)
     {
+        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
         var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
-        if (abpModel?.texts.Count > 0 && abpModel.culture == culture.TwoLetterIso)
+        if (abpModel?.Texts.Count > 0 && abpModel.culture == culture.TwoLetterIso)
         {
-            var languageEntryItems = abpModel.texts
+            var languageEntryItems = abpModel.Texts
                 .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
             return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel));
         }
         return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
     }
     
-    
-    
-}
+    public static Result<StructuredJsonLanguageFileResult> ConvertToStructuredJsonLanguageFileResult(this string? json, InfoCulture culture)
+    {
+        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<StructuredJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+        var rootNode = JsonNode.Parse(json);
+        var firstNode = rootNode?[rootNode[0]?.GetPath().Replace("$.", "") ?? throw new InvalidOperationException()] as JsonObject;
+        var translations = firstNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
+        
+        if (translations.Count == 0)
+            return Fail<StructuredJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
+        
+        var languageEntryItems = translations.GetLanguageEntryItems();
 
-public class NamespacedJsonLanguageFileResult(List<LanguageEntryItem> languageEntryItems, InfoCulture culture, NamespacedJsonLanguageFileModel namespacedJsonModel)
-{
-    public List<LanguageEntryItem> LanguageEntryItems { get; } = languageEntryItems;
-    public InfoCulture Culture { get; } = culture;
-    public NamespacedJsonLanguageFileModel NamespacedJsonModel { get; } = namespacedJsonModel;
-}
+        var model = new StructuredJsonLanguageFileModel(translations);
 
-public class AbpLanguageFileResult(
-    List<LanguageEntryItem> languageEntryItems,
-    InfoCulture culture,
-    AbpLanguageFileModel abpModel)
-{
-    public List<LanguageEntryItem> LanguageEntryItems { get; } = languageEntryItems;
-    public InfoCulture Culture { get; } = culture;
-    public AbpLanguageFileModel AbpModel { get; } = abpModel;
+        return Ok(new StructuredJsonLanguageFileResult(languageEntryItems, culture, model));
+    }
+    
+
+    public static Result<PlainJsonLanguageFileResult> ConvertToPlainJsonLanguageFileResult(this string? json, InfoCulture culture)
+    {
+        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+        var rootNode = JsonNode.Parse(json) as JsonObject;
+        var translations = rootNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
+        
+        if (translations.Count == 0)
+            return Fail<PlainJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
+
+        var languageEntryItems = translations.GetLanguageEntryItems();
+
+        var model = new PlainJsonLanguageFileModel(translations);
+
+        return Ok(new PlainJsonLanguageFileResult(languageEntryItems, culture, model));
+    }
+
+    public static byte[] ToByteArray(this string text) => Encoding.ASCII.GetBytes(text);
 }

@@ -17,6 +17,7 @@ public static class ResultErrorFactory
     public static CultureShouldBeAtLeastTwoCharactersResultError CultureShouldBeAtLeastTwoCharacters => new();
     public static ExtensionIsNotAllowedResultError ExtensionIsNotAllowed => new();
     public static NoEntriesInImportFileResultError NoEntriesInImportFile => new();
+    public static CouldNotGetTranslationsFromJsonObjectResultError CouldNotGetTranslationsFromJsonObject => new();
 }
 
 public class GetInfoCultureResultError(Exception exception)
@@ -43,3 +44,4 @@ public class CultureShouldBeAtLeastTwoCharactersResultError : BaseResultError;
 public class ExtensionIsNotAllowedResultError : BaseResultError;
 
 public class NoEntriesInImportFileResultError : BaseResultError;
+public class CouldNotGetTranslationsFromJsonObjectResultError : BaseResultError;
