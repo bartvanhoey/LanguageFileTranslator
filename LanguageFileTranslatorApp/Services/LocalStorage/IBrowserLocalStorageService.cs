@@ -1,4 +1,4 @@
-﻿namespace JsonTranslatorApp.Services.LocalStorage;
+﻿namespace LanguageFileTranslatorApp.Services.LocalStorage;
 
 public interface IBrowserLocalStorageService
 {

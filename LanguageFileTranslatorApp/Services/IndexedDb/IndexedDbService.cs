@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 
-namespace JsonTranslatorApp.Services.IndexedDb;
+namespace LanguageFileTranslatorApp.Services.IndexedDb;
 
 public class IndexedDbService : IAsyncDisposable
 {

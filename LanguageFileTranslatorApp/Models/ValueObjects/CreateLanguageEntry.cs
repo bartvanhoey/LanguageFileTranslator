@@ -1,14 +1,14 @@
-﻿using JsonTranslatorApp.Infra.Extensions;
-using JsonTranslatorApp.Infra.Funcky.ResultClass;
-using JsonTranslatorApp.Infra.Funcky.ValueObjectClass;
-using JsonTranslatorApp.Models.Cultures;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
+﻿using LanguageFileTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultClass;
+using LanguageFileTranslatorApp.Infra.Funcky.ValueObjectClass;
+using LanguageFileTranslatorApp.Models.Cultures;
+using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 using static System.IO.Path;
-using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
-using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultClass.Result;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace JsonTranslatorApp.Models.ValueObjects;
+namespace LanguageFileTranslatorApp.Models.ValueObjects;
 
 public class LanguageEntry : ValueObject<LanguageEntry>
 {

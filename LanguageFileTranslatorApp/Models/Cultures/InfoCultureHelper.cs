@@ -1,11 +1,11 @@
-﻿using JsonTranslatorApp.Infra.Extensions;
-using JsonTranslatorApp.Infra.Funcky.ResultClass;
-using JsonTranslatorApp.Infra.Funcky.ResultErrors;
+﻿using LanguageFileTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultClass;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
 using static System.StringComparison;
-using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
-using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultClass.Result;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
-namespace JsonTranslatorApp.Models.Cultures;
+namespace LanguageFileTranslatorApp.Models.Cultures;
 
 public static class InfoCultureHelper
 {

@@ -1,4 +1,4 @@
-namespace JsonTranslatorApp.Models.ValueObjects;
+namespace LanguageFileTranslatorApp.Models.ValueObjects;
 
 public class LanguageEntryItem
 {

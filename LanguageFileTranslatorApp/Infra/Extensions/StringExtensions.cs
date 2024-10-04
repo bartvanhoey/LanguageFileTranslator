@@ -3,15 +3,15 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
-using JsonTranslatorApp.Infra.Funcky.ResultClass;
-using JsonTranslatorApp.Models.Cultures;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
-using JsonTranslatorApp.Models.ValueObjects;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultClass;
+using LanguageFileTranslatorApp.Models.Cultures;
+using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
+using LanguageFileTranslatorApp.Models.ValueObjects;
 using static System.Text.Json.JsonDocument;
-using static JsonTranslatorApp.Infra.Funcky.ResultClass.Result;
-using static JsonTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultClass.Result;
+using static LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.ResultErrorFactory;
 
-namespace JsonTranslatorApp.Infra.Extensions;
+namespace LanguageFileTranslatorApp.Infra.Extensions;
 
 public static class StringExtensions
 {

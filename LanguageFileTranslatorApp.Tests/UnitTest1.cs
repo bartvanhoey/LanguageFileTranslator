@@ -1,10 +1,10 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentAssertions;
-using JsonTranslatorApp.Infra.Extensions;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
+using LanguageFileTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 
-namespace JsonTranslatorApp.Tests
+namespace LanguageFileTranslatorApp.Tests
 {
     public class UnitTest1
     {

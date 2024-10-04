@@ -1,6 +1,6 @@
-using JsonTranslatorApp.Models.ValueObjects;
+using LanguageFileTranslatorApp.Models.ValueObjects;
 
-namespace JsonTranslatorApp.Infra.Extensions;
+namespace LanguageFileTranslatorApp.Infra.Extensions;
 
 public static class DictionaryExtensions
 {

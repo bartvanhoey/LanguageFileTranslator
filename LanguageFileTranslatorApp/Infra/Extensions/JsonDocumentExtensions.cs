@@ -1,4 +1,4 @@
-namespace JsonTranslatorApp.Infra.Extensions;
+namespace LanguageFileTranslatorApp.Infra.Extensions;
 
 public static class JsonDocumentExtensions
 {

@@ -1,8 +1,8 @@
-using JsonTranslatorApp.Models.Cultures;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
-using JsonTranslatorApp.Models.ValueObjects;
+using LanguageFileTranslatorApp.Models.Cultures;
+using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
+using LanguageFileTranslatorApp.Models.ValueObjects;
 
-namespace JsonTranslatorApp.Infra.Extensions;
+namespace LanguageFileTranslatorApp.Infra.Extensions;
 
 public class PlainJsonLanguageFileResult(List<LanguageEntryItem> languageEntryItems, InfoCulture culture, PlainJsonLanguageFileModel plainJsonModel)
 {

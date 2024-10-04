@@ -2,7 +2,7 @@ using static System.Text.Encoding;
 using static System.Text.Json.JsonSerializer;
 
 
-namespace JsonTranslatorApp.Infra.Extensions;
+namespace LanguageFileTranslatorApp.Infra.Extensions;
 
 public static class ByteArrayExtensions
 {

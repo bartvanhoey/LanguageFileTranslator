@@ -1,4 +1,4 @@
-﻿namespace JsonTranslatorApp.ApplicationConsts;
+﻿namespace LanguageFileTranslatorApp.ApplicationConsts;
 
 public static class AppConsts
 {

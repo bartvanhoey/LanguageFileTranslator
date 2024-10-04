@@ -1,7 +1,7 @@
-﻿using JsonTranslatorApp.Services.IndexedDb;
-using JsonTranslatorApp.Services.LocalStorage;
+﻿using LanguageFileTranslatorApp.Services.IndexedDb;
+using LanguageFileTranslatorApp.Services.LocalStorage;
 
-namespace JsonTranslatorApp.Services;
+namespace LanguageFileTranslatorApp.Services;
 
 public static class ServicesRegistration
 {

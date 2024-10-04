@@ -1,9 +1,9 @@
 using Blazored.LocalStorage;
-using JsonTranslatorApp.ApplicationConsts;
-using JsonTranslatorApp.Infra.Extensions;
-using static JsonTranslatorApp.ApplicationConsts.AppConsts;
+using LanguageFileTranslatorApp.ApplicationConsts;
+using LanguageFileTranslatorApp.Infra.Extensions;
+using static LanguageFileTranslatorApp.ApplicationConsts.AppConsts;
 
-namespace JsonTranslatorApp.Services.LocalStorage;
+namespace LanguageFileTranslatorApp.Services.LocalStorage;
 
 public class BrowserLocalStorageService(ILocalStorageService localStorage) : IBrowserLocalStorageService
 {

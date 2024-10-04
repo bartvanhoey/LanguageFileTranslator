@@ -1,11 +1,11 @@
-﻿using JsonTranslatorApp.Services.IndexedDb;
-using JsonTranslatorApp.Services.LocalStorage;
+﻿using LanguageFileTranslatorApp.Services.IndexedDb;
+using LanguageFileTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using static JsonTranslatorApp.Models.ValueObjects.LanguageEntry;
+using static LanguageFileTranslatorApp.Models.ValueObjects.LanguageEntry;
 
-namespace JsonTranslatorApp.Components.Importer;
+namespace LanguageFileTranslatorApp.Components.Importer;
 
 public class JsonFileImporterBase : ComponentBase
 {

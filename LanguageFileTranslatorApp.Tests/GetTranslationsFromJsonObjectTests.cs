@@ -1,10 +1,10 @@
 using System.Text.Json.Nodes;
 using FluentAssertions;
-using JsonTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Infra.Extensions;
 using static System.Text.Json.Nodes.JsonNode;
-using static JsonTranslatorApp.Tests.TestConstants;
+using static LanguageFileTranslatorApp.Tests.TestConstants;
 
-namespace JsonTranslatorApp.Tests;
+namespace LanguageFileTranslatorApp.Tests;
 
 public class GetTranslationsFromJsonObjectTests
 {

@@ -1,4 +1,4 @@
-﻿namespace JsonTranslatorApp.Models.Cultures;
+﻿namespace LanguageFileTranslatorApp.Models.Cultures;
 
 public class InfoCulture(
     string englishName,

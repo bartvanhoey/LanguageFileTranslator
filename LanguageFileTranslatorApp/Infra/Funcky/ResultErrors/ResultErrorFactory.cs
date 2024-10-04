@@ -1,6 +1,6 @@
-using JsonTranslatorApp.Infra.Funcky.ResultErrors.Errors;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.Errors;
 
-namespace JsonTranslatorApp.Infra.Funcky.ResultErrors;
+namespace LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
 
 public static class ResultErrorFactory
 {

@@ -1,6 +1,6 @@
-using JsonTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Infra.Extensions;
 
-namespace JsonTranslatorApp.Infra.Funcky.ResultErrors;
+namespace LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
 
 public abstract class BaseResultError
 {

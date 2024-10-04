@@ -1,4 +1,4 @@
-namespace JsonTranslatorApp.Tests;
+namespace LanguageFileTranslatorApp.Tests;
 
 public static class TestConstants
 {

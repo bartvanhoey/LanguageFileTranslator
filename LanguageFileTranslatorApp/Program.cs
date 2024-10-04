@@ -1,8 +1,9 @@
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using JsonTranslatorApp;
-using JsonTranslatorApp.Services;
+using LanguageFileTranslatorApp;
+using LanguageFileTranslatorApp.Services;
+using LanguageFileTranslatorApp;
 
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

@@ -1,10 +1,10 @@
 using FluentAssertions;
-using JsonTranslatorApp.Models.JsonModels.AbpModel;
-using JsonTranslatorApp.Models.ValueObjects;
-using static JsonTranslatorApp.Tests.TestConstants;
+using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
+using LanguageFileTranslatorApp.Models.ValueObjects;
+using static LanguageFileTranslatorApp.Tests.TestConstants;
 
 
-namespace JsonTranslatorApp.Tests.CreateLanguageEntry;
+namespace LanguageFileTranslatorApp.Tests.CreateLanguageEntry;
 
 public class AbpJsonCreateLanguageEntryTests
 {

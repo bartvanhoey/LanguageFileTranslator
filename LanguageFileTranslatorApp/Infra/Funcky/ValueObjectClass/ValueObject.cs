@@ -1,4 +1,4 @@
-namespace JsonTranslatorApp.Infra.Funcky.ValueObjectClass;
+namespace LanguageFileTranslatorApp.Infra.Funcky.ValueObjectClass;
 
 // Copyright (c) 2015 Vladimir Khorikov
 //

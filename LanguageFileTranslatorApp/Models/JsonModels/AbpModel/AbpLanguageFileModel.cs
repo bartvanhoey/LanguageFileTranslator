@@ -1,6 +1,6 @@
-using JsonTranslatorApp.Infra.Extensions;
+using LanguageFileTranslatorApp.Infra.Extensions;
 
-namespace JsonTranslatorApp.Models.JsonModels.AbpModel;
+namespace LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 
 public class AbpLanguageFileModel : LanguageFileModelBase
 {

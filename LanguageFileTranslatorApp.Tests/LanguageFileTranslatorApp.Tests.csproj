@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JsonTranslatorApp\JsonTranslatorApp.csproj" />
+    <ProjectReference Include="..\LanguageFileTranslatorApp\LanguageFileTranslatorApp.csproj" />
   </ItemGroup>
 
 </Project>
