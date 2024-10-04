@@ -1,17 +1,18 @@
+using LanguageFileTranslatorApp.Models.ValueObjects;
 using Microsoft.JSInterop;
 
 namespace LanguageFileTranslatorApp.Services.IndexedDb;
 
 public interface IIndexedDbService
 {
-     Task InsertTranslationInDb<T>(string culture, string key, string value);
-} 
-public class IndexedDbService : IIndexedDbService, IAsyncDisposable
+    Task InitializeAsync();
+    // Task InsertTranslationAsync<T>(string culture, string key, string value);
+    Task InsertTranslationsAsync<T>(LanguageFile languageFile);
+}
+
+public class IndexedDbService(IJSRuntime jsRuntime) : IIndexedDbService, IAsyncDisposable
 {
     private Lazy<IJSObjectReference> _accessorJsRef = new();
-    private readonly IJSRuntime _jsRuntime;
-
-    public IndexedDbService(IJSRuntime jsRuntime) => _jsRuntime = jsRuntime;
 
     public async Task InitializeAsync()
     {
@@ -25,7 +26,7 @@ public class IndexedDbService : IIndexedDbService, IAsyncDisposable
         var result = await _accessorJsRef.Value.InvokeAsync<T>("get", collectionName, id);
         return result;
     }
-    
+
     public async Task<T> GetAllAsync<T>(string collectionName, string jsonFileName)
     {
         await WaitForReference();
@@ -34,7 +35,7 @@ public class IndexedDbService : IIndexedDbService, IAsyncDisposable
         return result;
     }
 
-    public async Task SetValueAsync<T>(string collectionName, T value)
+    private async Task SetValueAsync<T>(string collectionName, T value)
     {
         await WaitForReference();
         await _accessorJsRef.Value.InvokeVoidAsync("set", collectionName, value);
@@ -42,8 +43,9 @@ public class IndexedDbService : IIndexedDbService, IAsyncDisposable
 
     private async Task WaitForReference()
     {
-        if (_accessorJsRef.IsValueCreated is false) 
-            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js"));
+        if (_accessorJsRef.IsValueCreated is false)
+            _accessorJsRef =
+                new(await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js"));
     }
 
     public async ValueTask DisposeAsync()
@@ -51,8 +53,16 @@ public class IndexedDbService : IIndexedDbService, IAsyncDisposable
         if (_accessorJsRef.IsValueCreated) await _accessorJsRef.Value.DisposeAsync();
     }
 
-    public async Task InsertTranslationInDb<T>(string culture, string key, string value)
+    // public async Task InsertTranslationAsync<T>(string culture, string key, string value)
+    //     => await SetValueAsync("translations",
+    //         new { Id = $"{culture}#{key}", Key = key, Culture = culture, Name = value });
+
+    public async Task InsertTranslationsAsync<T>(LanguageFile languageFile)
     {
-        await SetValueAsync("translations", new { Id = $"{culture}#{key}", Name = value});
+        var culture = languageFile.Culture.Name;
+        
+        foreach (var (key, value) in languageFile.Model.Items)
+            await SetValueAsync("translations",
+                new { Id = $"{culture}#{key}", Key = key, Culture = culture, Name = value });
     }
 }

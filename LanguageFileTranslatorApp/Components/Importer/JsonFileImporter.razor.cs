@@ -22,7 +22,7 @@ public class
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
-    [Inject] private IIndexedDbService? IndexedDbSvc { get; set; }
+    [Inject] private IIndexedDbService? Db { get; set; }
 
     protected async Task FileChangeAsync(InputFileChangeEventArgs e)
     {
@@ -41,10 +41,8 @@ public class
         {
             Status = DefaultStatus;
             ImportMessage = null;
-            if (IndexedDbSvc == null) return;
-
-            foreach (var (key, value) in languageFile.Value.Model.Items)
-                await IndexedDbSvc.InsertTranslationInDb<string>(languageFile.Value.Culture.TwoLetterIso, key, value);
+            if (Db == null) return;
+            await Db.InsertTranslationsAsync<string>(languageFile.Value);
         }
         else
             ImportMessage = $"Error: {languageFile.Error?.Message ?? "Import NOT successful"}";
@@ -60,31 +58,31 @@ public class
             // Load the JS file
             DropZoneModule = await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/dropZone.js");
 
-            try
-            {
-                IndexedDbServiceModule =
-                    await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            // try
+            // {
+            //     IndexedDbServiceModule =
+            //         await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js");
+            // }
+            // catch (Exception e)
+            // {
+            //     Console.WriteLine(e);
+            //     throw;
+            // }
 
             // Initialize the drop zone
             DropZoneInstance =
                 await DropZoneModule.InvokeAsync<IJSObjectReference>("initializeFileDropZone", DropZoneElement,
                     InputFile!.Element);
 
-            try
-            {
-                await IndexedDbServiceModule.InvokeVoidAsync("initialize");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            // try
+            // {
+            //     await IndexedDbServiceModule.InvokeVoidAsync("initialize");
+            // }
+            // catch (Exception e)
+            // {
+            //     Console.WriteLine(e);
+            //     throw;
+            // }
         }
     }
 
