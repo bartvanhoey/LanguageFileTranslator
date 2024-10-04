@@ -1,11 +1,11 @@
 {
   "mainAssemblyName": "LanguageFileTranslatorApp",
   "resources": {
-    "hash": "sha256-+XDDgfo4uJBQn7zPgwFwU+6LG7lJ/PCBo2xFevJdlSc=",
+    "hash": "sha256-t2ykxSrMD3//hqEVpo//aDXmEeyifrfQF9dsxXf+4cY=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "JetBrains.Annotations.75veoqxomf.wasm": "JetBrains.Annotations.wasm",
-      "LanguageFileTranslatorApp.ezr3dextwp.wasm": "LanguageFileTranslatorApp.wasm",
+      "LanguageFileTranslatorApp.2x336lattc.wasm": "LanguageFileTranslatorApp.wasm",
       "Microsoft.AspNetCore.Components.rz6lwpu5gc.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
@@ -13,7 +13,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions.9egjw13m6v.wasm": "Microsoft.Extensions.Configuration.FileExtensions.wasm",
       "Microsoft.Extensions.Configuration.Json.wp0mzg5a2w.wasm": "Microsoft.Extensions.Configuration.Json.wasm",
       "Microsoft.Extensions.Configuration.q0vfeqgy49.wasm": "Microsoft.Extensions.Configuration.wasm",
-      "Microsoft.Extensions.DependencyInjection.Abstractions.hl89w5mwa6.wasm": "Microsoft.Extensions.DependencyInjection.Abstractions.wasm",
+      "Microsoft.Extensions.DependencyInjection.Abstractions.pfv0oyi8se.wasm": "Microsoft.Extensions.DependencyInjection.Abstractions.wasm",
       "Microsoft.Extensions.DependencyInjection.p0lak51igt.wasm": "Microsoft.Extensions.DependencyInjection.wasm",
       "Microsoft.Extensions.FileProviders.Abstractions.ik8tjtuunz.wasm": "Microsoft.Extensions.FileProviders.Abstractions.wasm",
       "Microsoft.Extensions.FileProviders.Physical.0mjc3e3c8g.wasm": "Microsoft.Extensions.FileProviders.Physical.wasm",
@@ -77,7 +77,7 @@
     "assembly": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "JetBrains.Annotations.75veoqxomf.wasm": "sha256-K2Wvsx9NvmtkU4V07OCHCR0wmY6uNAnSuHp+KN2yAwc=",
-      "LanguageFileTranslatorApp.ezr3dextwp.wasm": "sha256-ltoI1CA2QnPjiy5OONZOOMsrtihudv7A4KA6GrakVaw=",
+      "LanguageFileTranslatorApp.2x336lattc.wasm": "sha256-aq9z5yL8NEaPxzjSFtBfA52v1WhxDBLNcSomkh+X8V0=",
       "Microsoft.AspNetCore.Components.rz6lwpu5gc.wasm": "sha256-p1qYWrnyVf4rMjY70Ar5jB8BAcQsVQ4SwECbJzrVjFw=",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "sha256-e6NYhsj8eyJ1xkOGNY+n8smq4qdDYzh6A1KGIaH57X4=",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "sha256-wqN95Lh/pnVkqk+dI3ZqbE5P7IdTODTrkrYVdMm5ViI=",
@@ -85,7 +85,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions.9egjw13m6v.wasm": "sha256-P7JqI4xNIvLXRyszZZ+sgn49azkqo9B1U0UYy5OyYs4=",
       "Microsoft.Extensions.Configuration.Json.wp0mzg5a2w.wasm": "sha256-3D9JIcKCrX/w6+4jFQ8q9N/67OPnjpLLNIEFN22xVSY=",
       "Microsoft.Extensions.Configuration.q0vfeqgy49.wasm": "sha256-ykA0KZ0JrE4ZtKEg8fgvq/wsCuLKkZmwiVwgA3Ydt6c=",
-      "Microsoft.Extensions.DependencyInjection.Abstractions.hl89w5mwa6.wasm": "sha256-xUfV/BvVCp4B9E+6AQxK2VTdYg3FBUkzgKzgrMq4N9U=",
+      "Microsoft.Extensions.DependencyInjection.Abstractions.pfv0oyi8se.wasm": "sha256-22CpaX3eLYa7FVgM7NU/tco9Kz2NLDphUTm19IL0aFU=",
       "Microsoft.Extensions.DependencyInjection.p0lak51igt.wasm": "sha256-Fx8PCZC8Hf7hAImnq6oOpMXcz/p4nQ1AyyS8feAn3BU=",
       "Microsoft.Extensions.FileProviders.Abstractions.ik8tjtuunz.wasm": "sha256-XkiN+nwEj7Xe6j7gsH0Q4mHyupK6VJuvC7tRKSv2xBk=",
       "Microsoft.Extensions.FileProviders.Physical.0mjc3e3c8g.wasm": "sha256-uAZVYqVtDXOclUTIFSV8ibAkoaOOI/qUnJmhQXg8ppw=",

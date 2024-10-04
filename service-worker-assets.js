@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-93qHgSaHagh1E8ovue3PhE0K6PgWgFKL2T1NGN\/GzEg=",
-      "url": "_framework\/LanguageFileTranslatorApp.ezr3dextwp.wasm.br"
+      "hash": "sha256-QgP9LIuggqudIoaeEHzPMfdftxz5Orap8FtjqSE3dUE=",
+      "url": "_framework\/LanguageFileTranslatorApp.2x336lattc.wasm.br"
     },
     {
       "hash": "sha256-hwfM5kF\/Zs+tZNo454rrQzFUBVyFh\/VpIz9dTM3WrEU=",
@@ -45,8 +45,8 @@
       "url": "_framework\/Microsoft.Extensions.Configuration.q0vfeqgy49.wasm.br"
     },
     {
-      "hash": "sha256-DrZupY9LKv7uMRlHFZBaQFGSYKjXnjlvLAB9HwPFzbM=",
-      "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.hl89w5mwa6.wasm.br"
+      "hash": "sha256-iKwNsIOxZgbnidTD28At0vKnr6aVEkqUNY1n3biT+LM=",
+      "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.pfv0oyi8se.wasm.br"
     },
     {
       "hash": "sha256-LIUm5B2ZOP7+\/9Q91HluMw\/gPKC1qdCIU\/uuNQ7vg6A=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.zaomlvk0ko.wasm.br"
     },
     {
-      "hash": "sha256-wPrspmcZ0GF4V+lt0uRQjHpaozdNLyIzLydQaQkj5ls=",
+      "hash": "sha256-MCVmqG6OT2MRBUd8Yagc8sRrDdJn\/ED7N2GoJO+1fw0=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -297,5 +297,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "ZJCkd5ZH"
+  "version": "quF\/2DMa"
 };
