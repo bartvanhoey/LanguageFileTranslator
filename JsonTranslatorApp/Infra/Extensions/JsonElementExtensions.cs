@@ -31,9 +31,37 @@ public static class JsonElementExtensions
             }
             else
             {
-                var key = (jsonObject[i]?.AsValue().GetPath() ?? throw new InvalidOperationException()).Replace("$.","");
-                var value = jsonObject[i]?.AsValue().GetValue<string>() ?? throw new InvalidOperationException();
-                translations.TryAdd(key, value);
+                if (jsonObject[i] is JsonValue)
+                {
+                    var key = (jsonObject[i]?.AsValue().GetPath() ?? throw new ArgumentException()).Replace("$.","");
+                    var value = jsonObject[i]?.AsValue().GetValue<string>() ?? throw new InvalidOperationException();
+                    if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value)) continue;
+                    translations.TryAdd(key, value);    
+                }
+                else if(jsonObject[i] is JsonArray)
+                {
+                    var jsonArray = jsonObject[i] as JsonArray;
+                    if (jsonArray == null) continue;
+                    foreach (var arrayItem in jsonArray)
+                    {
+                        if (arrayItem == null) continue;
+                        if (arrayItem is JsonObject childJsonObject)
+                        {
+                            if (childJsonObject?.Count == 0) continue;
+                            foreach (var path in (childJsonObject?.GetTranslationsFromJsonObject(translations) ?? []).Where(x => !translations.Contains(x))) 
+                                translations.Add(path.Key, path.Value);
+                        }
+                        else
+                        {
+                            var key = (arrayItem.AsValue().GetPath() ?? throw new ArgumentException()).Replace("$.","");
+                            var value = arrayItem.AsValue().GetValue<string>() ?? throw new InvalidOperationException();
+                            if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value)) continue;
+                            translations.TryAdd(key, value);    
+                        }
+                    }
+                }
+                
+                
             }
         }
         return translations;
