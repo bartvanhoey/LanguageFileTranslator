@@ -24,7 +24,7 @@ public class LanguageFile : ValueObject<LanguageFile>
         Extension = GetExtension(fileFileName);
         FileName = fileFileName;
         Model = abpLanguageFile.AbpModel;
-        Model.Items = abpLanguageFile.AbpModel.Texts;
+        Model.LanguageEntryItems = abpLanguageFile.AbpModel.Texts.Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
 
     }
 
@@ -34,7 +34,7 @@ public class LanguageFile : ValueObject<LanguageFile>
         Extension = GetExtension(fileFileName);
         FileName = fileFileName; 
         Model = structuredJsonLanguageFile.StructuredJsonModel;
-        Model.Items = structuredJsonLanguageFile.StructuredJsonModel.Texts;
+        Model.LanguageEntryItems = structuredJsonLanguageFile.StructuredJsonModel.Texts.Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();;
     }
 
     private LanguageFile(InfoCulture culture, string fileFileName, PlainJsonLanguageFileResult plainJsonLanguageFile)
@@ -43,7 +43,7 @@ public class LanguageFile : ValueObject<LanguageFile>
         Extension = GetExtension(fileFileName);
         FileName = fileFileName; 
         Model = plainJsonLanguageFile.PlainJsonModel;
-        Model.Items = plainJsonLanguageFile.PlainJsonModel.Texts;
+        Model.LanguageEntryItems = plainJsonLanguageFile.PlainJsonModel.Texts.Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();;
     }
 
 

@@ -22,7 +22,7 @@ public class
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
-    [Inject] private IIndexedDbService? Db { get; set; }
+    [Inject] private ILanguageEntryDbService? Db { get; set; }
 
     protected async Task FileChangeAsync(InputFileChangeEventArgs e)
     {

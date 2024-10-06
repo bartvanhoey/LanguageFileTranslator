@@ -1,6 +1,8 @@
-﻿namespace LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
+﻿using LanguageFileTranslatorApp.Models.ValueObjects;
+
+namespace LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 
 public class LanguageFileModelBase
 {
-    public Dictionary<string, string> Items { get; set; } = [];
+    public List<LanguageEntryItem> LanguageEntryItems { get; set; } = [];
 }

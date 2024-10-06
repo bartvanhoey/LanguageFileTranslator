@@ -1,6 +1,6 @@
 ﻿@using LanguageFileTranslatorApp.Services.IndexedDb
 
-@inject IIndexedDbService IndexedDbService
+@inject ILanguageEntryDbService LanguageEntryDbService
 
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
@@ -20,7 +20,7 @@
     {
         if (firstRender)
         {
-            await IndexedDbService.InitializeAsync();
+            await LanguageEntryDbService.InitializeAsync();
         }
     }
 }

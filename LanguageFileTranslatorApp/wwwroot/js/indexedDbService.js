@@ -1,76 +1,72 @@
-﻿export function initialize()
-{
-    let jsonTranslatorIndexedDb = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-    jsonTranslatorIndexedDb.onupgradeneeded = function ()
-    {
+﻿export function initialize() {
+    let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    openDBRequest.onupgradeneeded = function () {
         alert("i am here")
-        let db = jsonTranslatorIndexedDb.result;
-        db.createObjectStore("books", { keyPath: "id" });
-        const languageEntries = db.createObjectStore("languageEntries", { keyPath: "id" });
-        const translations = db.createObjectStore("translations", { keyPath: "id" });
-        // languageEntries.createIndex("json_file_name_db",["jsonfilename"],{unique: false})
+        let db = openDBRequest.result;
+        // db.createObjectStore("books", {keyPath: "id"});
+        const languageEntries = db.createObjectStore("languageEntries", {keyPath: "id"});
+        languageEntries.createIndex("languageEntriesKeyIndex",["key"],{unique: false})
+        
+        // const translations = db.createObjectStore("translations", {keyPath: "id"});
     }
 }
 
-export function set(collectionName, value)
-{
-    let jsonTranslatorIndexedDb = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-
-    jsonTranslatorIndexedDb.onsuccess = function ()
-    {
-        let transaction = jsonTranslatorIndexedDb.result.transaction(collectionName, "readwrite");
-        let collection = transaction.objectStore(collectionName)
-        collection.put(value);
+export function set(collectionName, value) {
+    let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    openDBRequest.onsuccess = function () {
+        let transaction = openDBRequest.result.transaction(collectionName, "readwrite");
+        let objectStore = transaction.objectStore(collectionName)
+        objectStore.put(value);
     }
 }
 
-export async function get(collectionName, id)
-{
-    let request = new Promise((resolve) =>
-    {
-        let jsonTranslatorIndexedDb = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        jsonTranslatorIndexedDb.onsuccess = function ()
-        {
-            let transaction = jsonTranslatorIndexedDb.result.transaction(collectionName, "readonly");
-            let collection = transaction.objectStore(collectionName);
-            let result = collection.get(id);
+export async function get(collectionName, id) {
+    let promise = new Promise((resolve) => {
+        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openDBRequest.onsuccess = function () {
+            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+            let request = objectStore.get(id);
 
-            result.onsuccess = function (e)
-            {
-                resolve(result.result);
+            request.onsuccess = function (e) {
+                console.log(request.result)
+                resolve(request.result);
+            }
+
+            request.onerror = function (e) {
+                console.log(request.result)
             }
         }
     });
 
-    let result = await request;
-
-    return result;
+    return await promise;
 }
 
-export async function getAll(collectionName, jsonFileName)
-{
-    let request = new Promise((resolve) =>
-    {
-        let jsonTranslatorIndexedDb = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        jsonTranslatorIndexedDb.onsuccess = function ()
-        {
-            let transaction = jsonTranslatorIndexedDb.result.transaction(collectionName, "readonly");
-            let store = transaction.objectStore(collectionName);
-            const jsonFileNameIndex = store.index("json_file_name_db") 
-            // let result = store.get("json_file_name_db");
-
-            const query = jsonFileNameIndex.getAll([jsonFileName])
+export async function getAll(collectionName, key) {
+    let promise = new Promise((resolve) => {
+        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openDBRequest.onsuccess = function () {
+            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
             
-            query.onsuccess = function (e)
-            {
-                resolve(query.result);
+            var all = objectStore.getAll();
+            all.onsuccess = () =>{
+                console.log(all.result)
+            }
+            
+            const index = objectStore.index("languageEntriesKeyIndex")
+            const request = index.getAll([key])
+            request.onsuccess = function (e) {
+                console.log(request.result)
+                resolve(request.result);
+            }
+
+            request.onerror = function (e) {
+                console.log('error: ' +  request.result)
             }
         }
     });
-
-    let result = await request;
-
-    return result;
+    return await promise;
 }
 
 let CURRENT_VERSION = 1;

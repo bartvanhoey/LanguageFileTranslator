@@ -74,13 +74,12 @@ public static class StringExtensions
     {
         if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
         var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
-        if (abpModel?.Texts.Count > 0 && abpModel.Culture == culture.TwoLetterIso)
-        {
-            var languageEntryItems = abpModel.Texts
-                .Select((x, i) => new LanguageEntryItem { Key = x.Key, Value = x.Value, Id = i }).ToList();
-            return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel));
-        }
-        return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
+        if (abpModel?.Texts.Count == 0 || abpModel?.Culture != culture.Name)
+            return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
+        
+        var languageEntryItems = abpModel.Texts
+            .Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
+        return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel));
     }
     
     public static Result<StructuredJsonLanguageFileResult> ConvertToStructuredJsonLanguageFileResult(this string? json, InfoCulture culture)
@@ -93,7 +92,7 @@ public static class StringExtensions
         if (translations.Count == 0)
             return Fail<StructuredJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
         
-        var languageEntryItems = translations.GetLanguageEntryItems();
+        var languageEntryItems = translations.GetLanguageEntryItems(culture);
 
         var model = new StructuredJsonLanguageFileModel(translations);
 
@@ -110,7 +109,7 @@ public static class StringExtensions
         if (translations.Count == 0)
             return Fail<PlainJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
 
-        var languageEntryItems = translations.GetLanguageEntryItems();
+        var languageEntryItems = translations.GetLanguageEntryItems(culture);
 
         var model = new PlainJsonLanguageFileModel(translations);
 
