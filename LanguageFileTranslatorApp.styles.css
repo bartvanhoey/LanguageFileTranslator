@@ -31,6 +31,7 @@ button.close[b-y21xpdip9e] {
 .fade.show[b-y21xpdip9e] {
   opacity: 1;
 }
+/* /Components/Navigator/Navigator.razor.rz.scp.css */
 /* /Layout/MainLayout.razor.rz.scp.css */
 .page[b-lpmaf0sga2] {
     position: relative;
@@ -180,3 +181,4 @@ main[b-lpmaf0sga2] {
         overflow-y: auto;
     }
 }
+/* /Pages/Translate.razor.rz.scp.css */
