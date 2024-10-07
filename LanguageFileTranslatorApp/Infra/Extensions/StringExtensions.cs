@@ -148,22 +148,52 @@ public static class StringExtensions
 
     public static Result<PlainJsonLanguageFileResult> ConvertToPlainJsonLanguageFileResult(this string? json, InfoCulture culture)
     {
-        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+        try
+        {
+            if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
 
-        var jsonArray = JsonArray.Parse(json);
-
-        var rootNode = JsonNode.Parse(json) as JsonObject;
-        var translations = rootNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
+            var rootNode = JsonNode.Parse(json) as JsonObject;
+            var translations = rootNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
         
-        if (translations.Count == 0)
-            return Fail<PlainJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
+            if (translations.Count == 0)
+                return Fail<PlainJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
 
-        var languageEntryItems = translations.GetLanguageEntryItems(culture);
+            var languageEntryItems = translations.GetLanguageEntryItems(culture);
 
-        var model = new PlainJsonLanguageFileModel(translations);
+            var model = new PlainJsonLanguageFileModel(translations);
 
-        return Ok(new PlainJsonLanguageFileResult(languageEntryItems, culture, model));
+            return Ok(new PlainJsonLanguageFileResult(languageEntryItems, culture, model));
+        }
+        catch (Exception)
+        {
+            return Fail<PlainJsonLanguageFileResult>(NoPlainJsonLanguageFile);
+        }
     }
+    
+    public static Result<GrawLanguageFileResult> ConvertToGrawLanguageFileResult(this byte[] fileContent, InfoCulture culture)
+    {
+        try
+        {
+            var grawLanguageEntryItems = fileContent.ConvertTo<List<GrawLanguageEntryItem>>();
+            if (grawLanguageEntryItems == null || grawLanguageEntryItems.Count == 0) return Fail<GrawLanguageFileResult>(CouldNotGetGrawLanguageEntryItems);
+            var languageEntryItems = grawLanguageEntryItems.Select(x => new LanguageEntryItem(x.Name, x.Text, culture.Name, x.Id)).ToList();
+            var model = new GrawLanguageFileModel(languageEntryItems);
+            return Ok(new GrawLanguageFileResult(languageEntryItems, culture, model));
+        }
+        catch (Exception)
+        {
+            return Fail<GrawLanguageFileResult>(NoPlainJsonLanguageFile);
+        }
+    }
+    
 
     public static byte[] ToByteArray(this string text) => Encoding.ASCII.GetBytes(text);
+}
+
+public class GrawLanguageEntryItem
+{
+    public required string Name { get; set; }
+    public int Id { get; set; }
+    public required string Text { get; set; }
+    public int DepartmentId { get; set; }
 }

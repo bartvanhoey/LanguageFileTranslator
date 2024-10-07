@@ -45,6 +45,15 @@ public class LanguageFile : ValueObject<LanguageFile>
         Model = plainJsonLanguageFile.PlainJsonModel;
         Model.LanguageEntryItems = plainJsonLanguageFile.PlainJsonModel.Texts.Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();;
     }
+    
+    private LanguageFile(InfoCulture culture, string fileFileName, GrawLanguageFileResult plainJsonLanguageFile)
+    {
+        Culture = culture;
+        Extension = GetExtension(fileFileName);
+        FileName = fileFileName; 
+        Model = plainJsonLanguageFile.GrawLanguageFileModel;
+        Model.LanguageEntryItems = plainJsonLanguageFile.GrawLanguageFileModel.LanguageEntryItems;
+    }
 
 
     public static Result<LanguageFile> CreateLanguageFile(string? fileName, string json) 
@@ -77,7 +86,10 @@ public class LanguageFile : ValueObject<LanguageFile>
         if (structuredJsonFile.IsSuccess) return Ok(new LanguageFile(cultureResult.Value, fileName, structuredJsonFile.Value));
         
         var plainJsonFile =  json.ConvertToPlainJsonLanguageFileResult(cultureResult.Value);
-        return plainJsonFile.IsSuccess ? Ok(new LanguageFile(cultureResult.Value, fileName, plainJsonFile.Value)) : Fail<LanguageFile>(NoEntriesInImportFile);
+         if (plainJsonFile.IsSuccess) return Ok(new LanguageFile(cultureResult.Value, fileName, plainJsonFile.Value)); 
+        
+        var grawLanguageJsonFile =  fileContent.ConvertToGrawLanguageFileResult(cultureResult.Value);
+        return grawLanguageJsonFile.IsSuccess ? Ok(new LanguageFile(cultureResult.Value, fileName, grawLanguageJsonFile.Value)) : Fail<LanguageFile>(NoEntriesInImportFile);
     }
 
 
