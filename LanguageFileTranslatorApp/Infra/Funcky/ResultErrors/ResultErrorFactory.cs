@@ -6,7 +6,10 @@ public static class ResultErrorFactory
 {
     public static NameIsEmptyResultError NameIsEmpty => new();
     public static ContentIsEmptyResultError ContentIsEmpty => new();
+    public static JsonExceptionResultError JsonException => new();
+    public static CouldNotConvertJsonToAbpLanguageFileModelResultError CouldNotConvertJsonToAbpLanguageFileModel => new();
     public static NoAbpLanguageFileResultError NoAbpLanguageFile => new();
+    public static NoStructuredJsonFileResultError NoStructuredJsonFile => new();
     public static CultureIsNullResultError CultureIsNull => new();
     public static CulturesCountIsZeroResultError CulturesCountIsZero => new();
     public static ExtensionIsEmptyResultError ExtensionIsEmpty => new();
@@ -29,7 +32,10 @@ public class CouldNotParseJsonDocumentResultError(Exception exception)
     : BaseResultError(exception.Message);
 
 public class ContentIsEmptyResultError : BaseResultError;
+public class JsonExceptionResultError : BaseResultError;
+public class CouldNotConvertJsonToAbpLanguageFileModelResultError : BaseResultError;
 public class NoAbpLanguageFileResultError : BaseResultError;
+public class NoStructuredJsonFileResultError : BaseResultError;
 
 public class CultureIsNullResultError : BaseResultError;
 

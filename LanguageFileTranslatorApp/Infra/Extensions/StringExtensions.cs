@@ -4,6 +4,7 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using LanguageFileTranslatorApp.Infra.Funcky.ResultClass;
+using LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
 using LanguageFileTranslatorApp.Models.Cultures;
 using LanguageFileTranslatorApp.Models.JsonModels.AbpModel;
 using LanguageFileTranslatorApp.Models.ValueObjects;
@@ -40,17 +41,52 @@ public static class StringExtensions
     }
     
     public static T? ConvertTo<T>(this string jsonString) =>
-        jsonString switch
+                  jsonString switch
+                  {
+                      null => throw new ArgumentNullException($@"ConvertTo: You cannot convert a null string to a Type"),
+                      "[]" => default,
+                      _ => JsonSerializer.Deserialize<T>(jsonString,
+                          new JsonSerializerOptions
+                          {
+                              PropertyNameCaseInsensitive = true,
+                              
+                          })
+                  };
+
+    public static Result<AbpLanguageFileModel?>? ConvertToAbpLanguageFileModel(this string jsonString)
+    {
+        switch (jsonString)
         {
-            null => throw new ArgumentNullException($@"ConvertTo: You cannot convert a null string to a Type"),
-            "[]" => default,
-            _ => JsonSerializer.Deserialize<T>(jsonString,
+            case null:
+                throw new ArgumentNullException($"{nameof(ConvertToAbpLanguageFileModel)}: You cannot convert a null string to a Type");
+            case "[]":
+                return default;
+            default:
+            {
+                var result  = Deserialize(jsonString);
+                return result.IsSuccess ? result : Fail<AbpLanguageFileModel?>(CouldNotConvertJsonToAbpLanguageFileModel);
+            }
+        }
+    }
+
+    private static Result<AbpLanguageFileModel?> Deserialize(string jsonString)
+    {
+        try
+        {
+            var abpLanguageFileModel = JsonSerializer.Deserialize<AbpLanguageFileModel>(jsonString,
                 new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
                     
-                })
-        };
+                });
+            return Ok(abpLanguageFileModel) ;
+        }
+        catch (Exception)
+        {
+            return Fail<AbpLanguageFileModel>(ResultErrorFactory.JsonException);
+        }
+    }
+
 
     public static Result CheckIsValidJsonDocument(this string? json)
     {
@@ -73,36 +109,49 @@ public static class StringExtensions
     public static Result<AbpLanguageFileResult> ConvertToAbpLanguageFileResult(this string? json, InfoCulture culture)
     {
         if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
-        var abpModel = json?.ConvertTo<AbpLanguageFileModel>();
-        if (abpModel?.Texts.Count == 0 || abpModel?.Culture != culture.Name)
+        var abpModel = json?.ConvertToAbpLanguageFileModel();
+        
+        if (abpModel == null || abpModel.IsFailure) return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
+        
+        if (abpModel?.Value?.Texts.Count == 0 || abpModel?.Value?.Culture != culture.Name)
             return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
         
-        var languageEntryItems = abpModel.Texts
+        var languageEntryItems = abpModel.Value.Texts
             .Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
-        return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel));
+        return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel.Value));
     }
     
     public static Result<StructuredJsonLanguageFileResult> ConvertToStructuredJsonLanguageFileResult(this string? json, InfoCulture culture)
     {
-        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<StructuredJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
-        var rootNode = JsonNode.Parse(json);
-        var firstNode = rootNode?[rootNode[0]?.GetPath().Replace("$.", "") ?? throw new InvalidOperationException()] as JsonObject;
-        var translations = firstNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
+        try
+        {
+            if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<StructuredJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+            var rootNode = JsonNode.Parse(json);
+            var firstNode = rootNode?[rootNode[0]?.GetPath().Replace("$.", "") ?? throw new InvalidOperationException()] as JsonObject;
+            var translations = firstNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
         
-        if (translations.Count == 0)
-            return Fail<StructuredJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
+            if (translations.Count == 0)
+                return Fail<StructuredJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
         
-        var languageEntryItems = translations.GetLanguageEntryItems(culture);
+            var languageEntryItems = translations.GetLanguageEntryItems(culture);
 
-        var model = new StructuredJsonLanguageFileModel(translations);
+            var model = new StructuredJsonLanguageFileModel(translations);
 
-        return Ok(new StructuredJsonLanguageFileResult(languageEntryItems, culture, model));
+            return Ok(new StructuredJsonLanguageFileResult(languageEntryItems, culture, model));
+        }
+        catch (Exception)
+        {
+            return Fail<StructuredJsonLanguageFileResult>(NoStructuredJsonFile);
+        }
     }
     
 
     public static Result<PlainJsonLanguageFileResult> ConvertToPlainJsonLanguageFileResult(this string? json, InfoCulture culture)
     {
         if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+
+        var jsonArray = JsonArray.Parse(json);
+
         var rootNode = JsonNode.Parse(json) as JsonObject;
         var translations = rootNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
         
