@@ -10,12 +10,11 @@ namespace LanguageFileTranslatorApp.Components.Importer;
 public class
     JsonFileImporterBase : ComponentBase
 {
-    private const string DefaultStatus = "Drop a text file here to view it or click to choose a file";
+    private const string DefaultStatus = "Drop a json file here or click to choose a json file";
     protected ElementReference DropZoneElement;
-    protected IJSObjectReference? DropZoneInstance;
+    private IJSObjectReference? _dropZoneInstance;
     protected InputFile? InputFile;
-    protected IJSObjectReference? DropZoneModule;
-    protected IJSObjectReference? IndexedDbServiceModule;
+    private IJSObjectReference? _dropZoneModule;
     protected string Status = DefaultStatus;
     protected string? ImportMessage { get; private set; } = string.Empty;
     public bool ShowSpinner { get; set; }
@@ -55,45 +54,20 @@ public class
     {
         if (firstRender)
         {
-            // Load the JS file
-            DropZoneModule = await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/dropZone.js");
-
-            // try
-            // {
-            //     IndexedDbServiceModule =
-            //         await JsRuntime!.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js");
-            // }
-            // catch (Exception e)
-            // {
-            //     Console.WriteLine(e);
-            //     throw;
-            // }
-
-            // Initialize the drop zone
-            DropZoneInstance =
-                await DropZoneModule.InvokeAsync<IJSObjectReference>("initializeFileDropZone", DropZoneElement,
-                    InputFile!.Element);
-
-            // try
-            // {
-            //     await IndexedDbServiceModule.InvokeVoidAsync("initialize");
-            // }
-            // catch (Exception e)
-            // {
-            //     Console.WriteLine(e);
-            //     throw;
-            // }
+            if (JsRuntime != null) 
+                _dropZoneModule = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/dropZone.js");
+            
+            if (_dropZoneModule != null && InputFile != null)
+                    _dropZoneInstance = await _dropZoneModule.InvokeAsync<IJSObjectReference>("initializeFileDropZone", DropZoneElement, InputFile.Element);
         }
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (DropZoneInstance != null)
+        if (_dropZoneInstance != null)
         {
-            await DropZoneInstance.InvokeVoidAsync("dispose");
-            await DropZoneInstance.DisposeAsync();
+            await _dropZoneInstance.InvokeVoidAsync("dispose");
+            await _dropZoneInstance.DisposeAsync();
         }
-
-        if (IndexedDbServiceModule != null) await IndexedDbServiceModule.DisposeAsync();
     }
 }
