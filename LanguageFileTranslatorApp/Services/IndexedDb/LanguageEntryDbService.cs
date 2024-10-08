@@ -7,25 +7,25 @@ namespace LanguageFileTranslatorApp.Services.IndexedDb;
 public class LanguageEntryDbService(IJSRuntime jsRuntime) : ILanguageEntryDbService, IAsyncDisposable
 {
     private const string LanguageEntries = "languageEntries";
-    private Lazy<IJSObjectReference> _accessorJsRef = new();
+    private Lazy<IJSObjectReference> _js = new();
 
     public async Task InitializeAsync()
     {
         await WaitForReference();
-        await _accessorJsRef.Value.InvokeVoidAsync("initialize");
+        await _js.Value.InvokeVoidAsync("initialize");
     }
 
     public async Task<T> GetValueAsync<T>(string collectionName, string id)
     {
         await WaitForReference();
-        var result = await _accessorJsRef.Value.InvokeAsync<T>("get", collectionName, id);
+        var result = await _js.Value.InvokeAsync<T>("get", collectionName, id);
         return result;
     }
 
     public async Task<T> GetAllAsync<T>(string collectionName, string jsonFileName)
     {
         await WaitForReference();
-        var result = await _accessorJsRef.Value.InvokeAsync<T>("getAll", collectionName, jsonFileName);
+        var result = await _js.Value.InvokeAsync<T>("getAll", collectionName, jsonFileName);
 
         return result;
     }
@@ -33,19 +33,19 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime) : ILanguageEntryDbServ
     private async Task SetValueAsync<T>(string collectionName, T value)
     {
         await WaitForReference();
-        await _accessorJsRef.Value.InvokeVoidAsync("set", collectionName, value);
+        await _js.Value.InvokeVoidAsync("set", collectionName, value);
     }
 
     private async Task WaitForReference()
     {
-        if (_accessorJsRef.IsValueCreated is false)
-            _accessorJsRef =
+        if (_js.IsValueCreated is false)
+            _js =
                 new(await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js"));
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (_accessorJsRef.IsValueCreated) await _accessorJsRef.Value.DisposeAsync();
+        if (_js.IsValueCreated) await _js.Value.DisposeAsync();
     }
 
     public async Task InsertTranslationsAsync<T>(LanguageFile languageFile)
@@ -59,7 +59,10 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime) : ILanguageEntryDbServ
         await WaitForReference();
         try
         {
-            var result = await _accessorJsRef.Value.InvokeAsync<List<LanguageEntryItem>>("getAll", LanguageEntries, "LongWelcomeMessage");
+            // var result = await _js.Value.InvokeAsync<List<LanguageEntryItem>>("getAllByKey", LanguageEntries, "key1");
+            // var result = await _js.Value.InvokeAsync<List<LanguageEntryItem>>("getAll", LanguageEntries);
+            var resultFirst = await _js.Value.InvokeAsync<LanguageEntryItem>("getFirstId", LanguageEntries);
+            var resultLast = await _js.Value.InvokeAsync<LanguageEntryItem>("getLastId", LanguageEntries);
             return Result.Ok(new LanguageEntryItem("","","",1)) ;
         }
         catch (Exception e)

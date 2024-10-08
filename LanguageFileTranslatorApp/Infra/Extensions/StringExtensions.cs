@@ -33,38 +33,40 @@ public static class StringExtensions
         var charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
         return charLocation > 0 ? text[..charLocation] : string.Empty;
     }
-    
+
     public static string GetLastCharacters(this string source, string extension)
     {
         var tailLength = extension.Length + 11;
         return tailLength >= source.Length ? source : source[^tailLength..];
     }
-    
+
     public static T? ConvertTo<T>(this string jsonString) =>
-                  jsonString switch
-                  {
-                      null => throw new ArgumentNullException($@"ConvertTo: You cannot convert a null string to a Type"),
-                      "[]" => default,
-                      _ => JsonSerializer.Deserialize<T>(jsonString,
-                          new JsonSerializerOptions
-                          {
-                              PropertyNameCaseInsensitive = true,
-                              
-                          })
-                  };
+        jsonString switch
+        {
+            null => throw new ArgumentNullException($@"ConvertTo: You cannot convert a null string to a Type"),
+            "[]" => default,
+            _ => JsonSerializer.Deserialize<T>(jsonString,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                })
+        };
 
     public static Result<AbpLanguageFileModel?>? ConvertToAbpLanguageFileModel(this string jsonString)
     {
         switch (jsonString)
         {
             case null:
-                throw new ArgumentNullException($"{nameof(ConvertToAbpLanguageFileModel)}: You cannot convert a null string to a Type");
+                throw new ArgumentNullException(
+                    $"{nameof(ConvertToAbpLanguageFileModel)}: You cannot convert a null string to a Type");
             case "[]":
                 return default;
             default:
             {
-                var result  = Deserialize(jsonString);
-                return result.IsSuccess ? result : Fail<AbpLanguageFileModel?>(CouldNotConvertJsonToAbpLanguageFileModel);
+                var result = Deserialize(jsonString);
+                return result.IsSuccess
+                    ? result
+                    : Fail<AbpLanguageFileModel?>(CouldNotConvertJsonToAbpLanguageFileModel);
             }
         }
     }
@@ -77,9 +79,8 @@ public static class StringExtensions
                 new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
-                    
                 });
-            return Ok(abpLanguageFileModel) ;
+            return Ok(abpLanguageFileModel);
         }
         catch (Exception)
         {
@@ -108,31 +109,45 @@ public static class StringExtensions
 
     public static Result<AbpLanguageFileResult> ConvertToAbpLanguageFileResult(this string? json, InfoCulture culture)
     {
-        if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+        if (json == null || string.IsNullOrWhiteSpace(json))
+            return Fail<AbpLanguageFileResult>(JsonDocumentIsNullOrEmpty());
         var abpModel = json?.ConvertToAbpLanguageFileModel();
-        
+
         if (abpModel == null || abpModel.IsFailure) return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
-        
-        if (abpModel?.Value?.Texts.Count == 0 || abpModel?.Value?.Culture != culture.Name)
+
+        if (abpModel.Value?.Texts.Count == 0 || abpModel.Value?.Culture != culture.Name)
             return Fail<AbpLanguageFileResult>(NoAbpLanguageFile);
-        
-        var languageEntryItems = abpModel.Value.Texts
-            .Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
+
+        // var languageEntryItems = abpModel.Value.Texts
+        //     .Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
+
+        var languageEntryItems = new List<LanguageEntryItem>();
+
+        for (var i = 0; i < 10000; i++)
+        {
+            languageEntryItems.Add(new LanguageEntryItem($"key{i}", $"value{i}", culture.Name, i));
+        }
+
+
         return Ok(new AbpLanguageFileResult(languageEntryItems, culture, abpModel.Value));
     }
-    
-    public static Result<StructuredJsonLanguageFileResult> ConvertToStructuredJsonLanguageFileResult(this string? json, InfoCulture culture)
+
+    public static Result<StructuredJsonLanguageFileResult> ConvertToStructuredJsonLanguageFileResult(this string? json,
+        InfoCulture culture)
     {
         try
         {
-            if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<StructuredJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+            if (json == null || string.IsNullOrWhiteSpace(json))
+                return Fail<StructuredJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
             var rootNode = JsonNode.Parse(json);
-            var firstNode = rootNode?[rootNode[0]?.GetPath().Replace("$.", "") ?? throw new InvalidOperationException()] as JsonObject;
+            var firstNode =
+                rootNode?[rootNode[0]?.GetPath().Replace("$.", "") ?? throw new InvalidOperationException()] as
+                    JsonObject;
             var translations = firstNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
-        
+
             if (translations.Count == 0)
                 return Fail<StructuredJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
-        
+
             var languageEntryItems = translations.GetLanguageEntryItems(culture);
 
             var model = new StructuredJsonLanguageFileModel(translations);
@@ -144,17 +159,19 @@ public static class StringExtensions
             return Fail<StructuredJsonLanguageFileResult>(NoStructuredJsonFile);
         }
     }
-    
 
-    public static Result<PlainJsonLanguageFileResult> ConvertToPlainJsonLanguageFileResult(this string? json, InfoCulture culture)
+
+    public static Result<PlainJsonLanguageFileResult> ConvertToPlainJsonLanguageFileResult(this string? json,
+        InfoCulture culture)
     {
         try
         {
-            if (json == null || string.IsNullOrWhiteSpace(json)) return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
+            if (json == null || string.IsNullOrWhiteSpace(json))
+                return Fail<PlainJsonLanguageFileResult>(JsonDocumentIsNullOrEmpty());
 
             var rootNode = JsonNode.Parse(json) as JsonObject;
             var translations = rootNode.GetTranslationsFromJsonObject(new Dictionary<string, string>());
-        
+
             if (translations.Count == 0)
                 return Fail<PlainJsonLanguageFileResult>(CouldNotGetTranslationsFromJsonObject);
 
@@ -169,14 +186,17 @@ public static class StringExtensions
             return Fail<PlainJsonLanguageFileResult>(NoPlainJsonLanguageFile);
         }
     }
-    
-    public static Result<GrawLanguageFileResult> ConvertToGrawLanguageFileResult(this byte[] fileContent, InfoCulture culture)
+
+    public static Result<GrawLanguageFileResult> ConvertToGrawLanguageFileResult(this byte[] fileContent,
+        InfoCulture culture)
     {
         try
         {
             var grawLanguageEntryItems = fileContent.ConvertTo<List<GrawLanguageEntryItem>>();
-            if (grawLanguageEntryItems == null || grawLanguageEntryItems.Count == 0) return Fail<GrawLanguageFileResult>(CouldNotGetGrawLanguageEntryItems);
-            var languageEntryItems = grawLanguageEntryItems.Select(x => new LanguageEntryItem(x.Name, x.Text, culture.Name, x.Id)).ToList();
+            if (grawLanguageEntryItems == null || grawLanguageEntryItems.Count == 0)
+                return Fail<GrawLanguageFileResult>(CouldNotGetGrawLanguageEntryItems);
+            var languageEntryItems = grawLanguageEntryItems
+                .Select(x => new LanguageEntryItem(x.Name, x.Text, culture.Name, x.Id)).ToList();
             var model = new GrawLanguageFileModel(languageEntryItems);
             return Ok(new GrawLanguageFileResult(languageEntryItems, culture, model));
         }
@@ -185,7 +205,7 @@ public static class StringExtensions
             return Fail<GrawLanguageFileResult>(NoPlainJsonLanguageFile);
         }
     }
-    
+
 
     public static byte[] ToByteArray(this string text) => Encoding.ASCII.GetBytes(text);
 }

@@ -24,7 +24,7 @@ public class LanguageFile : ValueObject<LanguageFile>
         Extension = GetExtension(fileFileName);
         FileName = fileFileName;
         Model = abpLanguageFile.AbpModel;
-        Model.LanguageEntryItems = abpLanguageFile.AbpModel.Texts.Select((x, i) => new LanguageEntryItem(x.Key, x.Value, culture.Name, i)).ToList();
+        Model.LanguageEntryItems = abpLanguageFile.LanguageEntryItems;
 
     }
 

@@ -5,8 +5,8 @@
         let db = openDBRequest.result;
         // db.createObjectStore("books", {keyPath: "id"});
         const languageEntries = db.createObjectStore("languageEntries", {keyPath: "id"});
-        languageEntries.createIndex("languageEntriesKeyIndex",["key"],{unique: false})
-        
+        languageEntries.createIndex("languageEntriesKeyIndex", ["key"], {unique: false})
+
         // const translations = db.createObjectStore("translations", {keyPath: "id"});
     }
 }
@@ -42,27 +42,86 @@ export async function get(collectionName, id) {
     return await promise;
 }
 
-export async function getAll(collectionName, key) {
+
+export async function getFirstId(collectionName) {
     let promise = new Promise((resolve) => {
         let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
         openDBRequest.onsuccess = function () {
             let transaction = openDBRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
-            
-            var all = objectStore.getAll();
-            all.onsuccess = () =>{
-                console.log(all.result)
+            const request = objectStore.openCursor();
+            request.onsuccess = (e) => {
+                const cursor = e.target.result;
+                console.log(cursor)
+                if (!!cursor === false) return;
+                resolve(cursor.value);
             }
-            
+            request.onerror = function (e) {
+                console.log('error: ' + request.result)
+            }
+        }
+    });
+    return await promise;
+}
+
+export async function getLastId(collectionName) {
+    let promise = new Promise((resolve) => {
+        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openDBRequest.onsuccess = function () {
+            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+            const request = objectStore.openCursor(null, "prev");
+                request.onsuccess = (e) => {
+                const cursor = e.target.result;
+                console.log(cursor)
+                if (!!cursor === false) return;
+                resolve(cursor.value);
+            }
+            request.onerror = function (e) {
+                console.log('error: ' + request.result)
+            }
+        }
+    });
+    return await promise;
+}
+
+
+
+export async function getAll(collectionName) {
+    let promise = new Promise((resolve) => {
+        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openDBRequest.onsuccess = function () {
+            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+
+            const request = objectStore.getAll();
+            request.onsuccess = () => {
+                console.log(request.result)
+                resolve(request.result);
+            }
+            request.onerror = function (e) {
+                console.log('error: ' + request.result)
+            }
+        }
+    });
+    return await promise;
+}
+
+
+export async function getAllByKey(collectionName, key) {
+    let promise = new Promise((resolve) => {
+        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openDBRequest.onsuccess = function () {
+            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
             const index = objectStore.index("languageEntriesKeyIndex")
             const request = index.getAll([key])
             request.onsuccess = function (e) {
                 console.log(request.result)
                 resolve(request.result);
             }
-
             request.onerror = function (e) {
-                console.log('error: ' +  request.result)
+                console.log('error: ' + request.result)
             }
         }
     });
