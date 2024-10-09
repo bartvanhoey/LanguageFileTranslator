@@ -1,10 +1,16 @@
 ﻿<div class="sidebar position-sticky top-0 start-0 end-0 z-2">
     <div class="navbar d-sm-none px-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">Language File Translator</a>
+            <a class="nav-link" href="">Language File Translator</a>
             <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        </div>
+    </div>
+
+    <div class="navbar d-none d-sm-block text-center">
+        <div class="nav-item">
+            <a class="nav-link text-white" href="">Language File Translator</a>
         </div>
     </div>
 
@@ -21,7 +27,7 @@
                 </NavLink>
             </div>
             <div class="nav-item px-3">
-                <NavLink class="nav-link" href="import">
+                <NavLink class="nav-link" href="export">
                     <i class="bi bi-arrow-up-square"></i> Export
                 </NavLink>
             </div>
