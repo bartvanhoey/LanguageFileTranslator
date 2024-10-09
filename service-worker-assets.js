@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-M2HTIueuUZlVVEs+0zSSczcPGDYnN796WqdMIKC3Zf4=",
+      "hash": "sha256-ZFuW5NNali60GmzEHLePZjpUMpsPAo5mlbeZ3BAlEwA=",
       "url": "LanguageFileTranslatorApp.styles.css.br"
     },
     {
@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-qZUqJ7qv1j+XjKE2sharmjJoWK0WSl4y71zKh+prJts=",
-      "url": "_framework\/LanguageFileTranslatorApp.4yjikji8bv.wasm.br"
+      "hash": "sha256-l0UQovUSgWWZ8KlUloANYaADsR8UvhNl33nquVUZovw=",
+      "url": "_framework\/LanguageFileTranslatorApp.breiag0uw5.wasm.br"
     },
     {
       "hash": "sha256-hwfM5kF\/Zs+tZNo454rrQzFUBVyFh\/VpIz9dTM3WrEU=",
@@ -181,7 +181,7 @@
       "url": "_framework\/System.Threading.e40w6tlim8.wasm.br"
     },
     {
-      "hash": "sha256-ySFz0gdGr7O5qAppoTwzNctXtRsaEKWE3J+3bYlbQBY=",
+      "hash": "sha256-Mz3Ake9Icw\/i00q+GZl\/ATYDcSL43J85EGBtrXIXcKk=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -245,7 +245,7 @@
       "url": "css\/bootstrap\/bootstrap.min.css.map.br"
     },
     {
-      "hash": "sha256-0tNc6RwEEEkewNDHKLcPWjQZlb8l2Pkxjlq8JoIiHg8=",
+      "hash": "sha256-h09zgdBEBOIGFlUYiFcN4lB8ESYvPenDcsTLz0b5Luk=",
       "url": "css\/index.css.br"
     },
     {
@@ -289,5 +289,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "t\/7pBB\/k"
+  "version": "EdT1W6aR"
 };
