@@ -22,6 +22,8 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap-icons\bootstrap-icons.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\bootstrap-icons.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\colors\colors.css" />
     </ItemGroup>
 
 
