@@ -8,12 +8,12 @@ public interface ILanguageEntryDbService
     Task InitializeAsync();
     // Task InsertTranslationAsync<T>(string culture, string key, string value);
     Task InsertLanguageEntriesAsync<T>(LanguageFile languageFile);
-    Task<Result<LanguageEntryItem>> GetFirstByKeyAsync();
-    Task<Result<LanguageEntryItem>> GetPreviousByKeyAsync(string key);
-    Task<Result<LanguageEntryItem>> GetNextByKeyAsync(string key);
-    Task<Result<LanguageEntryItem>> GetLastByKeyAsync();
-    Task<Result<LanguageEntryItem>> GetFirstByIdAsync();
-    Task<Result<LanguageEntryItem>> GetPreviousByIdAsync(int i);
-    Task<Result<LanguageEntryItem>>  GetNextByIdAsync(int i);
-    Task<Result<LanguageEntryItem>>  GetLastByIdAsync();
+    Task<Result<LanguageEntry>> GetFirstByKeyAsync();
+    Task<Result<LanguageEntry>> GetPreviousByKeyAsync(string key);
+    Task<Result<LanguageEntry>> GetNextByKeyAsync(string key);
+    Task<Result<LanguageEntry>> GetLastByKeyAsync();
+    Task<Result<LanguageEntry>> GetFirstByIdAsync();
+    Task<Result<LanguageEntry>> GetPreviousByIdAsync(int i);
+    Task<Result<LanguageEntry>>  GetNextByIdAsync(int i);
+    Task<Result<LanguageEntry>>  GetLastByIdAsync();
 }

@@ -37,16 +37,16 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
         await SetManyAsync(LanguageEntries, entries);
     }
 
-    public async Task<Result<LanguageEntryItem>> GetFirstByKeyAsync()
+    public async Task<Result<LanguageEntry>> GetFirstByKeyAsync()
     {
         await GetIndexedDb();
         try
         {
-            // var result = await _js.Value.InvokeAsync<List<LanguageEntryItem>>("getAllByKey", LanguageEntries, "key1");
-            // var result = await _js.Value.InvokeAsync<List<LanguageEntryItem>>("getAll", LanguageEntries);
-            var resultFirst = await IndexedDb.Value.InvokeAsync<LanguageEntryItem>("getFirstId", LanguageEntries);
-            var resultLast = await IndexedDb.Value.InvokeAsync<LanguageEntryItem>("getLastId", LanguageEntries);
-            return Result.Ok(new LanguageEntryItem("", "", "", 1));
+            // var result = await _js.Value.InvokeAsync<List<LanguageEntry>>("getAllByKey", LanguageEntries, "key1");
+            // var result = await _js.Value.InvokeAsync<List<LanguageEntry>>("getAll", LanguageEntries);
+            var resultFirst = await IndexedDb.Value.InvokeAsync<LanguageEntry>("getFirstId", LanguageEntries);
+            var resultLast = await IndexedDb.Value.InvokeAsync<LanguageEntry>("getLastId", LanguageEntries);
+            return Result.Ok(new LanguageEntry());
         }
         catch (Exception e)
         {
@@ -55,37 +55,37 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
         }
     }
 
-    public Task<Result<LanguageEntryItem>> GetPreviousByKeyAsync(string key)
+    public Task<Result<LanguageEntry>> GetPreviousByKeyAsync(string key)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetNextByKeyAsync(string key)
+    public Task<Result<LanguageEntry>> GetNextByKeyAsync(string key)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetLastByKeyAsync()
+    public Task<Result<LanguageEntry>> GetLastByKeyAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetFirstByIdAsync()
+    public Task<Result<LanguageEntry>> GetFirstByIdAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetPreviousByIdAsync(int i)
+    public Task<Result<LanguageEntry>> GetPreviousByIdAsync(int i)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetNextByIdAsync(int i)
+    public Task<Result<LanguageEntry>> GetNextByIdAsync(int i)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<LanguageEntryItem>> GetLastByIdAsync()
+    public Task<Result<LanguageEntry>> GetLastByIdAsync()
     {
         throw new NotImplementedException();
     }

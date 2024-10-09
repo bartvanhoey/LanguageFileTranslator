@@ -18,7 +18,7 @@ public class LanguageEntryDbServiceBase: IAsyncDisposable
     protected async Task<IJSObjectReference> GetIndexedDb()
     {
         if (IndexedDb.IsValueCreated is false)
-            IndexedDb = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js"));
+            IndexedDb = new Lazy<IJSObjectReference>(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/indexedDbService.js"));
         return IndexedDb.Value;
     }
 
