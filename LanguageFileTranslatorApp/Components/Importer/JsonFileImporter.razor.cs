@@ -21,7 +21,8 @@ public class
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
     [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
-    [Inject] private ILanguageEntryDbService? Db { get; set; }
+    [Inject] private ILanguageEntryDbService? LanguageEntryDb { get; set; }
+    [Inject] private ILanguageEntryItemDbService? LanguageEntryItemDb { get; set; }
 
     protected async Task FileChangeAsync(InputFileChangeEventArgs e)
     {
@@ -40,8 +41,11 @@ public class
         {
             Status = DefaultStatus;
             ImportMessage = null;
-            if (Db == null) return;
-            await Db.InsertTranslationsAsync<string>(languageFile.Value);
+            
+            if (LanguageEntryDb == null || LanguageEntryItemDb == null) return;
+            
+            await LanguageEntryDb.InsertLanguageEntriesAsync<string>(languageFile.Value);
+            await LanguageEntryItemDb.InsertLanguageEntryItemsAsync<string>(languageFile.Value);
         }
         else
             ImportMessage = $"Error: {languageFile.Error?.Message ?? "Import NOT successful"}";

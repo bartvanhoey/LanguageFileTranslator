@@ -9,6 +9,7 @@ public static class ServicesRegistration
     {
         services.AddScoped<IBrowserLocalStorageService, BrowserLocalStorageService>(); 
         services.AddScoped<ILanguageEntryDbService, LanguageEntryDbService>();
+        services.AddScoped<ILanguageEntryItemDbService, LanguageEntryItemDbService>();
 
         
     }

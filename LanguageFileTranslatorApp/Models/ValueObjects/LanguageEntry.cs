@@ -4,10 +4,16 @@ namespace LanguageFileTranslatorApp.Models.ValueObjects;
 
 public class LanguageEntry
 {
-    public LanguageEntry(AbpLanguageFileModel model)
+    public LanguageEntry()
     {
-          
     }
-    
-    public List<LanguageEntryItem> Items { get; set; } = [];
+
+    public LanguageEntry(int id, string key)
+    {
+        Id = id;
+        Key = key;
+    }
+
+    public int Id { get; set; }
+    public string Key { get; set; }
 }
