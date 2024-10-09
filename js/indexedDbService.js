@@ -1,30 +1,45 @@
 ﻿export function initialize() {
-    let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-    openDBRequest.onupgradeneeded = function () {
-        alert("i am here")
-        let db = openDBRequest.result;
-        // db.createObjectStore("books", {keyPath: "id"});
+    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    openRequest.onupgradeneeded = function () {
+        let db = openRequest.result;
+
         const languageEntries = db.createObjectStore("languageEntries", {keyPath: "id"});
         languageEntries.createIndex("languageEntriesKeyIndex", ["key"], {unique: false})
 
-        // const translations = db.createObjectStore("translations", {keyPath: "id"});
+        const languageEntryItems = db.createObjectStore("languageEntryItems", {keyPath: "id"});
+        languageEntryItems.createIndex("languageEntryItemsKeyIndex", ["key"], {unique: false})
     }
 }
 
 export function set(collectionName, value) {
-    let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-    openDBRequest.onsuccess = function () {
-        let transaction = openDBRequest.result.transaction(collectionName, "readwrite");
+    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    openRequest.onsuccess =  () => {
+        let transaction = openRequest.result.transaction(collectionName, "readwrite");
         let objectStore = transaction.objectStore(collectionName)
         objectStore.put(value);
     }
+    openRequest.onerror = (e) => console.log(openRequest.result)
 }
+
+export function setMany(collectionName, items) {
+    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    openRequest.onsuccess =  () => {
+        let transaction = openRequest.result.transaction(collectionName, "readwrite");
+        let objectStore = transaction.objectStore(collectionName)
+        for (let i = 0; i < items.length; i++) {
+            objectStore.put(items[i]);
+        }
+    }
+    openRequest.onerror = (e) => console.log(openRequest.result)
+
+}
+
 
 export async function get(collectionName, id) {
     let promise = new Promise((resolve) => {
-        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        openDBRequest.onsuccess = function () {
-            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
             let request = objectStore.get(id);
 
@@ -45,9 +60,9 @@ export async function get(collectionName, id) {
 
 export async function getFirstId(collectionName) {
     let promise = new Promise((resolve) => {
-        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        openDBRequest.onsuccess = function () {
-            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
             const request = objectStore.openCursor();
             request.onsuccess = (e) => {
@@ -66,12 +81,12 @@ export async function getFirstId(collectionName) {
 
 export async function getLastId(collectionName) {
     let promise = new Promise((resolve) => {
-        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        openDBRequest.onsuccess = function () {
-            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
             const request = objectStore.openCursor(null, "prev");
-                request.onsuccess = (e) => {
+            request.onsuccess = (e) => {
                 const cursor = e.target.result;
                 console.log(cursor)
                 if (!!cursor === false) return;
@@ -86,12 +101,11 @@ export async function getLastId(collectionName) {
 }
 
 
-
 export async function getAll(collectionName) {
     let promise = new Promise((resolve) => {
-        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        openDBRequest.onsuccess = function () {
-            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
 
             const request = objectStore.getAll();
@@ -110,9 +124,9 @@ export async function getAll(collectionName) {
 
 export async function getAllByKey(collectionName, key) {
     let promise = new Promise((resolve) => {
-        let openDBRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
-        openDBRequest.onsuccess = function () {
-            let transaction = openDBRequest.result.transaction(collectionName, "readonly");
+        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
             const index = objectStore.index("languageEntriesKeyIndex")
             const request = index.getAll([key])
