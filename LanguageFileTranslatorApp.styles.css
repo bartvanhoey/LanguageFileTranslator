@@ -32,6 +32,12 @@ button.close[b-y21xpdip9e] {
   opacity: 1;
 }
 /* /Components/Navigator/Navigator.razor.rz.scp.css */
+.key-btn-width[b-dqcetx9j5d] {
+    width: 64px;
+}
+.id-btn-width[b-dqcetx9j5d] {
+    width: 64px;
+}
 /* /Layout/MainLayout.razor.rz.scp.css */
 .page[b-lpmaf0sga2] {
     position: relative;
