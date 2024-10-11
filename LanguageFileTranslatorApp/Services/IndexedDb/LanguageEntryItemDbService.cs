@@ -7,10 +7,6 @@ public class LanguageEntryItemDbService(IJSRuntime jsRuntime) : LanguageEntryDbS
 {
     private const string LanguageEntryItems = "languageEntryItems";
     
-    
-    public async Task InitializeAsync() 
-        => await (await GetIndexedDb()).InvokeVoidAsync("initialize");
-
     public async Task InsertLanguageEntryItemsAsync<T>(LanguageFile languageFile) 
         => await SetManyAsync(LanguageEntryItems, languageFile.Model.LanguageEntryItems);
 

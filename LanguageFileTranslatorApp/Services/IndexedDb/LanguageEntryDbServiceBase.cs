@@ -26,4 +26,13 @@ public class LanguageEntryDbServiceBase: IAsyncDisposable
     {
         if (IndexedDb.IsValueCreated) await IndexedDb.Value.DisposeAsync();
     }
+
+    public async Task InitializeAsync()
+        => await (await GetIndexedDb()).InvokeVoidAsync("initialize");
+
+    public async Task<T> GetValueAsync<T>(string collectionName, string id) 
+        => await (await GetIndexedDb()).InvokeAsync<T>("get", collectionName, id);
+
+    public async Task<T> GetAllAsync<T>(string collectionName, string jsonFileName) 
+        => await (await GetIndexedDb()).InvokeAsync<T>("getAll", collectionName, jsonFileName);
 }

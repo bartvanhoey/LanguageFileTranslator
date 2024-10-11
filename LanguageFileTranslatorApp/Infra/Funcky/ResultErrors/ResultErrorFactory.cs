@@ -16,6 +16,7 @@ public static class ResultErrorFactory
     public static ExtensionIsEmptyResultError ExtensionIsEmpty => new();
     public static GetInfoCultureResultError GetInfoCulture(Exception exception) => new(exception);
     public static CouldNotParseJsonDocumentResultError CouldNotParseJsonDocument(Exception exception) => new(exception);
+    public static CallToIndexedDbWentWrongResultError CallToIndexedDbWentWrong(Exception exception) => new(exception);
     public static JsonDocumentIsNullOrEmptyResultError JsonDocumentIsNullOrEmpty() => new();
     public static CultureCodeIsNullOrWhiteSpaceResultError CultureIsNullOrWhiteSpace => new();
     public static CultureShouldBeAtLeastTwoCharactersResultError CultureShouldBeAtLeastTwoCharacters => new();
@@ -31,6 +32,9 @@ public class GetInfoCultureResultError(Exception exception)
 public class JsonDocumentIsNullOrEmptyResultError() : BaseResultError;
 
 public class CouldNotParseJsonDocumentResultError(Exception exception)
+    : BaseResultError(exception.Message);
+
+public class CallToIndexedDbWentWrongResultError(Exception exception)
     : BaseResultError(exception.Message);
 
 public class ContentIsEmptyResultError : BaseResultError;
