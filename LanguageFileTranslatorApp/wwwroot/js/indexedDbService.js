@@ -1,35 +1,35 @@
 ﻿let currentVersion = 1;
 let databaseName = "LanguageFileTranslatorDb";
-
 const languageEntriesDbStore = "languageEntries";
 const languageEntriesKeyIndex = "languageEntriesKeyIndex";
 const languageEntryItemsDbStore = "languageEntryItems";
 const languageEntryItemsKeyIndex = "languageEntryItemsKeyIndex";
+const isInDebugMode = true;
 
 export function initialize() {
     let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onupgradeneeded = function () {
-        console.log("onupgradeneeded")
+        writeToConsole("onupgradeneeded")
 
         let db = openRequest.result;
         const languageEntries = db.createObjectStore(languageEntriesDbStore, {keyPath: "id"});
         languageEntries.createIndex(languageEntriesKeyIndex, ["key"], {unique: false})
-        console.log('languageEntriesDbStore created');
+        writeToConsole('languageEntriesDbStore created');
 
         const languageEntryItems = db.createObjectStore(languageEntryItemsDbStore, {keyPath: "id"});
         languageEntryItems.createIndex(languageEntryItemsKeyIndex, ["key"], {unique: false})
-        console.log('languageEntryItemsDbStore created');
+        writeToConsole('languageEntryItemsDbStore created');
     }
 }
 
 function createObjectStoresIfNotExist(openRequest) {
     const objectStoreNames = openRequest.result.objectStoreNames;
-    console.log("objectStoreNames: " + objectStoreNames)
+    writeToConsole("objectStoreNames: " + objectStoreNames)
     if (!objectStoreNames.contains(languageEntriesDbStore) || !objectStoreNames.contains(languageEntryItemsDbStore)) {
         const DBDeleteRequest = window.indexedDB.deleteDatabase(databaseName);
-        console.log("call to initialize")
+        writeToConsole("call to initialize")
         initialize();
-        console.log("initialize called")
+        writeToConsole("initialize called")
     }
 }
 
@@ -44,9 +44,9 @@ export function set(collectionName, value) {
 }
 
 export function setMany(collectionName, items) {
-    console.log("collectionName: " + collectionName);
-    console.log(items);
-    console.log("currentVersion: " + currentVersion);
+    writeToConsole("collectionName: " + collectionName);
+    writeToConsole(items);
+    writeToConsole("currentVersion: " + currentVersion);
     let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onsuccess = () => {
         let transaction = openRequest.result.transaction(collectionName, "readwrite");
@@ -107,12 +107,12 @@ export async function getNextLanguageEntryByKey(collectionName, languageEntry) {
             const request = objectStore.getAll();
             request.onsuccess = () => {
                 request.result.sort((a, b) => (a.key > b.key) ? 1 : -1);
-                console.log(languageEntry)
-                console.log(request.result)
+                writeToConsole(languageEntry)
+                writeToConsole(request.result)
                 if (languageEntry == null) return;
                 const index = request.result.map(x => x.key).indexOf(languageEntry.key);
-                console.log("index:" + index)
-                console.log("maxLength:" + request.result.length)
+                writeToConsole("index:" + index)
+                writeToConsole("maxLength:" + request.result.length)
                 if (request.result.length === index + 1) {
                     resolve(request.result[index]);
                 } else resolve(request.result[index + 1]);
@@ -132,12 +132,12 @@ export async function getNextLanguageEntryById(collectionName, languageEntry) {
             const request = objectStore.getAll();
             request.onsuccess = () => {
                 request.result.sort((a, b) => (a.id > b.id) ? 1 : -1);
-                console.log(languageEntry)
-                console.log(request.result)
+                writeToConsole(languageEntry)
+                writeToConsole(request.result)
                 if (languageEntry == null) return;
                 const index = request.result.map(x => x.id).indexOf(languageEntry.id);
-                console.log("index:" + index)
-                console.log("maxLength:" + request.result.length)
+                writeToConsole("index:" + index)
+                writeToConsole("maxLength:" + request.result.length)
                 if (request.result.length === index + 1) {
                     resolve(request.result[index]);
                 } else resolve(request.result[index + 1]);
@@ -157,12 +157,12 @@ export async function getPreviousLanguageEntryByKey(collectionName, languageEntr
             const request = objectStore.getAll();
             request.onsuccess = () => {
                 request.result.sort((a, b) => (a.key > b.key) ? 1 : -1);
-                console.log(languageEntry)
-                console.log(request.result)
+                writeToConsole(languageEntry)
+                writeToConsole(request.result)
                 if (languageEntry == null) return;
                 const index = request.result.map(x => x.key).indexOf(languageEntry.key);
-                console.log("index:" + index)
-                console.log("maxLength:" + request.result.length)
+                writeToConsole("index:" + index)
+                writeToConsole("maxLength:" + request.result.length)
                 if (index === 0 || index === -1) {
                     resolve(request.result[0]);
                 } else {
@@ -220,12 +220,12 @@ export async function getPreviousLanguageEntryById(collectionName, languageEntry
             const request = objectStore.getAll();
             request.onsuccess = () => {
                 request.result.sort((a, b) => (a.key > b.key) ? 1 : -1);
-                console.log(languageEntry)
-                console.log(request.result)
+                writeToConsole(languageEntry)
+                writeToConsole(request.result)
                 if (languageEntry == null) return;
                 const index = request.result.map(x => x.id).indexOf(languageEntry.id);
-                console.log("index:" + index)
-                console.log("maxLength:" + request.result.length)
+                writeToConsole("index:" + index)
+                writeToConsole("maxLength:" + request.result.length)
                 if (index === 0 || index === -1) {
                     resolve(request.result[0]);
                 } else {
@@ -286,3 +286,8 @@ export async function getAllByKey(collectionName, key) {
     return await promise;
 }
 
+function writeToConsole(text){
+    if (isInDebugMode){
+        console.log(text)    
+    }
+}

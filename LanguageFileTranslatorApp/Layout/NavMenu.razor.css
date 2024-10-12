@@ -1,9 +1,9 @@
 .sidebar {
-    background-color: var(--ocean-blue);
+    background-color: var(--light-blue);
 }
 
 .sidebar .navbar {
-    background-color: var(--primary);
+    background-color: var(--onyx);
 }
 
 .logout-btn:hover {
@@ -62,11 +62,5 @@
     }
 }
 
-.bottom-nav-menu {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #05A4d6;
-}
 
 

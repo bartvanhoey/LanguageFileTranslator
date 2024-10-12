@@ -2,19 +2,16 @@
 :root {
   --primary: #05445e !important;;
   --secondary: #478c5c !important;
-  --error: #d32752 !important;
-  --info: #f6c31c !important;
   --black: #000;
   --white: #fff;
-  --green: #478c5c;
-  --dark-green: #013a20;
-  --fresh-green: #bacc81;
-  --light-green: #00d27e;
-  --sky-blue: #6bdff0;
-  --ocean-blue: #189ab4;
-  --purple: #9f85d3;
-  --warn-orange: #e67c5a;
+  --orange: #e67c5a;
   --red: #e9394;
+  --green: #478c5c;
+    --onyx: #36393b;
+  --french-gray: #bfb6bb;
+  --rosy-brown: #c49799;
+  --uranian-blue: #a5d8ff;
+  --light-blue: #afd0d6;
 }
 
 * {
@@ -26,11 +23,11 @@
   color: white !important;
 
   &, &:focus, &:active:focus {
-    background-color: var(--green) !important;
+    background-color: var(--french-gray) !important;
   }
 
   &:hover {
-    background-color: var(--dark-green) !important;
+    background-color: var(--rosy-brown) !important;
   }
 }
 
@@ -38,26 +35,26 @@
   border: none;
 
   &, &:focus, &:active:focus {
-    background-color: var(--ocean-blue);
+    background-color: var(--light-blue);
     color: white;
   }
 
   &:hover {
-    background-color: var(--sky-blue);
-    color: var(--dark-green);
+    background-color: var(--uranian-blue);
+    color: var(--onyx);
   }
 }
 
 .valid.modified:not([type=checkbox]) {
-  outline: 1px solid var(--dark-green);
+  outline: 1px solid var(--onyx);
 }
 
 .invalid {
-  outline: 1px solid var(--warn-orange);
+  outline: 1px solid var(--orange);
 }
 
 .validation-message {
-  color: var(--warn-orange);
+  color: var(--orange);
 }
 
 #blazor-error-ui {
@@ -114,13 +111,13 @@
 
   circle {
     fill: none;
-    stroke: var(--sky-blue);
+    stroke: var(--uranian-blue);
     stroke-width: 0.6rem;
     transform-origin: 50% 50%;
     transform: rotate(-90deg);
 
     &:last-child {
-      stroke: var(--ocean-blue);
+      stroke: var(--light-blue);
       stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
       transition: stroke-dasharray 0.05s ease-in-out;
     }
@@ -138,14 +135,10 @@
   }
 }
 
-.e-toast-warn {
-  background-color: var(--warn-orange) !important;
-  font-size: 15px !important;
-}
 
 .spinner {
-  border: 16px solid var(--sky-blue);
-  border-top: 16px solid var(--ocean-blue);
+  border: 16px solid var(--uranian-blue);
+  border-top: 16px solid var(--light-blue);
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -177,11 +170,11 @@
 }
 
 .drag-drop-zone {
-  background-color: var(--green);
+  background-color: var(--french-gray);
   color: white;
   cursor: pointer;
 }
 
 .drag-drop-zone:hover {
-  background-color: var(--dark-green);
+  background-color: var(--rosy-brown);
 }
