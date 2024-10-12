@@ -1,5 +1,4 @@
 using LanguageFileTranslatorApp.Infra.Funcky.ResultClass;
-using LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
 using LanguageFileTranslatorApp.Models.ValueObjects;
 using Microsoft.JSInterop;
 using static LanguageFileTranslatorApp.Infra.Funcky.ResultClass.Result;
@@ -20,29 +19,8 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
     {
         try
         {
-            // var getAllByKey = await (await GetIndexedDb()).InvokeAsync<List<LanguageEntry>>("getAllByKey", LanguageEntries, "key1");
-            // var getAll = await (await GetIndexedDb()).InvokeAsync<List<LanguageEntry>>("getAll", LanguageEntries);
-            var getFirstKey = await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getFirstKey", LanguageEntries);
-
-            
-            
-            // var getLastKey = await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getLastKey", LanguageEntries);
-            // var getFirstId = await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getFirstId", LanguageEntries);
-            // var getLastId = await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getLastId", LanguageEntries);
-            return Ok(getFirstKey);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-
-    public async Task<Result<LanguageEntry>> GetPreviousByKeyAsync(LanguageEntry? languageEntry)
-    {
-        try
-        {
-            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getPreviousKey", LanguageEntries, languageEntry));
+            var getFirstByKey = await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getFirstByKey", LanguageEntries);
+            return Ok(getFirstByKey);
         }
         catch (Exception exception)
         {
@@ -50,11 +28,23 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
         }
     }
 
-    public async Task<Result<LanguageEntry>> GetNextByKeyAsync(LanguageEntry? languageEntry)
+    public async Task<Result<LanguageEntry>> GetPreviousByKeyAsync(LanguageEntry languageEntry)
     {
         try
         {
-            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getNextKey", LanguageEntries, languageEntry));
+            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getPreviousLanguageEntryByKey", LanguageEntries, languageEntry));
+        }
+        catch (Exception exception)
+        {
+            return Fail<LanguageEntry>(CallToIndexedDbWentWrong(exception));
+        }
+    }
+
+    public async Task<Result<LanguageEntry>> GetNextByKeyAsync(LanguageEntry languageEntry)
+    {
+        try
+        {
+            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getNextLanguageEntryByKey", LanguageEntries, languageEntry));
         }
         catch (Exception exception)
         {
@@ -66,11 +56,11 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
     {
         try
         {
-            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getLastKey", LanguageEntries));
+            return Ok(await (await GetIndexedDb()).InvokeAsync<LanguageEntry>("getLastLanguageEntryByKey", LanguageEntries));
         }
         catch (Exception exception)
         {
-             return Result.Fail<LanguageEntry>(CallToIndexedDbWentWrong(exception));
+             return Fail<LanguageEntry>(CallToIndexedDbWentWrong(exception));
         }
     }
 
@@ -78,7 +68,7 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
     {
         try
         {
-            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getFirstId", LanguageEntries));
+            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getFirstLanguageEntryById", LanguageEntries));
         }
         catch (Exception exception)
         {
@@ -86,21 +76,35 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
         }
     }
 
-    public Task<Result<LanguageEntry>> GetPreviousByIdAsync(int i)
+    public async Task<Result<LanguageEntry>> GetPreviousByIdAsync(LanguageEntry languageEntry)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getPreviousLanguageEntryById", LanguageEntries, languageEntry));
+        }
+        catch (Exception exception)
+        {
+            return Fail<LanguageEntry>(CallToIndexedDbWentWrong(exception));
+        }
     }
 
-    public Task<Result<LanguageEntry>> GetNextByIdAsync(int i)
+    public async Task<Result<LanguageEntry>> GetNextByIdAsync(LanguageEntry languageEntry)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getNextLanguageEntryById", LanguageEntries, languageEntry));
+        }
+        catch (Exception exception)
+        {
+            return Fail<LanguageEntry>(CallToIndexedDbWentWrong(exception));
+        }
     }
 
     public async Task<Result<LanguageEntry>> GetLastByIdAsync()
     {
         try
         {
-            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getLastId", LanguageEntries));
+            return Ok(await IndexedDb.Value.InvokeAsync<LanguageEntry>("getLastLanguageEntryById", LanguageEntries));
         }
         catch (Exception exception)
         {

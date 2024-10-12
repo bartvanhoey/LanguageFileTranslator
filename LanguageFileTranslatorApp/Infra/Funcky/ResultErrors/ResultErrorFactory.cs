@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using LanguageFileTranslatorApp.Infra.Funcky.ResultErrors.Errors;
 
 namespace LanguageFileTranslatorApp.Infra.Funcky.ResultErrors;
@@ -16,7 +17,7 @@ public static class ResultErrorFactory
     public static ExtensionIsEmptyResultError ExtensionIsEmpty => new();
     public static GetInfoCultureResultError GetInfoCulture(Exception exception) => new(exception);
     public static CouldNotParseJsonDocumentResultError CouldNotParseJsonDocument(Exception exception) => new(exception);
-    public static CallToIndexedDbWentWrongResultError CallToIndexedDbWentWrong(Exception exception) => new(exception);
+    public static CallToIndexedDbWentWrongResultError CallToIndexedDbWentWrong(Exception exception, [CallerMemberName] string methodName = "") => new(exception, methodName);
     public static JsonDocumentIsNullOrEmptyResultError JsonDocumentIsNullOrEmpty() => new();
     public static CultureCodeIsNullOrWhiteSpaceResultError CultureIsNullOrWhiteSpace => new();
     public static CultureShouldBeAtLeastTwoCharactersResultError CultureShouldBeAtLeastTwoCharacters => new();
@@ -34,8 +35,8 @@ public class JsonDocumentIsNullOrEmptyResultError() : BaseResultError;
 public class CouldNotParseJsonDocumentResultError(Exception exception)
     : BaseResultError(exception.Message);
 
-public class CallToIndexedDbWentWrongResultError(Exception exception)
-    : BaseResultError(exception.Message);
+public class CallToIndexedDbWentWrongResultError(Exception exception, string methodName)
+    : BaseResultError($"{methodName}: {exception.Message}");
 
 public class ContentIsEmptyResultError : BaseResultError;
 public class JsonExceptionResultError : BaseResultError;

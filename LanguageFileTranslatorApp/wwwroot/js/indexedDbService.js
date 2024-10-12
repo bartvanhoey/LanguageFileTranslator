@@ -22,6 +22,17 @@ export function initialize() {
     }
 }
 
+function createObjectStoresIfNotExist(openRequest) {
+    const objectStoreNames = openRequest.result.objectStoreNames;
+    console.log("objectStoreNames: " + objectStoreNames)
+    if (!objectStoreNames.contains(languageEntriesDbStore) || !objectStoreNames.contains(languageEntryItemsDbStore)) {
+        const DBDeleteRequest = window.indexedDB.deleteDatabase(databaseName);
+        console.log("call to initialize")
+        initialize();
+        console.log("initialize called")
+    }
+}
+
 export function set(collectionName, value) {
     let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onsuccess = () => {
@@ -33,6 +44,9 @@ export function set(collectionName, value) {
 }
 
 export function setMany(collectionName, items) {
+    console.log("collectionName: " + collectionName);
+    console.log(items);
+    console.log("currentVersion: " + currentVersion);
     let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onsuccess = () => {
         let transaction = openRequest.result.transaction(collectionName, "readwrite");
@@ -62,37 +76,11 @@ export async function get(collectionName, id) {
 }
 
 
-export async function getFirstId(collectionName) {
-    let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(databaseName, currentVersion);
-        openRequest.onsuccess = function () {
-            let transaction = openRequest.result.transaction(collectionName, "readonly");
-            let objectStore = transaction.objectStore(collectionName);
-            const request = objectStore.openCursor();
-            request.onsuccess = (e) => {
-                const cursor = e.target.result;
-                if (!!cursor === false) return;
-                resolve(cursor.value);
-            }
-            request.onerror = (e) => alert("getFirstId event: " + e + "request" + openRequest.result);
-        }
-    });
-    return await promise;
-}
 
-function createObjectStoresIfNotExist(openRequest) {
-    const objectStoreNames = openRequest.result.objectStoreNames;
-    console.log("objectStoreNames: " + objectStoreNames)
-    if (!objectStoreNames.contains(languageEntriesDbStore) || !objectStoreNames.contains(languageEntryItemsDbStore)) {
-        currentVersion = currentVersion + 1;
-        console.log("currentVersion: " + currentVersion);
-        console.log("call to initialize")
-        initialize();
-        console.log("initialize called")
-    }
-}
 
-export async function getFirstKey(collectionName) {
+
+
+export async function getFirstByKey(collectionName) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -104,13 +92,13 @@ export async function getFirstKey(collectionName) {
                 request.result.sort((a, b) => (a.key > b.key) ? 1 : -1);
                 resolve(request.result[0]);
             }
-            request.onerror = (e) => alert("getFirstKey event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getFirstByKey event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;
 }
 
-export async function getNextKey(collectionName, languageEntry) {
+export async function getNextLanguageEntryByKey(collectionName, languageEntry) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -129,13 +117,38 @@ export async function getNextKey(collectionName, languageEntry) {
                     resolve(request.result[index]);
                 } else resolve(request.result[index + 1]);
             }
-            request.onerror = (e) => alert("getNextKey event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getNextLanguageEntryByKey event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;
 }
 
-export async function getPreviousKey(collectionName, languageEntry) {
+export async function getNextLanguageEntryById(collectionName, languageEntry) {
+    let promise = new Promise((resolve) => {
+        let openRequest = indexedDB.open(databaseName, currentVersion);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+            const request = objectStore.getAll();
+            request.onsuccess = () => {
+                request.result.sort((a, b) => (a.id > b.id) ? 1 : -1);
+                console.log(languageEntry)
+                console.log(request.result)
+                if (languageEntry == null) return;
+                const index = request.result.map(x => x.id).indexOf(languageEntry.id);
+                console.log("index:" + index)
+                console.log("maxLength:" + request.result.length)
+                if (request.result.length === index + 1) {
+                    resolve(request.result[index]);
+                } else resolve(request.result[index + 1]);
+            }
+            request.onerror = (e) => alert("getNextLanguageEntryById event: " + e + "request" + openRequest.result);
+        }
+    });
+    return await promise;
+}
+
+export async function getPreviousLanguageEntryByKey(collectionName, languageEntry) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -157,13 +170,13 @@ export async function getPreviousKey(collectionName, languageEntry) {
                     resolve(request.result[previousIndex]);
                 }
             }
-            request.onerror = (e) => alert("getPreviousKey event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getPreviousLanguageEntryByKey event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;
 }
 
-export async function getLastKey(collectionName) {
+export async function getLastLanguageEntryByKey(collectionName) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -174,13 +187,13 @@ export async function getLastKey(collectionName) {
                 request.result.sort((a, b) => (a.key < b.key) ? 1 : -1);
                 resolve(request.result[0]);
             }
-            request.onerror = (e) => alert("getLastKey event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getLastLanguageEntryByKey event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;
 }
 
-export async function getLastId(collectionName) {
+export async function getLastLanguageEntryById(collectionName) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -192,7 +205,53 @@ export async function getLastId(collectionName) {
                 if (!!cursor === false) return;
                 resolve(cursor.value);
             }
-            request.onerror = (e) => alert("getLastId event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getLastLanguageEntryById event: " + e + "request" + openRequest.result);
+        }
+    });
+    return await promise;
+}
+
+export async function getPreviousLanguageEntryById(collectionName, languageEntry) {
+    let promise = new Promise((resolve) => {
+        let openRequest = indexedDB.open(databaseName, currentVersion);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+            const request = objectStore.getAll();
+            request.onsuccess = () => {
+                request.result.sort((a, b) => (a.key > b.key) ? 1 : -1);
+                console.log(languageEntry)
+                console.log(request.result)
+                if (languageEntry == null) return;
+                const index = request.result.map(x => x.id).indexOf(languageEntry.id);
+                console.log("index:" + index)
+                console.log("maxLength:" + request.result.length)
+                if (index === 0 || index === -1) {
+                    resolve(request.result[0]);
+                } else {
+                    const previousIndex = index - 1;
+                    resolve(request.result[previousIndex]);
+                }
+            }
+            request.onerror = (e) => alert("getPreviousLanguageEntryById event: " + e + "request" + openRequest.result);
+        }
+    });
+    return await promise;
+}
+
+export async function getFirstLanguageEntryById(collectionName) {
+    let promise = new Promise((resolve) => {
+        let openRequest = indexedDB.open(databaseName, currentVersion);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(collectionName, "readonly");
+            let objectStore = transaction.objectStore(collectionName);
+            const request = objectStore.openCursor();
+            request.onsuccess = (e) => {
+                const cursor = e.target.result;
+                if (!!cursor === false) return;
+                resolve(cursor.value);
+            }
+            request.onerror = (e) => alert("getFirstLanguageEntryById event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;

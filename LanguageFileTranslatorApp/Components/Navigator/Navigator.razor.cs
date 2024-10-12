@@ -6,26 +6,24 @@ namespace LanguageFileTranslatorApp.Components.Navigator;
 
 public partial class Navigator(ILanguageEntryDbService db) : ComponentBase
 {
-    protected override async Task OnInitializedAsync()
-    {
-        var firstByKey = await db.GetFirstByKeyAsync();
-        if (firstByKey.IsSuccess) LanguageEntry = firstByKey.Value;
-    }
+    protected override async Task OnInitializedAsync() => await GotoFirstByKey();
 
     private async Task GotoFirstByKey()
     {
-        var firstByKey = await db.GetFirstByKeyAsync();
-        if (firstByKey.IsSuccess) LanguageEntry = firstByKey.Value;
+        var first = await db.GetFirstByKeyAsync();
+        if (first.IsSuccess) LanguageEntry = first.Value;
     }
 
     private async Task GotoPreviousByKey()
     {
+        if (LanguageEntry == null) return;
         var previous = await db.GetPreviousByKeyAsync(LanguageEntry);
         if (previous.IsSuccess) LanguageEntry = previous.Value;
     }
 
     private async Task GotoNextByKey()
     {
+        if (LanguageEntry == null) return;
         var next = await db.GetNextByKeyAsync(LanguageEntry);
         if (next.IsSuccess) LanguageEntry = next.Value;
     }
@@ -38,20 +36,24 @@ public partial class Navigator(ILanguageEntryDbService db) : ComponentBase
 
     private async Task GotoFirstById()
     {
-        var result = await db.GetFirstByIdAsync();
-        if (result.IsSuccess) LanguageEntry = result.Value;
+        var first = await db.GetFirstByIdAsync();
+        if (first.IsSuccess) LanguageEntry = first.Value;
     }
 
-    public LanguageEntry? LanguageEntry { get; set; }
+    private LanguageEntry? LanguageEntry { get; set; }
 
-    private void GotoPreviousById()
+    private async Task GotoPreviousById()
     {
-        db.GetPreviousByIdAsync(1);
+        if (LanguageEntry == null) return;
+        var previous = await db.GetPreviousByIdAsync(LanguageEntry);
+        if (previous.IsSuccess) LanguageEntry = previous.Value;
     }
 
-    private void GotoNextById()
+    private async Task GotoNextById()
     {
-        db.GetNextByIdAsync(2);
+        if (LanguageEntry == null) return;
+        var next = await db.GetNextByIdAsync(LanguageEntry);
+        if (next.IsSuccess) LanguageEntry = next.Value;
     }
 
     private async Task GotoLastById()
