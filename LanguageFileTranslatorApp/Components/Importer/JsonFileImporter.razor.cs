@@ -1,5 +1,4 @@
 ﻿using LanguageFileTranslatorApp.Services.IndexedDb;
-using LanguageFileTranslatorApp.Services.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -17,10 +16,9 @@ public class
     private IJSObjectReference? _dropZoneModule;
     protected string Status = DefaultStatus;
     protected string? ImportMessage { get; private set; } = string.Empty;
-    public bool ShowSpinner { get; set; }
+    protected bool ShowSpinner { get; set; }
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
-    [Inject] private IBrowserLocalStorageService? LocalStorageSvc { get; set; }
     [Inject] private ILanguageEntryDbService? LanguageEntryDb { get; set; }
     [Inject] private ILanguageEntryItemDbService? LanguageEntryItemDb { get; set; }
 
@@ -34,21 +32,21 @@ public class
         await e.File.OpenReadStream(maxFileSize).CopyToAsync(memoryStream);
         ShowSpinner = true;
         StateHasChanged();
-        var languageFile = CreateLanguageFile(e.File.Name, memoryStream.ToArray());
+        var createLanguageFile = CreateLanguageFile(e.File.Name, memoryStream.ToArray());
         ShowSpinner = false;
 
-        if (languageFile.IsSuccess)
+        if (createLanguageFile.IsSuccess)
         {
             Status = DefaultStatus;
             ImportMessage = null;
             
             if (LanguageEntryDb == null || LanguageEntryItemDb == null) return;
             
-            await LanguageEntryDb.InsertLanguageEntriesAsync<string>(languageFile.Value);
-            await LanguageEntryItemDb.InsertLanguageEntryItemsAsync<string>(languageFile.Value);
+            await LanguageEntryDb.InsertLanguageEntriesAsync<string>(createLanguageFile.Value);
+            await LanguageEntryItemDb.InsertLanguageEntryItemsAsync<string>(createLanguageFile.Value);
         }
         else
-            ImportMessage = $"Error: {languageFile.Error?.Message ?? "Import NOT successful"}";
+            ImportMessage = $"Error: {createLanguageFile.Error?.Message ?? "Import NOT successful"}";
 
         StateHasChanged();
     }
