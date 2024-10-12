@@ -10,7 +10,7 @@ namespace LanguageFileTranslatorApp.Components.Importer;
 public class
     JsonFileImporterBase : ComponentBase
 {
-    private const string DefaultStatus = "Drop a json file here or click to choose a json file";
+    private const string DefaultStatus = "Drop a file here or click to choose one";
     protected ElementReference DropZoneElement;
     private IJSObjectReference? _dropZoneInstance;
     protected InputFile? InputFile;

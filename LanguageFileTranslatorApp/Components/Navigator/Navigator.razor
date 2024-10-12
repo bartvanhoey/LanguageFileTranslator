@@ -8,7 +8,7 @@
                 <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
                     <i class="bi bi-chevron-left"></i>
                 </button>
-                <button type="button" class="btn btn-primary key-btn-width">Key</button>
+                <button type="button" class="btn btn-primary navigator-btn-width">Key</button>
                 <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -27,7 +27,7 @@
                 <button type="button" class="btn btn-primary" @onclick="GotoPreviousById">
                     <i class="bi bi-chevron-left"></i>
                 </button>
-                <button type="button" class="btn btn-primary id-btn-width">Id</button>
+                <button type="button" class="btn btn-primary navigator-btn-width">Id</button>
                 <button type="button" class="btn btn-primary" @onclick="GotoNextById">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -42,7 +42,7 @@
     {
         <div class="row g-1 pt-4">
             <div class="col-sm-1 col-2">
-                <Label class="form-control text-center" disabled="disabled">Id</Label>
+                <Label class="form-control text-center navigator-label" disabled="disabled">Id</Label>
             </div>
             <div class="col-sm-11 col-10">
                 <input class="form-control" disabled="disabled" value="@LanguageEntry.Id"/>
@@ -50,10 +50,10 @@
         </div>
         <div class="row pt-1 g-1">
             <div class="col-sm-1 col-2">
-                <Label class="form-control text-center" disabled="disabled">Key</Label>
+                <Label class="form-control text-center navigator-label" disabled="disabled">Key</Label>
             </div>
             <div class="col-sm-11 col-10">
-                <input class="form-control" value="@LanguageEntry.Key"/>
+                <input class="form-control key-input" value="@LanguageEntry.Key"/>
             </div>
         </div>
     }

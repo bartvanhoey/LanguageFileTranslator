@@ -1,6 +1,13 @@
-﻿.key-btn-width {
+﻿.navigator-btn-width {
     width: 64px;
 }
-.id-btn-width {
-    width: 64px;
+
+.navigator-label{
+    background-color: var(--onyx);
+    color: white;
+}
+
+.key-input{
+    background-color: var(--uranian-blue);
+    color: white;
 }
