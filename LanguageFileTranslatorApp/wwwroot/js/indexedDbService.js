@@ -1,18 +1,29 @@
-﻿export function initialize() {
-    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+﻿let currentVersion = 1;
+let databaseName = "LanguageFileTranslatorDb";
+
+const languageEntriesDbStore = "languageEntries";
+const languageEntriesKeyIndex = "languageEntriesKeyIndex";
+const languageEntryItemsDbStore = "languageEntryItems";
+const languageEntryItemsKeyIndex = "languageEntryItemsKeyIndex";
+
+export function initialize() {
+    let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onupgradeneeded = function () {
+        console.log("onupgradeneeded")
+
         let db = openRequest.result;
+        const languageEntries = db.createObjectStore(languageEntriesDbStore, {keyPath: "id"});
+        languageEntries.createIndex(languageEntriesKeyIndex, ["key"], {unique: false})
+        console.log('languageEntriesDbStore created');
 
-        const languageEntries = db.createObjectStore("languageEntries", {keyPath: "id"});
-        languageEntries.createIndex("languageEntriesKeyIndex", ["key"], {unique: false})
-
-        const languageEntryItems = db.createObjectStore("languageEntryItems", {keyPath: "id"});
-        languageEntryItems.createIndex("languageEntryItemsKeyIndex", ["key"], {unique: false})
+        const languageEntryItems = db.createObjectStore(languageEntryItemsDbStore, {keyPath: "id"});
+        languageEntryItems.createIndex(languageEntryItemsKeyIndex, ["key"], {unique: false})
+        console.log('languageEntryItemsDbStore created');
     }
 }
 
 export function set(collectionName, value) {
-    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onsuccess = () => {
         let transaction = openRequest.result.transaction(collectionName, "readwrite");
         let objectStore = transaction.objectStore(collectionName)
@@ -22,7 +33,7 @@ export function set(collectionName, value) {
 }
 
 export function setMany(collectionName, items) {
-    let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+    let openRequest = indexedDB.open(databaseName, currentVersion);
     openRequest.onsuccess = () => {
         let transaction = openRequest.result.transaction(collectionName, "readwrite");
         let objectStore = transaction.objectStore(collectionName)
@@ -36,7 +47,7 @@ export function setMany(collectionName, items) {
 
 export async function get(collectionName, id) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -53,7 +64,7 @@ export async function get(collectionName, id) {
 
 export async function getFirstId(collectionName) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -69,10 +80,23 @@ export async function getFirstId(collectionName) {
     return await promise;
 }
 
+function createObjectStoresIfNotExist(openRequest) {
+    const objectStoreNames = openRequest.result.objectStoreNames;
+    console.log("objectStoreNames: " + objectStoreNames)
+    if (!objectStoreNames.contains(languageEntriesDbStore) || !objectStoreNames.contains(languageEntryItemsDbStore)) {
+        currentVersion = currentVersion + 1;
+        console.log("currentVersion: " + currentVersion);
+        console.log("call to initialize")
+        initialize();
+        console.log("initialize called")
+    }
+}
+
 export async function getFirstKey(collectionName) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
+            createObjectStoresIfNotExist(openRequest);
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
             const request = objectStore.getAll();
@@ -88,7 +112,7 @@ export async function getFirstKey(collectionName) {
 
 export async function getNextKey(collectionName, languageEntry) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -113,7 +137,7 @@ export async function getNextKey(collectionName, languageEntry) {
 
 export async function getPreviousKey(collectionName, languageEntry) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -129,7 +153,7 @@ export async function getPreviousKey(collectionName, languageEntry) {
                 if (index === 0 || index === -1) {
                     resolve(request.result[0]);
                 } else {
-                    const previousIndex =index - 1;
+                    const previousIndex = index - 1;
                     resolve(request.result[previousIndex]);
                 }
             }
@@ -141,7 +165,7 @@ export async function getPreviousKey(collectionName, languageEntry) {
 
 export async function getLastKey(collectionName) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -158,7 +182,7 @@ export async function getLastKey(collectionName) {
 
 export async function getLastId(collectionName) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -176,7 +200,7 @@ export async function getLastId(collectionName) {
 
 export async function getAll(collectionName) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -190,7 +214,7 @@ export async function getAll(collectionName) {
 
 export async function getAllByKey(collectionName, key) {
     let promise = new Promise((resolve) => {
-        let openRequest = indexedDB.open(DATABASE_NAME, CURRENT_VERSION);
+        let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
             let transaction = openRequest.result.transaction(collectionName, "readonly");
             let objectStore = transaction.objectStore(collectionName);
@@ -203,5 +227,3 @@ export async function getAllByKey(collectionName, key) {
     return await promise;
 }
 
-let CURRENT_VERSION = 1;
-let DATABASE_NAME = "LanguageFileTranslatorDb";
