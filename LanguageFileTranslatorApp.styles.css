@@ -80,7 +80,7 @@ main[b-lpmaf0sga2] {
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
+@media (max-width: 574.98px) {
     .top-row[b-lpmaf0sga2] {
         justify-content: space-between;
     }
@@ -90,7 +90,7 @@ main[b-lpmaf0sga2] {
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 575px) {
     .page[b-lpmaf0sga2] {
         flex-direction: row;
     }
