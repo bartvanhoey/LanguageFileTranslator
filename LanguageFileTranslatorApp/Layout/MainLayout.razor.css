@@ -32,7 +32,7 @@ main {
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
+@media (max-width: 574.98px) {
     .top-row {
         justify-content: space-between;
     }
@@ -42,7 +42,7 @@ main {
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 575px) {
     .page {
         flex-direction: row;
     }
