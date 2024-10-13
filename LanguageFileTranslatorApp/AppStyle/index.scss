@@ -18,6 +18,12 @@
   transition: all 200ms;
 }
 
+h1
+{
+  color: var(--onyx) !important;
+  padding-top: 10px !important;
+}
+
 .btn-primary  {
   border: none !important;
   color: white !important;
@@ -177,4 +183,19 @@
 
 .drag-drop-zone:hover {
   background-color: var(--rosy-brown);
+}
+
+
+@media only screen and (max-width: 768px) {
+  h1 {
+    padding-top: 8px !important;
+    font-size: 30px !important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  h1 {
+    padding-top: 6px !important;
+    font-size: 20px !important;
+  }
 }

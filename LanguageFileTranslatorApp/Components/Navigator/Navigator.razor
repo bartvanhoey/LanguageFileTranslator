@@ -1,60 +1,58 @@
-﻿<div class="container">
-    <div class="row pb-1">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
-                    <i class="bi bi-chevron-bar-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary navigator-btn-width">Key</button>
-                <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoLastByKey">
-                    <i class="bi bi-chevron-bar-right"></i>
-                </button>
-            </div>
+﻿<div class="row pb-1">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
+                <i class="bi bi-chevron-bar-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary navigator-btn-width">Key</button>
+            <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoLastByKey">
+                <i class="bi bi-chevron-bar-right"></i>
+            </button>
         </div>
     </div>
-    <div class="row">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-primary" @onclick="GotoFirstById">
-                    <i class="bi bi-chevron-bar-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoPreviousById">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary navigator-btn-width">Id</button>
-                <button type="button" class="btn btn-primary" @onclick="GotoNextById">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoLastById">
-                    <i class="bi bi-chevron-bar-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    @if (LanguageEntry != null)
-    {
-        <div class="row g-1 pt-4">
-            <div class="col-sm-1 col-2">
-                <Label class="form-control text-center navigator-label" disabled="disabled">Id</Label>
-            </div>
-            <div class="col-sm-11 col-10">
-                <input class="form-control" disabled="disabled" value="@LanguageEntry.Id"/>
-            </div>
-        </div>
-        <div class="row pt-1 g-1">
-            <div class="col-sm-1 col-2">
-                <Label class="form-control text-center navigator-label" disabled="disabled">Key</Label>
-            </div>
-            <div class="col-sm-11 col-10">
-                <input class="form-control key-input" value="@LanguageEntry.Key"/>
-            </div>
-        </div>
-    }
 </div>
+<div class="row">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-primary" @onclick="GotoFirstById">
+                <i class="bi bi-chevron-bar-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoPreviousById">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary navigator-btn-width">Id</button>
+            <button type="button" class="btn btn-primary" @onclick="GotoNextById">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoLastById">
+                <i class="bi bi-chevron-bar-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+@if (LanguageEntry != null)
+{
+    <div class="row g-1 pt-4">
+        <div class="col-sm-1 col-2">
+            <Label class="form-control text-center navigator-label" disabled="disabled">Id</Label>
+        </div>
+        <div class="col-sm-11 col-10">
+            <input class="form-control" disabled="disabled" value="@LanguageEntry.Id"/>
+        </div>
+    </div>
+    <div class="row pt-1 g-1">
+        <div class="col-sm-1 col-2">
+            <Label class="form-control text-center navigator-label" disabled="disabled">Key</Label>
+        </div>
+        <div class="col-sm-11 col-10">
+            <input class="form-control key-input" value="@LanguageEntry.Key"/>
+        </div>
+    </div>
+}
