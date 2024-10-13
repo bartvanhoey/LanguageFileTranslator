@@ -184,6 +184,13 @@ main[b-lpmaf0sga2] {
     }
 }
 
+.bottom-nav-menu[b-crp5q4flrh] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 
 
+/* /Pages/Export.razor.rz.scp.css */
+/* /Pages/Settings.razor.rz.scp.css */
 /* /Pages/Translate.razor.rz.scp.css */
