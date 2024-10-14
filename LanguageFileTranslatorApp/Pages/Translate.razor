@@ -1,4 +1,5 @@
 ﻿@page "/Translate"
+@using LanguageFileTranslatorApp.Models.ValueObjects
 
 <PageTitle>translate</PageTitle>
 
@@ -6,8 +7,13 @@
 
 <hr>
 
-<Navigator></Navigator>
+<Navigator OnLanguageEntryChanged="LanguageEntryChanged"></Navigator>
 
 @code {
-    
+
+    private void LanguageEntryChanged(LanguageEntry languageEntry)
+    {
+        
+    }
+
 }

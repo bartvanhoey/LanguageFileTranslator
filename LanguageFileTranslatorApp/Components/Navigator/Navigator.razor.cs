@@ -6,12 +6,20 @@ namespace LanguageFileTranslatorApp.Components.Navigator;
 
 public partial class Navigator(ILanguageEntryDbService db) : ComponentBase
 {
+    
+    [Parameter]
+    public EventCallback<LanguageEntry> OnLanguageEntryChanged { get; set; }
+    
     protected override async Task OnInitializedAsync() => await GotoFirstByKey();
 
     private async Task GotoFirstByKey()
     {
         var first = await db.GetFirstByKeyAsync();
-        if (first.IsSuccess) LanguageEntry = first.Value;
+        if (first.IsSuccess)
+        {
+            LanguageEntry = first.Value;
+            await OnLanguageEntryChanged.InvokeAsync(LanguageEntry);
+        }
     }
 
     private async Task GotoPreviousByKey()
@@ -61,4 +69,9 @@ public partial class Navigator(ILanguageEntryDbService db) : ComponentBase
         var result = await db.GetLastByIdAsync();
         if (result.IsSuccess) LanguageEntry = result.Value;
     }
+}
+
+public class LanguageEntryChangedEventArgs : EventArgs
+{
+    public LanguageEntry? LanguageEntry { get; set; }
 }
