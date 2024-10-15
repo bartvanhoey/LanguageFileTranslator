@@ -9,3 +9,10 @@
 
 <Navigator OnLanguageEntryChanged="LanguageEntryChanged"></Navigator>
 
+<hr>
+
+@foreach (var item in LanguageEntryItems)
+{
+    <input type="text" value="@item.Value">
+}
+

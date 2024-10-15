@@ -35,4 +35,6 @@ public class LanguageEntryDbServiceBase: IAsyncDisposable
 
     public async Task<T> GetAllAsync<T>(string collectionName, string jsonFileName) 
         => await (await GetIndexedDb()).InvokeAsync<T>("getAll", collectionName, jsonFileName);
+    
+    
 }
