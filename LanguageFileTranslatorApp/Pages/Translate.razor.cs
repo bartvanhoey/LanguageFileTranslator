@@ -4,19 +4,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace LanguageFileTranslatorApp.Pages;
 
-public partial class Translate : ComponentBase
+public partial class Translate(ILanguageEntryItemDbService languageEntryItemDbService) : ComponentBase
 {
-    private readonly ILanguageEntryItemDbService _languageEntryItemDbService;
+    private List<LanguageEntryItem> LanguageEntryItems { get; set; } = [];
 
-    public List<LanguageEntryItem> LanguageEntryItems { get; set; } = [];
-    public Translate(ILanguageEntryItemDbService languageEntryItemDbService)
-    {
-        _languageEntryItemDbService = languageEntryItemDbService;
-    }
-    
     private async Task LanguageEntryChanged(LanguageEntry languageEntry)
     {
-        LanguageEntryItems = await _languageEntryItemDbService.GetLanguageEntryItemsAsync<List<LanguageEntryItem>>(languageEntry);
+        LanguageEntryItems = await languageEntryItemDbService.GetLanguageEntryItemsAsync<List<LanguageEntryItem>>(languageEntry);
         StateHasChanged();
     }
     
