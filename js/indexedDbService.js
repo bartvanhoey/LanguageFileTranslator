@@ -271,7 +271,22 @@ export async function getAll(collectionName) {
     return await promise;
 }
 
-export async function getAllByKey(collectionName, key) {
+export async function getAllLanguageEntryItemsByKey(key) {
+    let promise = new Promise((resolve) => {
+        let openRequest = indexedDB.open(databaseName, currentVersion);
+        openRequest.onsuccess = function () {
+            let transaction = openRequest.result.transaction(languageEntryItemsDbStore, "readonly");
+            let objectStore = transaction.objectStore(languageEntryItemsDbStore);
+            const index = objectStore.index("languageEntryItemsKeyIndex")
+            const request = index.getAll([key])
+            request.onsuccess = (e) => resolve(request.result);
+            request.onerror = (e) => alert("getAllLanguageEntryItemsByKey event: " + e + "request" + openRequest.result);
+        }
+    });
+    return await promise;
+}
+
+export async function getAllLanguageEntriesByKey(collectionName, key) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
@@ -280,7 +295,7 @@ export async function getAllByKey(collectionName, key) {
             const index = objectStore.index("languageEntriesKeyIndex")
             const request = index.getAll([key])
             request.onsuccess = (e) => resolve(request.result);
-            request.onerror = (e) => alert("getAllByKey event: " + e + "request" + openRequest.result);
+            request.onerror = (e) => alert("getAllLanguageEntryItemsByKey event: " + e + "request" + openRequest.result);
         }
     });
     return await promise;

@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-JpO6fTIAaMjbzIYvw+ARawIndQmjNORzGEcNdLq+bes=",
-      "url": "_framework\/LanguageFileTranslatorApp.i0cr56xal6.wasm.br"
+      "hash": "sha256-HVvJD24zXk+3KSCyyqAtfLoFPMRvLX9G19KQiw2IdpU=",
+      "url": "_framework\/LanguageFileTranslatorApp.7gg4kzptgc.wasm.br"
     },
     {
       "hash": "sha256-FNbqbIacZgKqkP1DqRR1XIpP3cd54RMFI7ye\/1tn4dA=",
@@ -137,20 +137,20 @@
       "url": "_framework\/System.Net.Primitives.hphy61fras.wasm.br"
     },
     {
-      "hash": "sha256-+FfJ3jT5vr9p19UK1CfUIT4B3d7J0QXWu4nrp18aaD0=",
-      "url": "_framework\/System.Private.CoreLib.vy4arx8wl4.wasm.br"
+      "hash": "sha256-DgMuxBO+tsujla4Y\/U7A4\/36nSvW5ufJNs1ZwevpfQI=",
+      "url": "_framework\/System.Private.CoreLib.cnrx2w2ekl.wasm.br"
     },
     {
       "hash": "sha256-8DWnqSW992Z0iWE6TsDQzpFkDiByn\/RpOcR+++zwtBY=",
       "url": "_framework\/System.Private.Uri.3fb672mez9.wasm.br"
     },
     {
-      "hash": "sha256-AVMxDTlpTYIEzlabmpEsHQ+UKL+Kvpb1YpFXPzth5Uk=",
-      "url": "_framework\/System.Runtime.592nod2111.wasm.br"
-    },
-    {
       "hash": "sha256-BdZ6lCgCt9cvy9EOJs0XvK+T00S7Bx\/l08egmgtwlCs=",
       "url": "_framework\/System.Runtime.InteropServices.JavaScript.vbi7xy05cc.wasm.br"
+    },
+    {
+      "hash": "sha256-EsRXoaBZnmHvh32GeNZkPCfFBFfbX3R9SepuEE4QI7M=",
+      "url": "_framework\/System.Runtime.tt23tiuo4f.wasm.br"
     },
     {
       "hash": "sha256-sWluCpkGrw\/II12nmM4EG+CFn\/o+uFzoVGcVH0K9wFo=",
@@ -173,7 +173,7 @@
       "url": "_framework\/System.Threading.e40w6tlim8.wasm.br"
     },
     {
-      "hash": "sha256-mV4LYhzFkOJJUJy1kLCMdRwYN6yex6VIxfFjQHPN0PQ=",
+      "hash": "sha256-ZtszIXnW1YXrRExahRuEmZymUpSRNTF5rDfUDeLtxlY=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -261,7 +261,7 @@
       "url": "js\/dropZone.js.br"
     },
     {
-      "hash": "sha256-EGi3fjDCAYWjs0a0oiH+RvSytsUuYDQnFxlkzbtIb2Y=",
+      "hash": "sha256-dKpdR\/jaGzWLdjwXLNqenBBhGRIsPM7wJUX\/xGxHD0w=",
       "url": "js\/indexedDbService.js.br"
     },
     {
@@ -281,5 +281,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "CoWBSOiQ"
+  "version": "4B1\/wh1u"
 };
