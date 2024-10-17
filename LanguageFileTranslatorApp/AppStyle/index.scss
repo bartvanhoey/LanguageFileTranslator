@@ -184,6 +184,11 @@ h1
   background-color: var(--rosy-brown);
 }
 
+.dark-white-label{
+  background-color: var(--onyx);
+  color: white;
+}
+
 
 @media only screen and (max-width: 768px) {
   h1 {
