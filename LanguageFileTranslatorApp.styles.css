@@ -36,10 +36,7 @@ button.close[b-y21xpdip9e] {
     width: 64px;
 }
 
-.navigator-label[b-dqcetx9j5d]{
-    background-color: var(--onyx);
-    color: white;
-}
+
 
 .key-input[b-dqcetx9j5d]{
     background-color: var(--uranian-blue);
@@ -194,3 +191,7 @@ main[b-lpmaf0sga2] {
 /* /Pages/Export.razor.rz.scp.css */
 /* /Pages/Settings.razor.rz.scp.css */
 /* /Pages/Translate.razor.rz.scp.css */
+.value-input[b-vetk881f9p]{
+    background-color: var(--light-blue);
+    color: var(--onyx);
+}
