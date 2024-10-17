@@ -14,4 +14,13 @@ public partial class Translate(ILanguageEntryItemDbService languageEntryItemDbSe
         StateHasChanged();
     }
     
+    private async Task ValueChanged(ChangeEventArgs args, string key, string? culture)
+    {
+        var item = LanguageEntryItems.FirstOrDefault(x => x.Key == key && x.Culture == culture);
+
+        if (item != null) await languageEntryItemDbService.UpdateLanguageEntryItemAsync(item.Id, args.Value);
+
+        await Task.CompletedTask;
+    }
+    
 }

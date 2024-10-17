@@ -5,6 +5,7 @@ namespace LanguageFileTranslatorApp.Services.IndexedDb;
 public interface ILanguageEntryItemDbService
 {
     Task InitializeAsync();
-    Task InsertLanguageEntryItemsAsync<T>(LanguageFile languageFile);
+    Task InsertLanguageEntryItemsAsync(LanguageFile languageFile);
     Task<List<LanguageEntryItem>> GetLanguageEntryItemsAsync<T>(LanguageEntry languageEntry);
+    Task UpdateLanguageEntryItemAsync(string id, object? value);
 }

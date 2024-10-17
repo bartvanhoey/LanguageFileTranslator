@@ -16,7 +16,7 @@
             <Label class="form-control text-center label-primary" disabled="disabled">@item.Culture </Label>
         </div>
         <div class="col-md-9 col-12 order-last order-md-1">
-            <input class="form-control value-input" type="text" value="@item.Value">
+            <input class="form-control value-input" type="text" value="@item.Value" @onchange="e =>ValueChanged(e, item.Key, item.Culture)">
         </div>
         <div class="col-md-1 col-4 order-md-last">
             <button class="btn btn-primary w-100">...</button>

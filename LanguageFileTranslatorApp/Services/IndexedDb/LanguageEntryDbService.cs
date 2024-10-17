@@ -11,7 +11,7 @@ public class LanguageEntryDbService(IJSRuntime jsRuntime)
 {
     private const string LanguageEntries = "languageEntries";
 
-    public async Task InsertLanguageEntriesAsync<T>(LanguageFile languageFile) =>
+    public async Task InsertLanguageEntriesAsync(LanguageFile languageFile) =>
         await SetManyAsync(LanguageEntries, languageFile.Model.LanguageEntryItems.Select(x =>
             new LanguageEntry(x.IdLanguageEntryItem, x.Key)).ToList());
 

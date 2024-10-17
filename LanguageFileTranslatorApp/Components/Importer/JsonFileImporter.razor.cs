@@ -42,8 +42,8 @@ public class
             
             if (LanguageEntryDb == null || LanguageEntryItemDb == null) return;
             
-            await LanguageEntryDb.InsertLanguageEntriesAsync<string>(createLanguageFile.Value);
-            await LanguageEntryItemDb.InsertLanguageEntryItemsAsync<string>(createLanguageFile.Value);
+            await LanguageEntryDb.InsertLanguageEntriesAsync(createLanguageFile.Value);
+            await LanguageEntryItemDb.InsertLanguageEntryItemsAsync(createLanguageFile.Value);
         }
         else
             ImportMessage = $"Error: {createLanguageFile.Error?.Message ?? "Import NOT successful"}";

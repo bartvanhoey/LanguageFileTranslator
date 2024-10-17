@@ -7,7 +7,7 @@ public interface ILanguageEntryDbService
 {
     Task InitializeAsync();
     // Task InsertTranslationAsync<T>(string culture, string key, string value);
-    Task InsertLanguageEntriesAsync<T>(LanguageFile languageFile);
+    Task InsertLanguageEntriesAsync(LanguageFile languageFile);
     Task<Result<LanguageEntry>> GetFirstByKeyAsync();
     Task<Result<LanguageEntry>> GetPreviousByKeyAsync(LanguageEntry languageEntry);
     Task<Result<LanguageEntry>> GetNextByKeyAsync(LanguageEntry languageEntry);
