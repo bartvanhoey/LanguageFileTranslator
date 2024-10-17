@@ -1,24 +1,25 @@
 ﻿@page "/Translate"
-@using LanguageFileTranslatorApp.Models.ValueObjects
 
 <PageTitle>translate</PageTitle>
 
 <h1>translate</h1>
 
 <hr>
+
+
 <Navigator OnLanguageEntryChanged="LanguageEntryChanged"></Navigator>
 
 @foreach (var item in LanguageEntryItems)
 {
-    <div class="row g-1 pt-2">
-        <div class="col-md-1 col-4">
-            <Label class="form-control text-center dark-white-label" disabled="disabled">@item.Culture </Label>
+    <div class="row g-1 my-2">
+        <div class="col-md-2 col-8">
+            <Label class="form-control text-center label-primary" disabled="disabled">@item.Culture </Label>
         </div>
-        <div class="col-md-10 col-12 order-last order-md-1">
+        <div class="col-md-9 col-12 order-last order-md-1">
             <input class="form-control value-input" type="text" value="@item.Value">
         </div>
         <div class="col-md-1 col-4 order-md-last">
-            <button class="btn btn-outline-primary w-100" disabled>...</button>
+            <button class="btn btn-primary w-100">...</button>
         </div>
     </div>
 }

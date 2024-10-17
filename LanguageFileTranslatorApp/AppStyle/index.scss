@@ -51,6 +51,12 @@ h1
   }
 }
 
+.label-primary
+{
+  color: white;
+  background-color: var(--french-gray);
+}
+
 .valid.modified:not([type=checkbox]) {
   outline: 1px solid var(--onyx);
 }
