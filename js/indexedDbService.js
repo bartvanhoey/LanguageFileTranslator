@@ -1,8 +1,8 @@
 ﻿let currentVersion = 1;
 let databaseName = "LanguageFileTranslatorDb";
-const languageEntriesDbStore = "languageEntries";
+const languageEntries = "languageEntries";
 const languageEntriesKeyIndex = "languageEntriesKeyIndex";
-const languageEntryItemsDbStore = "languageEntryItems";
+const languageEntryItems = "languageEntryItems";
 const languageEntryItemsKeyIndex = "languageEntryItemsKeyIndex";
 const isInDebugMode = true;
 
@@ -12,12 +12,12 @@ export function initialize() {
         writeToConsole("onupgradeneeded")
 
         let db = openRequest.result;
-        const languageEntries = db.createObjectStore(languageEntriesDbStore, {keyPath: "id"});
-        languageEntries.createIndex(languageEntriesKeyIndex, ["key"], {unique: false})
-        writeToConsole('languageEntriesDbStore created');
+        const languageEntriesStore = db.createObjectStore(languageEntries, {keyPath: "id"});
+        languageEntriesStore.createIndex(languageEntriesKeyIndex, ["key"], {unique: false})
+        writeToConsole('languageEntries created');
 
-        const languageEntryItems = db.createObjectStore(languageEntryItemsDbStore, {keyPath: "id"});
-        languageEntryItems.createIndex(languageEntryItemsKeyIndex, ["key"], {unique: false})
+        const languageEntryItemsStore = db.createObjectStore(languageEntryItems, {keyPath: "id"});
+        languageEntryItemsStore.createIndex(languageEntryItemsKeyIndex, ["key"], {unique: false})
         writeToConsole('languageEntryItemsDbStore created');
     }
 }
@@ -25,7 +25,7 @@ export function initialize() {
 function createObjectStoresIfNotExist(openRequest) {
     const objectStoreNames = openRequest.result.objectStoreNames;
     writeToConsole("objectStoreNames: " + objectStoreNames)
-    if (!objectStoreNames.contains(languageEntriesDbStore) || !objectStoreNames.contains(languageEntryItemsDbStore)) {
+    if (!objectStoreNames.contains(languageEntries) || !objectStoreNames.contains(languageEntryItems)) {
         const DBDeleteRequest = window.indexedDB.deleteDatabase(databaseName);
         writeToConsole("call to initialize")
         initialize();
@@ -42,6 +42,32 @@ export function set(collectionName, value) {
     }
     openRequest.onerror = (e) => alert(openRequest.result)
 }
+
+
+export function updateLanguageEntryItem(id, value) {
+    let openRequest = indexedDB.open(databaseName, currentVersion);
+    openRequest.onsuccess = () => {
+        let transaction = openRequest.result.transaction(languageEntryItems, "readwrite");
+        let objectStore = transaction.objectStore(languageEntryItems)
+
+        const request = objectStore.get(id);
+        request.onsuccess = (event) => {
+            const item = event.target.result;
+            item.value = value;
+            // Put this updated object back into the database.
+            const requestUpdate = objectStore.put(item);
+            requestUpdate.onerror = (event) => {
+                // Do something with the error
+            };
+            requestUpdate.onsuccess = (event) => {
+                // Success - the data is updated!
+            };
+        }
+    }
+    openRequest.onerror = (e) => alert(openRequest.result)
+}
+
+
 
 export function setMany(collectionName, items) {
     writeToConsole("collectionName: " + collectionName);
@@ -275,8 +301,8 @@ export async function getAllLanguageEntryItemsByKey(key) {
     let promise = new Promise((resolve) => {
         let openRequest = indexedDB.open(databaseName, currentVersion);
         openRequest.onsuccess = function () {
-            let transaction = openRequest.result.transaction(languageEntryItemsDbStore, "readonly");
-            let objectStore = transaction.objectStore(languageEntryItemsDbStore);
+            let transaction = openRequest.result.transaction(languageEntryItems, "readonly");
+            let objectStore = transaction.objectStore(languageEntryItems);
             const index = objectStore.index("languageEntryItemsKeyIndex")
             const request = index.getAll([key])
             request.onsuccess = (e) => resolve(request.result);

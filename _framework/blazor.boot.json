@@ -1,12 +1,12 @@
 {
   "mainAssemblyName": "LanguageFileTranslatorApp",
   "resources": {
-    "hash": "sha256-Zl+GqasR5FuiE8O7JPMneDtXFuZLghXqMd+qEQ4vn20=",
+    "hash": "sha256-NkWHBqOMXruugq0RHxfhbcIB6Sa/NS3KE6/wyMy7dec=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "JetBrains.Annotations.75veoqxomf.wasm": "JetBrains.Annotations.wasm",
-      "LanguageFileTranslatorApp.j019q5dzoy.wasm": "LanguageFileTranslatorApp.wasm",
-      "Microsoft.AspNetCore.Components.3l5jzg0jy9.wasm": "Microsoft.AspNetCore.Components.wasm",
+      "LanguageFileTranslatorApp.omfsn6u23s.wasm": "LanguageFileTranslatorApp.wasm",
+      "Microsoft.AspNetCore.Components.fjbpvz5dei.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
       "Microsoft.Extensions.Configuration.Abstractions.68pc0kvab2.wasm": "Microsoft.Extensions.Configuration.Abstractions.wasm",
@@ -75,8 +75,8 @@
     "assembly": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "JetBrains.Annotations.75veoqxomf.wasm": "sha256-K2Wvsx9NvmtkU4V07OCHCR0wmY6uNAnSuHp+KN2yAwc=",
-      "LanguageFileTranslatorApp.j019q5dzoy.wasm": "sha256-nXRz7fxxSgzZxux09z3TSiZG5nbBWZQ9HzyjTIqSKK4=",
-      "Microsoft.AspNetCore.Components.3l5jzg0jy9.wasm": "sha256-B6ZdIoZFDfJPlhENwliwnXE+pJg65OFAmRq13Kfo2i4=",
+      "LanguageFileTranslatorApp.omfsn6u23s.wasm": "sha256-4BLrBHiLHvLGb02ZhoQ8qBsgzG5afLE1b4M+ki8wjZA=",
+      "Microsoft.AspNetCore.Components.fjbpvz5dei.wasm": "sha256-q4GLkM7GRrJA+CirZtR8sMPLazFIkOgKZaNAFdrccvM=",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "sha256-e6NYhsj8eyJ1xkOGNY+n8smq4qdDYzh6A1KGIaH57X4=",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "sha256-wqN95Lh/pnVkqk+dI3ZqbE5P7IdTODTrkrYVdMm5ViI=",
       "Microsoft.Extensions.Configuration.Abstractions.68pc0kvab2.wasm": "sha256-tkqSXRzZPeNbxtJ+IaZQez5Sw1oYvnS1QEhL3d5WvMQ=",
