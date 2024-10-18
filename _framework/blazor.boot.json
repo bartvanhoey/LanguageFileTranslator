@@ -1,12 +1,12 @@
 {
   "mainAssemblyName": "LanguageFileTranslatorApp",
   "resources": {
-    "hash": "sha256-NkWHBqOMXruugq0RHxfhbcIB6Sa/NS3KE6/wyMy7dec=",
+    "hash": "sha256-vZHYdMeEwdMN3V2peP0H6GxhXhaYHIGxzfzW8LZC0UQ=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "JetBrains.Annotations.75veoqxomf.wasm": "JetBrains.Annotations.wasm",
-      "LanguageFileTranslatorApp.omfsn6u23s.wasm": "LanguageFileTranslatorApp.wasm",
-      "Microsoft.AspNetCore.Components.fjbpvz5dei.wasm": "Microsoft.AspNetCore.Components.wasm",
+      "LanguageFileTranslatorApp.huntyvnyy2.wasm": "LanguageFileTranslatorApp.wasm",
+      "Microsoft.AspNetCore.Components.bh0k6l5ge4.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
       "Microsoft.Extensions.Configuration.Abstractions.68pc0kvab2.wasm": "Microsoft.Extensions.Configuration.Abstractions.wasm",
@@ -37,7 +37,7 @@
       "System.Memory.hk1d73jf1p.wasm": "System.Memory.wasm",
       "System.Net.Http.wvdtixi319.wasm": "System.Net.Http.wasm",
       "System.Net.Primitives.hphy61fras.wasm": "System.Net.Primitives.wasm",
-      "System.Private.CoreLib.cnrx2w2ekl.wasm": "System.Private.CoreLib.wasm",
+      "System.Private.CoreLib.zydrh8c5dt.wasm": "System.Private.CoreLib.wasm",
       "System.Private.Uri.3fb672mez9.wasm": "System.Private.Uri.wasm",
       "System.Runtime.InteropServices.JavaScript.vbi7xy05cc.wasm": "System.Runtime.InteropServices.JavaScript.wasm",
       "System.Runtime.tt23tiuo4f.wasm": "System.Runtime.wasm",
@@ -47,7 +47,7 @@
       "System.Text.RegularExpressions.6jvkmeq68o.wasm": "System.Text.RegularExpressions.wasm",
       "System.Threading.e40w6tlim8.wasm": "System.Threading.wasm",
       "dotnet.native.tu18g0hln1.js": "dotnet.native.js",
-      "dotnet.native.1dxm2itite.wasm": "dotnet.native.wasm",
+      "dotnet.native.r4zp90q591.wasm": "dotnet.native.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.runtime.ju77aherdp.js": "dotnet.runtime.js",
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
@@ -61,7 +61,7 @@
       "dotnet.runtime.ju77aherdp.js": "sha256-e/Ee0XzTQHVzg6pZms6FR5P6yEpTgaACDSAZCGD1PUo="
     },
     "wasmNative": {
-      "dotnet.native.1dxm2itite.wasm": "sha256-m5MyPS3j5tW9ODliiVvQz4dhDstoXqRfRa8RJpbATZU="
+      "dotnet.native.r4zp90q591.wasm": "sha256-Gwf1AtAfx3RWmKTSibbqOA5nDdcNKlA/HegU87eHWLc="
     },
     "icu": {
       "icudt_CJK.tjcz0u77k5.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -69,14 +69,14 @@
       "icudt_no_CJK.lfu7j35m59.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "coreAssembly": {
-      "System.Private.CoreLib.cnrx2w2ekl.wasm": "sha256-OGyd38lQktljPOz0nUSHzCrZOnNDsV9ndWywDQqsLS4=",
+      "System.Private.CoreLib.zydrh8c5dt.wasm": "sha256-ha/2HYofCKXoniw3A7xMxmOCE7jsntbBNUAjTBL7oz8=",
       "System.Runtime.InteropServices.JavaScript.vbi7xy05cc.wasm": "sha256-iyHAcUW3MeBhiBJYRDE3uHM1+K3ghZ+2EQK73u2xaM4="
     },
     "assembly": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
       "JetBrains.Annotations.75veoqxomf.wasm": "sha256-K2Wvsx9NvmtkU4V07OCHCR0wmY6uNAnSuHp+KN2yAwc=",
-      "LanguageFileTranslatorApp.omfsn6u23s.wasm": "sha256-4BLrBHiLHvLGb02ZhoQ8qBsgzG5afLE1b4M+ki8wjZA=",
-      "Microsoft.AspNetCore.Components.fjbpvz5dei.wasm": "sha256-q4GLkM7GRrJA+CirZtR8sMPLazFIkOgKZaNAFdrccvM=",
+      "LanguageFileTranslatorApp.huntyvnyy2.wasm": "sha256-+Uu/5DikMKgdOD50igK02OAW9y6oFX0N/OJ2uqwyAuI=",
+      "Microsoft.AspNetCore.Components.bh0k6l5ge4.wasm": "sha256-b8mUyfkcsQdotG3lXOpZaP0HODD0fL2fhzedxvudcgg=",
       "Microsoft.AspNetCore.Components.Web.jim68xox88.wasm": "sha256-e6NYhsj8eyJ1xkOGNY+n8smq4qdDYzh6A1KGIaH57X4=",
       "Microsoft.AspNetCore.Components.WebAssembly.upqayvcoqo.wasm": "sha256-wqN95Lh/pnVkqk+dI3ZqbE5P7IdTODTrkrYVdMm5ViI=",
       "Microsoft.Extensions.Configuration.Abstractions.68pc0kvab2.wasm": "sha256-tkqSXRzZPeNbxtJ+IaZQez5Sw1oYvnS1QEhL3d5WvMQ=",
