@@ -13,7 +13,7 @@ public class LanguageEntryItem
         Id = $"{culture}#{Key}";
     }
 
-    public string Id { get; set; }
+    public string? Id { get; set; }
     public string Key { get; set; }
     public string? Value { get; set; }
     public int IdLanguageEntryItem { get; set; }

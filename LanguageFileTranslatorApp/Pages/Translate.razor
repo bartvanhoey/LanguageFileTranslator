@@ -1,4 +1,5 @@
 ﻿@page "/Translate"
+@inherits PageComponentBase
 
 <PageTitle>translate</PageTitle>
 
@@ -23,3 +24,19 @@
         </div>
     </div>
 }
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast @ShowToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">@ToastTitle</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            @ToastBody
+        </div>
+    </div>
+</div>
+
+<Confirm @ref="ValueChangedConfirmDialog" ModalTitle="Save Value" ConfirmChanged="ConfirmValueChangedAsync" ConfirmText="Save"
+         ModalText=@("Are you sure you want to save the value to the database?")>
+</Confirm>
