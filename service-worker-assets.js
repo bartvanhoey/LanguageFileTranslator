@@ -13,8 +13,8 @@
       "url": "_framework\/JetBrains.Annotations.75veoqxomf.wasm.br"
     },
     {
-      "hash": "sha256-vHt5xdLKK4i1aKb1REwDji92TU9Imo6I+Oqm37NdA2Y=",
-      "url": "_framework\/LanguageFileTranslatorApp.ghu4sk6x0o.wasm.br"
+      "hash": "sha256-k1YgrVLj6n\/fJwBR2Ft9kVciuD5rBEH3U5XmDakS5zA=",
+      "url": "_framework\/LanguageFileTranslatorApp.0qo2pmwned.wasm.br"
     },
     {
       "hash": "sha256-hwfM5kF\/Zs+tZNo454rrQzFUBVyFh\/VpIz9dTM3WrEU=",
@@ -149,8 +149,8 @@
       "url": "_framework\/System.Runtime.InteropServices.JavaScript.vbi7xy05cc.wasm.br"
     },
     {
-      "hash": "sha256-EsRXoaBZnmHvh32GeNZkPCfFBFfbX3R9SepuEE4QI7M=",
-      "url": "_framework\/System.Runtime.tt23tiuo4f.wasm.br"
+      "hash": "sha256-Lop1oir1cKMF7NyxDvXq0kzT4SpnfGgjQlcpvutKxCA=",
+      "url": "_framework\/System.Runtime.gupnq14vyf.wasm.br"
     },
     {
       "hash": "sha256-sWluCpkGrw\/II12nmM4EG+CFn\/o+uFzoVGcVH0K9wFo=",
@@ -173,7 +173,7 @@
       "url": "_framework\/System.Threading.e40w6tlim8.wasm.br"
     },
     {
-      "hash": "sha256-X8Ft1L\/RxEMlbdXjBRLLlHUqRqAyeT\/SuvsEbUSKUIE=",
+      "hash": "sha256-3E+yUqYRrOGDiP1E\/EoR0vzwk54OsFey\/9Zqqu5GM3o=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -281,5 +281,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "hkD2E\/o2"
+  "version": "lfjjmnE2"
 };
