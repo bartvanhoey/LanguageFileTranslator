@@ -97,4 +97,19 @@ public partial class Navigator(ILanguageEntryDbService db) : ComponentBase
             await OnLanguageEntryChanged.InvokeAsync(LanguageEntry);
         }
     }
+
+    private void CopyLanguageEntry()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DeleteLanguageEntry()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void AddNewLanguageEntry()
+    {
+        throw new NotImplementedException();
+    }
 }
