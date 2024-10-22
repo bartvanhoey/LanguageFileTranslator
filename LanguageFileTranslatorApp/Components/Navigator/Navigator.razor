@@ -1,62 +1,25 @@
 ﻿<div class="row pb-1">
-    <div class="col-xs-9 col-sm-12 col-md-2">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search"
-                   aria-describedby="button-addon">
-            <button class="btn btn-secondary" type="button" id="button-addon">
-                <i class="bi bi-search"></i>
+
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="First group">
+            <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
+                <i class="bi bi-chevron-bar-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button type="button" class="btn btn-primary navigator-btn-width">key</button>
+            <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            <button type="button" class="btn btn-primary" @onclick="GotoLastByKey">
+                <i class="bi bi-chevron-bar-right"></i>
             </button>
         </div>
     </div>
-    
-    <div class="col-xs-3 col-sm-12 col-md-5">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group" role="group" aria-label="second group">
-                <button type="button" class="btn btn-primary d-none d-sm-block" @onclick="GotoFirstByKey">
-                    <i class="bi bi-copy"></i> Copy
-                </button>
-                <button type="button" class="btn btn-primary d-none d-sm-block" @onclick="GotoPreviousByKey">
-                    <i class="bi bi-trash"></i> Delete
-                </button>
-                <button type="button" class="btn btn-primary d-none d-sm-block" @onclick="GotoNextByKey">
-                    <i class="bi bi-plus-circle"></i> Add New
-                </button>
 
-                <button type="button" class="btn btn-primary d-block d-sm-none" @onclick="GotoFirstByKey">
-                    <i class="bi bi-copy"></i>
-                </button>
-                <button type="button" class="btn btn-primary d-block d-sm-none" @onclick="GotoPreviousByKey">
-                    <i class="bi bi-trash"></i>
-                </button>
-                <button type="button" class="btn btn-primary d-block d-sm-none" @onclick="GotoNextByKey">
-                    <i class="bi bi-plus-circle"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-5">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
-                    <i class="bi bi-chevron-bar-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-                <button type="button" class="btn btn-primary navigator-btn-width">key</button>
-                <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-                <button type="button" class="btn btn-primary" @onclick="GotoLastByKey">
-                    <i class="bi bi-chevron-bar-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 </div>
-
-
-<div class="row">
+<div class="row pb-1">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="Second group">
             <button type="button" class="btn btn-primary" @onclick="GotoFirstById">
@@ -74,7 +37,53 @@
             </button>
         </div>
     </div>
+
 </div>
+
+
+<div class="row pt-2">
+    <div class="col-6 col-xs-8 col-sm-12 col-md-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search"
+                   aria-describedby="button-addon">
+            <button class="btn btn-secondary" type="button" id="button-addon">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-6 col-xs-4 col-sm-12 col-md-9 pt-sm-2" >
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="second group">
+                <div class="d-none d-sm-block">
+                    <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
+                        <i class="bi bi-copy"></i> Copy
+                    </button>
+                    <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                    <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
+                        <i class="bi bi-plus-circle"></i> Add New
+                    </button>
+                </div>
+                <div class="d-block d-sm-none">
+                    <button type="button" class="btn btn-primary" @onclick="GotoFirstByKey">
+                        <i class="bi bi-copy"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" @onclick="GotoPreviousByKey">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" @onclick="GotoNextByKey">
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 
 @if (LanguageEntry != null)
 {
